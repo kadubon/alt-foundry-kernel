@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:kernel-state:0.1.0",
+  "title": "ALT Kernel State",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "admitted_tokens": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "candidate_queue": {
+      "type": "array",
+      "items": {
+        "$ref": "ledger-entry.schema.json"
+      }
+    },
+    "exploration_ledger": {
+      "type": "array",
+      "items": {
+        "$ref": "ledger-entry.schema.json"
+      }
+    },
+    "settlement_ledger": {
+      "type": "array",
+      "items": {
+        "$ref": "ledger-entry.schema.json"
+      }
+    },
+    "hazard_ledger": {
+      "type": "array",
+      "items": {
+        "$ref": "ledger-entry.schema.json"
+      }
+    },
+    "negative_registry": {
+      "type": "array",
+      "items": {
+        "$ref": "ledger-entry.schema.json"
+      }
+    },
+    "resurrection_queue": {
+      "type": "array",
+      "items": {
+        "$ref": "ledger-entry.schema.json"
+      }
+    },
+    "monitor_drift_state": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "authority_capability_state": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "root_finality_state": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "budget_state": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "audit_log": {
+      "type": "array",
+      "items": {
+        "$ref": "ledger-entry.schema.json"
+      }
+    },
+    "token_states": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "enum": [
+          "candidate",
+          "exploration",
+          "pending_settlement",
+          "active",
+          "suspended",
+          "deprecated",
+          "resurrected"
+        ]
+      }
+    },
+    "certified_capital": {
+      "type": "number",
+      "minimum": 0
+    }
+  }
+}

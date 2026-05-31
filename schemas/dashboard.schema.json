@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:dashboard:0.1.0",
+  "title": "ALT Foundry Dashboard",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "epoch",
+    "kernel_state",
+    "mission_status",
+    "baseline_registry",
+    "telemetry_state",
+    "transport_status",
+    "hazard_status",
+    "root_status",
+    "finality_status",
+    "budgets",
+    "proposed_action"
+  ],
+  "properties": {
+    "epoch": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "kernel_state": {
+      "$ref": "kernel-state.schema.json"
+    },
+    "mission_status": {
+      "type": "object"
+    },
+    "baseline_registry": {
+      "type": "object"
+    },
+    "telemetry_state": {
+      "type": "object"
+    },
+    "transport_status": {
+      "type": "object"
+    },
+    "hazard_status": {
+      "type": "object"
+    },
+    "root_status": {
+      "type": "object"
+    },
+    "finality_status": {
+      "type": "object"
+    },
+    "budgets": {
+      "type": "object"
+    },
+    "proposed_action": {
+      "type": "string"
+    }
+  }
+}

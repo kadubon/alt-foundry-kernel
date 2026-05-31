@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:ledger-entry:0.1.0",
+  "title": "ALT Ledger Entry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "entry_id",
+    "packet_id",
+    "token_id",
+    "ledger",
+    "decision",
+    "state",
+    "capital_delta",
+    "reason",
+    "details"
+  ],
+  "properties": {
+    "entry_id": {
+      "type": "string"
+    },
+    "packet_id": {
+      "type": "string"
+    },
+    "token_id": {
+      "type": "string"
+    },
+    "ledger": {
+      "type": "string",
+      "enum": [
+        "candidate_queue",
+        "exploration",
+        "settlement",
+        "negative_registry",
+        "audit"
+      ]
+    },
+    "decision": {
+      "type": "string",
+      "enum": [
+        "admit",
+        "reject",
+        "defer",
+        "suspend",
+        "deprecate",
+        "rollback",
+        "resurrect"
+      ]
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "candidate",
+        "exploration",
+        "pending_settlement",
+        "active",
+        "suspended",
+        "deprecated",
+        "resurrected"
+      ]
+    },
+    "capital_delta": {
+      "type": "number"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "details": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

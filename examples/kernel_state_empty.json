@@ -1,0 +1,16 @@
+{
+  "admitted_tokens": [],
+  "candidate_queue": [],
+  "exploration_ledger": [],
+  "settlement_ledger": [],
+  "hazard_ledger": [],
+  "negative_registry": [],
+  "resurrection_queue": [],
+  "monitor_drift_state": {},
+  "authority_capability_state": {},
+  "root_finality_state": {},
+  "budget_state": {},
+  "audit_log": [],
+  "token_states": {},
+  "certified_capital": 0.0
+}

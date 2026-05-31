@@ -1,0 +1,57 @@
+{
+  "id": "pkt-candidate-workflow-001",
+  "type": "candidate",
+  "token_id": "tok-workflow-triage",
+  "version": "0.1.0",
+  "state": "candidate",
+  "scope_hash": "sha256:scope-workflow-triage-v1",
+  "declaration": {
+    "lineage": {
+      "source": "trace-derived",
+      "token_version": "0.1.0",
+      "extractor": "reference-extraction-pipeline"
+    },
+    "dependencies": {
+      "objects": [],
+      "dependency_closure": {
+        "closed": true
+      }
+    },
+    "scope": {
+      "receiver_class": "software-maintenance-agent",
+      "context_law": "heldout-repository-repair"
+    },
+    "grammar": {
+      "class": "WorkflowPolicyToken",
+      "payload_grammar": "ordered diagnostic and repair steps"
+    },
+    "baseline": {
+      "policy_id": "baseline-repair-policy",
+      "model_version": "receiver-v1"
+    },
+    "mission": {
+      "mission_id": "software-repair-cost-reduction",
+      "law_hash": "sha256:mission-law-v1"
+    },
+    "estimand": {
+      "estimand_type": "proxy-only",
+      "target_coordinate": "screening-cost-proxy"
+    }
+  },
+  "evidence": {
+    "status": "not-yet-collected"
+  },
+  "bounds": {
+    "status": "not-yet-estimated"
+  },
+  "validity": {
+    "status": "candidate-only"
+  },
+  "monitor": {
+    "deprecation_rule": "deprecate on verifier version drift or failed leakage audit"
+  },
+  "fallback": {
+    "action": "keep-in-candidate-queue"
+  },
+  "signatures": []
+}

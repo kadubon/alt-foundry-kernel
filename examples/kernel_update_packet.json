@@ -1,0 +1,34 @@
+{
+  "id": "pkt-kernel-update-001",
+  "type": "kernel-update",
+  "token_id": "kernel-alt-bootloader",
+  "version": "0.2.0",
+  "state": "active",
+  "scope_hash": "sha256:kernel-semantics-v2",
+  "declaration": {
+    "old_semantics": "kernel-semantics-v1",
+    "new_semantics": "kernel-semantics-v2",
+    "bridge": {
+      "type": "conservative-refinement",
+      "preserves_fail_closed": true
+    }
+  },
+  "evidence": {
+    "transition_replay": "all v1 replay tests pass under v2 semantics"
+  },
+  "bounds": {
+    "reserve_charge": 0.0
+  },
+  "validity": {
+    "root": {
+      "independent_root": "kernel-update-root-v1"
+    }
+  },
+  "monitor": {
+    "rollout": "shadow-mode-before-active"
+  },
+  "fallback": {
+    "rollback_path": "kernel-semantics-v1"
+  },
+  "signatures": []
+}

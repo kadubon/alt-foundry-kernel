@@ -1,0 +1,463 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:packet:0.1.0",
+  "title": "ALT Executable Certificate Packet",
+  "description": "Language-neutral packet surface for Abstraction Liquidity Theory executable certificate packets. The schema validates syntax; the kernel applies packet-type and fail-closed semantic requirements.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "type",
+    "token_id",
+    "version",
+    "state",
+    "scope_hash",
+    "declaration",
+    "evidence",
+    "bounds",
+    "validity",
+    "monitor",
+    "fallback",
+    "signatures"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Packet identifier."
+    },
+    "type": {
+      "$ref": "#/$defs/packet_type"
+    },
+    "token_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Token, bridge, kernel, or target identifier addressed by this packet."
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "state": {
+      "$ref": "#/$defs/lifecycle_state"
+    },
+    "scope_hash": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Hash or stable name for the declared claim scope."
+    },
+    "declaration": {
+      "$ref": "#/$defs/declaration"
+    },
+    "evidence": {
+      "$ref": "#/$defs/evidence"
+    },
+    "bounds": {
+      "$ref": "#/$defs/bounds"
+    },
+    "validity": {
+      "$ref": "#/$defs/validity"
+    },
+    "monitor": {
+      "$ref": "#/$defs/monitor"
+    },
+    "fallback": {
+      "$ref": "#/$defs/fallback"
+    },
+    "signatures": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/signature"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "admission"
+          },
+          "declaration": {
+            "type": "object",
+            "properties": {
+              "cara": {
+                "type": "object",
+                "properties": {
+                  "claims_target_crossing": {
+                    "const": true
+                  }
+                },
+                "required": ["claims_target_crossing"]
+              }
+            },
+            "required": ["cara"]
+          }
+        },
+        "required": ["type", "declaration"]
+      },
+      "then": {
+        "properties": {
+          "declaration": {
+            "properties": {
+              "cara": {
+                "required": [
+                  "asi_target_id",
+                  "capability_basis_id",
+                  "target_validity_certificate",
+                  "baseline_upper_envelope",
+                  "target_membership_proof",
+                  "viability_witness",
+                  "time_to_target_claim"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "packet_type": {
+      "type": "string",
+      "enum": [
+        "candidate",
+        "admission",
+        "transport-refresh",
+        "monitor-alarm",
+        "deprecation",
+        "rollback",
+        "resurrection",
+        "bridge",
+        "kernel-update"
+      ]
+    },
+    "lifecycle_state": {
+      "type": "string",
+      "enum": [
+        "candidate",
+        "exploration",
+        "pending_settlement",
+        "active",
+        "suspended",
+        "deprecated",
+        "resurrected"
+      ]
+    },
+    "status_record": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "dependency_object": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "object_type": {
+          "type": "string",
+          "enum": ["Tok", "Data", "Ver", "Prot", "Tool", "Model", "Env", "Iface"]
+        },
+        "object_id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "included_in_packet": {
+          "type": "boolean"
+        }
+      }
+    },
+    "dependencies": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "objects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dependency_object"
+          }
+        },
+        "dependency_closure": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "closed": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "estimand": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "estimand_type": {
+          "type": "string",
+          "enum": ["causal", "calibrated-proxy", "proxy-only"]
+        },
+        "target_coordinate": {
+          "type": "string"
+        },
+        "calibration_bridge": {
+          "type": "string"
+        }
+      }
+    },
+    "cara": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "claims_target_crossing": {
+          "type": "boolean"
+        },
+        "asi_target_id": {
+          "type": "string"
+        },
+        "capability_basis_id": {
+          "type": "string"
+        },
+        "target_validity_certificate": {
+          "type": ["object", "string"]
+        },
+        "baseline_upper_envelope": {
+          "type": ["object", "string"]
+        },
+        "target_membership_proof": {
+          "type": ["object", "string"]
+        },
+        "viability_witness": {
+          "type": ["object", "string"]
+        },
+        "time_to_target_claim": {
+          "type": ["object", "string"]
+        }
+      }
+    },
+    "declaration": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Claim, scope, mission, baseline, opportunity, utility, authority, capability, dependency, threat, and optional CARA declarations.",
+      "properties": {
+        "lineage": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "dependencies": {
+          "$ref": "#/$defs/dependencies"
+        },
+        "scope": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "grammar": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "baseline": {
+          "$ref": "#/$defs/status_record"
+        },
+        "mission": {
+          "$ref": "#/$defs/status_record"
+        },
+        "opportunity_law": {
+          "$ref": "#/$defs/status_record"
+        },
+        "estimand": {
+          "$ref": "#/$defs/estimand"
+        },
+        "authority": {
+          "$ref": "#/$defs/status_record"
+        },
+        "capability": {
+          "$ref": "#/$defs/status_record"
+        },
+        "threat_model": {
+          "$ref": "#/$defs/status_record"
+        },
+        "runtime_witness": {
+          "$ref": "#/$defs/status_record"
+        },
+        "reproduction": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "cara": {
+          "$ref": "#/$defs/cara"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Evidence split, trace view, measurement design, instrumentation, selection, contamination, and uncertainty support.",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "design": {
+          "type": "string"
+        },
+        "trace_view": {
+          "type": "string"
+        },
+        "sample_size": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "selection_status": {
+          "type": "string"
+        },
+        "randomization_unit": {
+          "type": "string"
+        },
+        "interference_scope": {
+          "type": "string"
+        },
+        "contamination_namespace": {
+          "type": "string"
+        },
+        "audit_record": {
+          "type": "string"
+        }
+      }
+    },
+    "bounds": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Signed value, cost, risk, transport, reserve, raw-net, and target-crossing bounds.",
+      "properties": {
+        "value_lower_bound": {
+          "type": "number"
+        },
+        "value_upper_bound": {
+          "type": "number"
+        },
+        "cost_upper_bound": {
+          "type": "number"
+        },
+        "cost_lower_bound": {
+          "type": "number"
+        },
+        "risk_upper_bound": {
+          "type": "number"
+        },
+        "risk_lower_bound": {
+          "type": "number"
+        },
+        "transport_upper_bound": {
+          "type": "number"
+        },
+        "transport_lower_bound": {
+          "type": "number"
+        },
+        "hazard_upper_bound": {
+          "type": "number"
+        },
+        "raw_net_capital_lower_bound": {
+          "type": "number"
+        },
+        "reserve_charge": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "validity": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Validity events and predicate support for telemetry, transport, hazard, root, finality, budgets, capacity, refresh, rollback, deprecation, and viability.",
+      "properties": {
+        "telemetry": {
+          "$ref": "#/$defs/status_record"
+        },
+        "transport": {
+          "$ref": "#/$defs/status_record"
+        },
+        "hazard": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "noncompensable_clearance": {
+              "type": "boolean"
+            }
+          }
+        },
+        "root": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Evaluator root or quorum record, including role separation and optional quorum status.",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "independent_root": {
+              "type": ["boolean", "string", "object"]
+            },
+            "role_separation_proof": {
+              "type": ["string", "object"]
+            },
+            "quorum": {
+              "$ref": "#/$defs/status_record"
+            }
+          }
+        },
+        "finality": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "state": {
+              "type": "string"
+            },
+            "exempt": {
+              "type": "boolean"
+            }
+          }
+        },
+        "budget": {
+          "$ref": "#/$defs/status_record"
+        },
+        "capacity": {
+          "$ref": "#/$defs/status_record"
+        },
+        "refresh": {
+          "$ref": "#/$defs/status_record"
+        },
+        "rollback": {
+          "$ref": "#/$defs/status_record"
+        },
+        "deprecation": {
+          "$ref": "#/$defs/status_record"
+        },
+        "viability": {
+          "$ref": "#/$defs/status_record"
+        }
+      }
+    },
+    "monitor": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Drift, telemetry, finality, baseline refresh, transport, threat, hazard, rollback, deprecation, and resurrection monitors."
+    },
+    "fallback": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Executable reject, defer, suspend, deprecate, rollback, or resurrect action."
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

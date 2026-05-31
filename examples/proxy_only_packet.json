@@ -1,0 +1,131 @@
+{
+  "id": "pkt-admission-proxy-001",
+  "type": "admission",
+  "token_id": "tok-workflow-triage",
+  "version": "0.1.0",
+  "state": "exploration",
+  "scope_hash": "sha256:scope-workflow-triage-v1",
+  "declaration": {
+    "lineage": {
+      "source": "trace-derived",
+      "token_version": "0.1.0",
+      "extractor": "reference-extraction-pipeline"
+    },
+    "dependencies": {
+      "objects": [],
+      "dependency_closure": {
+        "closed": true
+      }
+    },
+    "scope": {
+      "receiver_class": "software-maintenance-agent",
+      "context_law": "heldout-repository-repair"
+    },
+    "grammar": {
+      "class": "WorkflowPolicyToken",
+      "payload_grammar": "ordered diagnostic and repair steps"
+    },
+    "baseline": {
+      "policy_id": "baseline-repair-policy",
+      "model_version": "receiver-v1",
+      "status": "live",
+      "refresh_contract": "baseline-refresh-v1"
+    },
+    "mission": {
+      "mission_id": "software-repair-cost-reduction",
+      "law_hash": "sha256:mission-law-v1",
+      "status": "valid"
+    },
+    "opportunity_law": {
+      "status": "valid",
+      "constructor_hash": "sha256:opportunity-constructor-v1"
+    },
+    "estimand": {
+      "estimand_type": "proxy-only",
+      "target_coordinate": "screening-cost-proxy"
+    },
+    "authority": {
+      "status": "valid",
+      "allowed": ["read-repository", "run-tests"]
+    },
+    "capability": {
+      "status": "valid",
+      "allowed": ["propose-patch", "abstain"]
+    },
+    "threat_model": {
+      "status": "cleared",
+      "active_classes": []
+    },
+    "runtime_witness": {
+      "status": "valid",
+      "witness_id": "runtime-witness-proxy-screening-v1"
+    }
+  },
+  "evidence": {
+    "status": "valid",
+    "design": "paired-replay-screening",
+    "trace_view": "redacted action-observation trace",
+    "sample_size": 16,
+    "selection_status": "valid",
+    "randomization_unit": "repository-task",
+    "interference_scope": "repository"
+  },
+  "bounds": {
+    "value_lower_bound": 10.0,
+    "value_upper_bound": 15.0,
+    "cost_upper_bound": 2.0,
+    "cost_lower_bound": 1.0,
+    "risk_upper_bound": 1.0,
+    "risk_lower_bound": 0.0,
+    "transport_upper_bound": 1.0,
+    "transport_lower_bound": 0.0,
+    "raw_net_capital_lower_bound": 6.0
+  },
+  "validity": {
+    "telemetry": {
+      "status": "valid",
+      "observer_overhead_fcu": 0.25
+    },
+    "transport": {
+      "status": "valid",
+      "support": "heldout-source-only"
+    },
+    "hazard": {
+      "status": "valid",
+      "noncompensable_clearance": true
+    },
+    "root": {
+      "status": "valid",
+      "root_id": "root-evaluator-v1"
+    },
+    "finality": {
+      "state": "finalized"
+    },
+    "budget": {
+      "status": "valid"
+    },
+    "capacity": {
+      "status": "valid"
+    },
+    "refresh": {
+      "status": "valid"
+    },
+    "rollback": {
+      "status": "valid"
+    },
+    "deprecation": {
+      "status": "valid"
+    },
+    "viability": {
+      "status": "valid"
+    }
+  },
+  "monitor": {
+    "refresh_deadline": "P30D",
+    "deprecation_rule": "suspend on telemetry tamper or failed leakage audit"
+  },
+  "fallback": {
+    "action": "route-to-exploration"
+  },
+  "signatures": []
+}

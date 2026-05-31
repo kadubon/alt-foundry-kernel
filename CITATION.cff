@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this software, cite this repository and the preferred ALT paper citation."
+title: "ALT Foundry Kernel"
+type: software
+authors:
+  - name: "ALT Foundry Kernel contributors"
+version: 0.1.0
+date-released: 2026-05-31
+license: Apache-2.0
+repository-code: "https://github.com/kadubon/alt-foundry-kernel"
+preferred-citation:
+  type: article
+  title: "Abstraction Liquidity Theory"
+  authors:
+    - family-names: "Takahashi"
+      given-names: "K."
+      orcid: "https://orcid.org/0009-0004-4273-3365"
+  doi: "10.5281/zenodo.20476200"
+  date-released: 2026-05-31
+  publisher:
+    name: "Zenodo"

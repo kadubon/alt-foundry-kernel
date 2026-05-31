@@ -1,0 +1,29 @@
+{
+  "id": "pkt-rollback-001",
+  "type": "rollback",
+  "token_id": "tok-workflow-triage",
+  "version": "0.1.0",
+  "state": "active",
+  "scope_hash": "sha256:scope-workflow-triage-v1",
+  "declaration": {
+    "affected_claims": ["claim-workflow-triage-heldout"],
+    "restore_point": "baseline-repair-policy"
+  },
+  "evidence": {
+    "audit_record": "rollback-audit-001"
+  },
+  "bounds": {
+    "reserve_charge": 1.5
+  },
+  "validity": {
+    "status": "rollback"
+  },
+  "monitor": {
+    "status": "rollback"
+  },
+  "fallback": {
+    "action": "suspend",
+    "output_state": "suspended"
+  },
+  "signatures": []
+}

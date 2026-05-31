@@ -1,0 +1,32 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --dev
+      - run: uv run ruff check .
+      - run: uv run mypy src
+      - run: uv run pytest
+      - run: uv run pip-audit
+      - run: uv run altk validate examples/candidate_packet.json
+      - run: uv run altk validate examples/proxy_only_packet.json
+      - run: uv run altk validate examples/admission_packet.json
+      - run: uv run altk validate examples/deprecation_packet.json
+      - run: uv run altk validate examples/transport_refresh_packet.json
+      - run: uv run altk validate examples/monitor_alarm_packet.json
+      - run: uv run altk validate examples/rollback_packet.json
+      - run: uv run altk validate examples/resurrection_packet.json
+      - run: uv run altk validate examples/bridge_packet.json
+      - run: uv run altk validate examples/kernel_update_packet.json
+      - run: uv run altk audit-public --strict

@@ -1,0 +1,37 @@
+{
+  "id": "pkt-bridge-001",
+  "type": "bridge",
+  "token_id": "tok-workflow-triage",
+  "version": "0.1.0",
+  "state": "active",
+  "scope_hash": "sha256:scope-workflow-triage-v1",
+  "declaration": {
+    "claim_id": "claim-workflow-triage-heldout",
+    "bridge": {
+      "from": "proxy-fcu-savings",
+      "to": "mission-valid-fcu-savings",
+      "charged_error_bound": 1.0
+    }
+  },
+  "evidence": {
+    "bridge_evidence": "calibration split summary"
+  },
+  "bounds": {
+    "value_lower_bound": 4.0,
+    "cost_upper_bound": 1.0,
+    "risk_upper_bound": 0.5,
+    "transport_upper_bound": 0.5
+  },
+  "validity": {
+    "root": {
+      "status": "valid"
+    }
+  },
+  "monitor": {
+    "refresh_deadline": "P30D"
+  },
+  "fallback": {
+    "action": "defer"
+  },
+  "signatures": []
+}
