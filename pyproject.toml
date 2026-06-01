@@ -1,7 +1,7 @@
 [project]
 name = "alt-foundry-kernel"
-version = "0.1.0"
-description = "Agent-operable certification kernel bootloader for Abstraction Liquidity Theory executable certificate packets."
+version = "0.2.0"
+description = "Language-neutral ALT foundry kernel for executable certificate packets, abstraction tokens, dual-ledger settlement, and safe certified abstraction capital."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "Apache-2.0"
@@ -29,8 +29,12 @@ classifiers = [
 ]
 dependencies = [
   "jsonschema>=4.22",
+  "networkx>=3.3",
+  "numpy>=1.26",
   "pydantic>=2.7",
+  "scipy>=1.13",
   "typer>=0.12",
+  "cryptography>=42.0",
 ]
 
 [project.urls]
@@ -44,9 +48,11 @@ altk = "alt_foundry_kernel.cli:app"
 
 [dependency-groups]
 dev = [
+  "hypothesis>=6.112",
   "mypy>=1.10",
   "pip-audit>=2.7",
   "pytest>=8.2",
+  "pytest-cov>=5.0",
   "ruff>=0.5",
 ]
 
@@ -78,9 +84,9 @@ warn_unused_ignores = true
 show_error_codes = true
 
 [[tool.mypy.overrides]]
-module = ["jsonschema"]
+module = ["jsonschema", "networkx", "scipy"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-q"
+addopts = "-q --cov=alt_foundry_kernel --cov-report=term-missing"

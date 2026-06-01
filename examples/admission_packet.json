@@ -2,13 +2,13 @@
   "id": "pkt-admission-calibrated-001",
   "type": "admission",
   "token_id": "tok-workflow-triage",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "state": "pending_settlement",
   "scope_hash": "sha256:scope-workflow-triage-v1",
   "declaration": {
     "lineage": {
       "source": "trace-derived",
-      "token_version": "0.1.0",
+      "token_version": "0.2.0",
       "extractor": "reference-extraction-pipeline"
     },
     "dependencies": {

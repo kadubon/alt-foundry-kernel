@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:root-finality-record:0.2.0",
+  "title": "ALT Root And Finality Record",
+  "description": "Root-of-trust, quorum, role-separation, finality, signature, and rollback contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["root", "quorum", "finality", "rollback"],
+  "properties": {
+    "root": {
+      "type": "object",
+      "required": ["status", "role_separation"],
+      "additionalProperties": true,
+      "properties": {
+        "status": { "type": "string" },
+        "role_separation": { "type": "boolean" }
+      }
+    },
+    "quorum": {
+      "type": "object",
+      "required": ["threshold", "signed"],
+      "additionalProperties": true,
+      "properties": {
+        "threshold": { "type": "integer", "minimum": 1 },
+        "signed": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "finality": {
+      "type": "object",
+      "required": ["state"],
+      "additionalProperties": true,
+      "properties": {
+        "state": { "type": "string" },
+        "exempt": { "type": "boolean" }
+      }
+    },
+    "rollback": {
+      "type": "object",
+      "required": ["path"],
+      "additionalProperties": true
+    },
+    "signatures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "signature_b64": { "type": "string" },
+          "public_key_b64": { "type": "string" }
+        }
+      }
+    }
+  }
+}

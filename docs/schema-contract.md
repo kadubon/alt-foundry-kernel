@@ -10,6 +10,12 @@ information and fail-closed semantics to the kernel.
 For implementation conformance outside Python, see
 `docs/language-neutral-contract.md`.
 
+v0.2.0 separates the public contract into packet schemas and module-level
+certificate schemas. Packets remain the kernel input. Certificate schemas are
+the portable records emitted by measurement, causal, transport, risk,
+root/finality, reproduction, and CARA modules before their results are copied
+into packet `declaration`, `evidence`, `bounds`, and `validity` fields.
+
 ## Top-Level Packet
 
 ```text
@@ -64,10 +70,10 @@ Python validation applies semantic requirements on top of JSON Schema:
 - `resurrection`: old negative certificate, overwriting evidence, new signed
   bounds, raw-net lower bound, hazard, and finality. Capital addition also
   requires admission-grade current evidence at transition time.
-- `bridge`: claim id, bridge object, and root status. v1 records it as audit
-  evidence only.
+- `bridge`: claim id, bridge object, and root status. v0.2.0 records it as
+  audit evidence only.
 - `kernel-update`: old semantics, new semantics, bridge, independent root, and
-  rollback path. v1 records it; the current kernel remains authoritative.
+  rollback path. v0.2.0 records it; the current kernel remains authoritative.
 
 ## Conditional CARA Fields
 
@@ -114,3 +120,27 @@ A compatible implementation must preserve:
 - predicate-level reporting;
 - CARA conditional fields;
 - auditability of every state-changing packet.
+
+## v0.2.0 Module Schemas
+
+| Schema | Purpose | Typical producer |
+| --- | --- | --- |
+| `measurement-spec.schema.json` | task/solver/protocol, trace view, sample, instrumentation, firewall, contamination | trace instrumentation and evaluator harness |
+| `evidence-split.schema.json` | train, candidate, proxy, gold, held-out, audit split declarations | evidence scheduler |
+| `causal-certificate.schema.json` | estimand, baseline, identification, effect lower bound, mode-specific evidence | causal estimator or calibrated proxy bridge |
+| `baseline-envelope.schema.json` | resource-matched baseline and refresh contract | baseline monitor |
+| `opportunity-law.schema.json` | mission/generated/externality opportunity law | opportunity-measure constructor |
+| `transport-certificate.schema.json` | support, density ratio, drift, refresh, transport cost | transport monitor |
+| `risk-ledger.schema.json` | reserve, hazard, irreversible loss, raw-net solvency | risk ledger |
+| `authority-certificate.schema.json` | authority, capability, threat, runtime witness, telemetry, guard | guarded-deployment controller |
+| `root-finality-record.schema.json` | root, role separation, quorum, finality, rollback, optional signatures | evaluator root service |
+| `portfolio-state.schema.json` | available objects, dependencies, settlement ledgers | portfolio accountant |
+| `reproduction-record.schema.json` | reproduction matrix, gauge, capacity, identification, recombination | foundry growth estimator |
+| `cara-claim.schema.json` | target validity, baseline envelope, target membership, viability, time-to-target | CARA target checker |
+| `foundry-transcript.schema.json` | replayable deterministic transition transcript | conformance runner |
+| `conformance-result.schema.json` | portable replay result | CI or release audit |
+
+The module schemas are deliberately not hidden Python internals. They are
+intended for agents implementing the paper in any programming language. A
+non-Python implementation can emit these records, replay the transcripts, and
+then feed packet-level claims into its own kernel.

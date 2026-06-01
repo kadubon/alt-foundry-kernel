@@ -1,0 +1,17 @@
+{
+  "estimand": { "estimand_type": "causal" },
+  "baseline": {
+    "status": "valid",
+    "comparator_id": "resource-matched-baseline-v1"
+  },
+  "identification": { "status": "valid" },
+  "effect": {
+    "lower_bound": 7.2,
+    "unit": "formation-cost-unit"
+  },
+  "evidence": {
+    "mode": "paired",
+    "pairing_key": "task-instance-id",
+    "balance_report": "balanced-on-predeclared-context"
+  }
+}

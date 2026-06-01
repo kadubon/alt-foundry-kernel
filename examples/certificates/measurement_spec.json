@@ -1,0 +1,13 @@
+{
+  "task": { "id": "task-workflow-triage" },
+  "solver": { "id": "solver-agent-reference" },
+  "protocol": { "id": "protocol-heldout-replay" },
+  "estimand": { "estimand_type": "causal" },
+  "trace_view": { "projection": "actions-observations-costs" },
+  "sample": { "design": "paired-replay", "size": 64 },
+  "instrumentation": { "status": "valid" },
+  "trace_sufficiency": { "status": "sufficient" },
+  "selection": { "status": "valid" },
+  "firewall": { "status": "isolated" },
+  "contamination": { "status": "clear" }
+}

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:measurement-spec:0.2.0",
+  "title": "ALT Measurement Specification",
+  "description": "Language-neutral task, solver, protocol, trace, instrumentation, firewall, and selection contract for ALT evidence.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "task",
+    "solver",
+    "protocol",
+    "estimand",
+    "trace_view",
+    "sample",
+    "instrumentation",
+    "trace_sufficiency",
+    "selection",
+    "firewall",
+    "contamination"
+  ],
+  "properties": {
+    "task": { "$ref": "#/$defs/id_object" },
+    "solver": { "$ref": "#/$defs/id_object" },
+    "protocol": { "$ref": "#/$defs/id_object" },
+    "estimand": {
+      "type": "object",
+      "required": ["estimand_type"],
+      "additionalProperties": true,
+      "properties": {
+        "estimand_type": {
+          "type": "string",
+          "enum": ["causal", "calibrated-proxy", "proxy-only"]
+        }
+      }
+    },
+    "trace_view": {
+      "type": "object",
+      "required": ["projection"],
+      "additionalProperties": true
+    },
+    "sample": {
+      "type": "object",
+      "required": ["design", "size"],
+      "additionalProperties": true,
+      "properties": {
+        "design": { "type": "string" },
+        "size": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "instrumentation": { "$ref": "#/$defs/status_object" },
+    "trace_sufficiency": { "$ref": "#/$defs/status_object" },
+    "selection": { "$ref": "#/$defs/status_object" },
+    "firewall": { "$ref": "#/$defs/status_object" },
+    "contamination": { "$ref": "#/$defs/status_object" }
+  },
+  "$defs": {
+    "id_object": {
+      "type": "object",
+      "required": ["id"],
+      "additionalProperties": true,
+      "properties": { "id": { "type": "string", "minLength": 1 } }
+    },
+    "status_object": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": { "status": { "type": "string", "minLength": 1 } }
+    }
+  }
+}

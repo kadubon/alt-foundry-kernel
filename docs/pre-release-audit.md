@@ -2,17 +2,18 @@
 
 Paper DOI: [https://doi.org/10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200)
 
-This repository is intended to be published as an Apache-2.0 OSS bootloader for
-Abstraction Liquidity Theory. Before publication, run this audit from the
-repository root.
+This repository is intended to be published as an Apache-2.0 OSS reference
+kernel and language-neutral implementation surface for Abstraction Liquidity
+Theory. Before publication, run this audit from the repository root.
 
 ## Required Commands
 
 ```bash
 uv run ruff check .
 uv run mypy src
-uv run pytest
+uv run pytest --cov=alt_foundry_kernel
 uv run pip-audit
+uv run altk conformance --fixtures conformance
 uv run altk audit-public --strict
 ```
 
@@ -41,6 +42,9 @@ Get-ChildItem examples\*_packet.json | ForEach-Object { uv run altk validate $_.
 - All JSON Schemas are valid and local `$ref` links resolve.
 - Every `examples/*_packet.json` validates through JSON Schema, the Python
   `Packet` model, and ALT semantic validation.
+- Every `examples/certificates/*.json` validates through its JSON Schema and
+  module-level certificate checker.
+- Every `conformance/*.json` transcript replays deterministically.
 - Local caches and virtual environments are excluded from content scanning and
   reported only as cleanup warnings.
 
@@ -49,11 +53,12 @@ Get-ChildItem examples\*_packet.json | ForEach-Object { uv run altk validate $_.
 - Confirm no git operation has been performed unless explicitly requested.
 - Confirm the TeX paper source is not bundled.
 - Confirm the project metadata contains no fake repository URL.
-- Confirm `README.md` describes the bootloader accurately and does not claim
+- Confirm `README.md` describes the reference kernel accurately and does not claim
   full causal, transport, recombination, finality, or CARA certification.
 - Confirm `docs/language-neutral-contract.md` is present and linked from the
   README for non-Python implementers.
-- Confirm bridge and kernel-update packets are described as audit-only in v1.
+- Confirm bridge and kernel-update packets are described as audit-only in
+  v0.2.0.
 - Confirm resurrection does not add capital without admission-grade current
   evidence.
 

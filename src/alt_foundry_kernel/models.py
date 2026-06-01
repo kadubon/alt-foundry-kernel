@@ -85,7 +85,15 @@ class LedgerEntry(BaseModel):
     entry_id: str
     packet_id: str
     token_id: str
-    ledger: Literal["candidate_queue", "exploration", "settlement", "negative_registry", "audit"]
+    ledger: Literal[
+        "candidate_queue",
+        "exploration",
+        "settlement",
+        "hazard",
+        "negative_registry",
+        "resurrection",
+        "audit",
+    ]
     decision: Decision
     state: LifecycleState
     capital_delta: float = 0.0
@@ -94,7 +102,7 @@ class LedgerEntry(BaseModel):
 
 
 class KernelState(BaseModel):
-    """Minimal v1 state for the dual-ledger ALT bootloader kernel."""
+    """Dual-ledger ALT kernel state."""
 
     admitted_tokens: list[str] = Field(default_factory=list)
     candidate_queue: list[LedgerEntry] = Field(default_factory=list)

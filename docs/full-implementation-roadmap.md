@@ -2,11 +2,11 @@
 
 Paper DOI: [https://doi.org/10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200)
 
-This roadmap describes how to extend the v1 bootloader into a fuller
-Abstraction Liquidity Theory foundry while preserving the executable packet
-contract.
+This roadmap describes how to extend the v0.2.0 reference kernel into a fuller
+Abstraction Liquidity Theory foundry while preserving the executable packet,
+certificate, and transcript contracts.
 
-## Stage 0: Bootloader Boundary
+## Stage 0: v0.2.0 Kernel Boundary
 
 - Preserve the public packet schema, lifecycle states, predicate names, and
   fail-closed transition semantics.
@@ -15,6 +15,7 @@ contract.
 - Keep bridge and kernel-update packets audit-only until an independent root or
   quorum verifier is implemented.
 - Run `uv run altk audit-public --strict` before publishing any fork or release.
+- Replay `conformance/` fixtures after changing kernel semantics.
 
 ## Stage 1: Trace And Extraction Layer
 
@@ -27,11 +28,13 @@ contract.
 
 ## Stage 2: Measurement And Bounds
 
+- Connect the bundled measurement validator to real trace stores and evaluator
+  firewalls.
 - Implement opportunity-measure constructors for static, replay, rolling
   production, and closed-loop policy-induced measures.
 - Add baseline selector and baseline-refresh bridge checker.
-- Add empirical Bernstein, confidence-sequence, e-value, and post-selection
-  correction modules.
+- Extend the bundled empirical Bernstein and post-selection helpers with
+  confidence sequences, e-values, and domain-specific variance accounting.
 - Add FCU exchange tables, lifecycle cost bounds, and telemetry-corrected
   operating value.
 
@@ -48,16 +51,17 @@ contract.
 ## Stage 4: Transport, Roots, And Finality
 
 - Implement support coverage, density-ratio, drift, and causal-invariance
-  diagnostics.
-- Add evaluator-root, role-separated-root, quorum, finality, stale-packet, and
-  partition-alarm validators.
+  diagnostics on top of the transport certificate surface.
+- Connect root/finality validation to evaluator-root, role-separated-root,
+  quorum, finality, stale-packet, and partition-alarm services.
 - Add transport-refresh and opportunity-law refresh bridges that subtract
   declared conservative charges.
 
 ## Stage 5: Portfolio, Reproduction, And Recombination
 
-- Add dependency-closed portfolio selection, conflict constraints, dominance
-  checks, and behavioral-equivalence quotienting.
+- Extend the bundled dependency-closure and capital-accounting utilities with
+  portfolio selection, conflict constraints, and behavioral-equivalence
+  quotienting.
 - Add gauge compatibility for class-wise capital coordinates.
 - Add causal reproduction matrix identification, capacity-capped reproduction,
   recombination tensor confidence sets, residual charges, and phase
@@ -74,6 +78,6 @@ contract.
 
 ## Non-Negotiable Invariant
 
-Every module must write through the packet schema and kernel transition. A
-scientific module may generate evidence, bounds, or bridge certificates, but it
-does not bypass fail-closed admission.
+Every module must write through the packet, certificate, or transcript schema
+and the kernel transition. A scientific module may generate evidence, bounds,
+or bridge certificates, but it does not bypass fail-closed admission.

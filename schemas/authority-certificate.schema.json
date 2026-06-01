@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:authority-certificate:0.2.0",
+  "title": "ALT Authority Certificate",
+  "description": "Authority, capability, threat, runtime-witness, telemetry, and guard contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["authority", "capability", "threat_model", "runtime_witness", "telemetry", "guard"],
+  "properties": {
+    "authority": { "$ref": "#/$defs/status_object" },
+    "capability": { "$ref": "#/$defs/status_object" },
+    "threat_model": { "$ref": "#/$defs/status_object" },
+    "runtime_witness": { "$ref": "#/$defs/status_object" },
+    "telemetry": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": {
+        "status": { "type": "string" },
+        "worst_case_charge_applied": { "type": "boolean" }
+      }
+    },
+    "guard": { "$ref": "#/$defs/status_object" }
+  },
+  "$defs": {
+    "status_object": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": { "status": { "type": "string" } }
+    }
+  }
+}

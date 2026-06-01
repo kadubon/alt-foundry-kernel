@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:baseline-envelope:0.2.0",
+  "title": "ALT Baseline Envelope",
+  "description": "Resource-matched baseline and refresh-envelope contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["status", "comparator_id", "resource_match", "refresh"],
+  "properties": {
+    "status": { "type": "string" },
+    "comparator_id": { "type": "string" },
+    "resource_match": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": { "status": { "type": "string" } }
+    },
+    "refresh": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": { "status": { "type": "string" } }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "root": {
+    "status": "valid",
+    "role_separation": true
+  },
+  "quorum": {
+    "threshold": 2,
+    "signed": 2
+  },
+  "finality": {
+    "state": "finalized"
+  },
+  "rollback": {
+    "path": "suspend-token-and-restore-prior-admission"
+  }
+}

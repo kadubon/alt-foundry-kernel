@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:reproduction-record:0.2.0",
+  "title": "ALT Reproduction Record",
+  "description": "Reproduction matrix, gauge, capacity, identification, and recombination claim contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["matrix", "gauge", "capacity", "identification"],
+  "properties": {
+    "matrix": {
+      "type": "object",
+      "required": ["status", "values"],
+      "additionalProperties": true,
+      "properties": {
+        "status": { "type": "string" },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": { "type": "number", "minimum": 0 }
+          }
+        },
+        "spectral_radius": { "type": "number", "minimum": 0 }
+      }
+    },
+    "gauge": { "$ref": "#/$defs/status_object" },
+    "capacity": { "$ref": "#/$defs/status_object" },
+    "identification": { "$ref": "#/$defs/status_object" },
+    "recombination": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "claimed": { "type": "boolean" },
+        "identification_status": { "type": "string" }
+      }
+    }
+  },
+  "$defs": {
+    "status_object": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": { "status": { "type": "string" } }
+    }
+  }
+}

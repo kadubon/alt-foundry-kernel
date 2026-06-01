@@ -325,7 +325,7 @@ def _admission_predicates_satisfied(predicates: Mapping[str, bool | None]) -> bo
 
 
 def validate_packet(packet: Packet | Mapping[str, Any]) -> ValidationReport:
-    """Validate a packet against JSON Schema, Pydantic types, and v1 ALT gates."""
+    """Validate a packet against JSON Schema, Pydantic types, and ALT gates."""
 
     raw_packet: Mapping[str, Any] = (
         packet.model_dump(mode="json") if isinstance(packet, Packet) else packet

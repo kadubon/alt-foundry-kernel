@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:certificate-report:0.2.0",
+  "title": "ALT Certificate Report",
+  "description": "Portable result object emitted by module-level ALT certificate checkers.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "ok", "level", "predicates", "metrics", "artifacts", "issues"],
+  "properties": {
+    "name": { "type": "string" },
+    "ok": { "type": "boolean" },
+    "claim": { "type": ["string", "null"] },
+    "level": {
+      "type": "string",
+      "enum": ["syntax", "evidence", "settlement", "audit"]
+    },
+    "predicates": {
+      "type": "object",
+      "additionalProperties": { "type": ["boolean", "null"] }
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": { "type": ["number", "integer", "string", "boolean", "null"] }
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["severity", "code", "path", "message"],
+        "properties": {
+          "severity": { "type": "string", "enum": ["error", "warning", "info"] },
+          "code": { "type": "string" },
+          "path": { "type": "string" },
+          "message": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -8,6 +8,18 @@ from pathlib import Path
 from typing import Any, cast
 
 SCHEMA_FILENAMES: dict[str, str] = {
+    "authority-certificate": "authority-certificate.schema.json",
+    "authority_certificate": "authority-certificate.schema.json",
+    "baseline-envelope": "baseline-envelope.schema.json",
+    "baseline_envelope": "baseline-envelope.schema.json",
+    "cara-claim": "cara-claim.schema.json",
+    "cara_claim": "cara-claim.schema.json",
+    "causal-certificate": "causal-certificate.schema.json",
+    "causal_certificate": "causal-certificate.schema.json",
+    "certificate-report": "certificate-report.schema.json",
+    "certificate_report": "certificate-report.schema.json",
+    "conformance-result": "conformance-result.schema.json",
+    "conformance_result": "conformance-result.schema.json",
     "packet": "packet.schema.json",
     "token": "token.schema.json",
     "kernel-state": "kernel-state.schema.json",
@@ -15,6 +27,24 @@ SCHEMA_FILENAMES: dict[str, str] = {
     "ledger-entry": "ledger-entry.schema.json",
     "ledger_entry": "ledger-entry.schema.json",
     "dashboard": "dashboard.schema.json",
+    "evidence-split": "evidence-split.schema.json",
+    "evidence_split": "evidence-split.schema.json",
+    "foundry-transcript": "foundry-transcript.schema.json",
+    "foundry_transcript": "foundry-transcript.schema.json",
+    "measurement-spec": "measurement-spec.schema.json",
+    "measurement_spec": "measurement-spec.schema.json",
+    "opportunity-law": "opportunity-law.schema.json",
+    "opportunity_law": "opportunity-law.schema.json",
+    "portfolio-state": "portfolio-state.schema.json",
+    "portfolio_state": "portfolio-state.schema.json",
+    "reproduction-record": "reproduction-record.schema.json",
+    "reproduction_record": "reproduction-record.schema.json",
+    "risk-ledger": "risk-ledger.schema.json",
+    "risk_ledger": "risk-ledger.schema.json",
+    "root-finality-record": "root-finality-record.schema.json",
+    "root_finality_record": "root-finality-record.schema.json",
+    "transport-certificate": "transport-certificate.schema.json",
+    "transport_certificate": "transport-certificate.schema.json",
 }
 
 

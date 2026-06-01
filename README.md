@@ -1,155 +1,69 @@
 # ALT Foundry Kernel
 
-**ALT Foundry Kernel is an Apache-2.0, language-neutral bootloader for
-Abstraction Liquidity Theory (ALT): a theory of when local problem-solving
-traces can become reusable, certified abstraction capital.** The Python/uv
-package in this repository is the reference implementation; the public contract
-is the JSON Schema, packet semantics, lifecycle state machine, predicate names,
-and fail-closed ledger behavior that other languages can implement directly.
+**ALT Foundry Kernel is an Apache-2.0, language-neutral implementation surface
+for Abstraction Liquidity Theory (ALT): a theory of when local problem-solving
+traces can become reusable, certified abstraction capital.** The repository is
+designed for AI agents and research engineers that need executable certificate
+packets, abstraction tokens, dual-ledger settlement, conservative signed surplus
+accounting, and fail-closed certification semantics that can be implemented in
+Python, TypeScript, Rust, Go, JVM languages, or another runtime.
 
-ALT does not treat an artifact as valuable because it is plausible, elegant, or
-useful on one benchmark. Its core claim is operational: a trace-derived object
-becomes a liquid abstraction only when it is represented as an abstraction token,
-bound to an executable certificate packet, evaluated against declared baselines
-and opportunity laws, charged for formation, telemetry, transport, hazard,
-rollback, refresh, and deprecation costs, and admitted by a fail-closed kernel
-with positive signed surplus. Proxy-only evidence and weak sandbox results may
-guide exploration, but they do not increase safe certified abstraction capital.
+ALT's central claim is operational. A trace is not safe certified abstraction
+capital because it looks useful, transfers once, or scores well on a proxy
+benchmark. A trace-derived object becomes liquid only when it is represented as
+an abstraction token, bound to an executable certificate packet, evaluated under
+declared mission laws, baselines, opportunity laws, evidence splits, transport
+claims, authority/capability envelopes, hazard controls, lifecycle costs,
+root/quorum/finality records, and admitted by a kernel with positive signed
+surplus. Missing capital-relevant evidence is undefined, not zero.
 
 Source paper:
 Takahashi, K. (2026). *Abstraction Liquidity Theory*. Zenodo.
 [https://doi.org/10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200)
 
-This repository is not the full scientific implementation. It is the public
-entry kernel for AI agents, research engineers, and automated foundry systems
-that want to build toward the full paper in any programming language:
-language-neutral schemas, packet examples, deterministic validation,
-conservative signed-bound accounting, dual-ledger settlement, lifecycle
-transitions, conformance expectations, and public-release audit tooling.
-
-Search terms that describe the intended surface: Abstraction Liquidity Theory,
+Search terms accurately describing this project: Abstraction Liquidity Theory,
 ALT, abstraction token, executable certificate packet, agent-operable foundry,
 AI agent certification kernel, dual-ledger settlement, safe certified
-abstraction capital, signed surplus, certified abstraction capital.
+abstraction capital, signed surplus, language-neutral JSON Schema, certificate
+transcript, foundry conformance, causal evidence certificate, transportability
+certificate, CARA target-crossing checker.
+
+## What v0.2.0 Is
+
+`v0.2.0` is no longer only a bootloader. It is a reference kernel plus a
+portable contract for other agents:
+
+- `schemas/` defines the language-neutral wire contract.
+- `examples/` gives packets and module-level certificate examples.
+- `conformance/` gives golden decision transcripts for non-Python runtimes.
+- `src/alt_foundry_kernel/` is the Python reference implementation.
+- `docs/` maps the paper into implementable modules and release audits.
+
+The implementation remains scientifically bounded. It verifies supplied
+certificates and conservative arithmetic; it does not infer causal effects,
+transportability, recombination tensors, or ASI target crossing from raw data
+unless those claims are supplied as explicit evidence-bearing certificates.
 
 ## Start Here For Agents
 
-1. Read the paper DOI above and `docs/theory-map.md` to understand what the
-   bootloader implements and what remains scientific work.
-2. Inspect `schemas/packet.schema.json`; it is the language-neutral contract
-   for executable certificate packets.
-3. Read `docs/language-neutral-contract.md` before implementing the contract in
-   TypeScript, Rust, Go, JVM languages, or another runtime.
-4. Generate a packet with `uv run altk init-example candidate` or copy one from
-   `examples/`.
-5. Validate early with `uv run altk validate <packet.json>`.
-6. Run one transition with
-   `uv run altk decide <packet.json> --state examples/kernel_state_empty.json`.
-7. Use `docs/full-implementation-roadmap.md` to add evidence-producing modules
-   for causal value, transport, roots, finality, risk, recombination, and CARA.
-8. Before publishing changes, run `uv run altk audit-public --strict`.
+1. Read the DOI above and `docs/theory-map.md`.
+2. Read `docs/language-neutral-contract.md` before implementing ALT outside
+   Python.
+3. Inspect `schemas/packet.schema.json` and
+   `schemas/foundry-transcript.schema.json`.
+4. Validate examples with `uv run altk validate examples/admission_packet.json`.
+5. Run a transition with
+   `uv run altk decide examples/admission_packet.json --state examples/kernel_state_empty.json`.
+6. Run module checkers such as
+   `uv run altk certify transport examples/certificates/transport_certificate.json`.
+7. Replay conformance fixtures with `uv run altk conformance --fixtures conformance`.
+8. Before publishing, run `uv run altk audit-public --strict`.
 
-The repair rule is fail-closed: missing capital-relevant fields are undefined.
-Do not fill missing cost, risk, telemetry, transport, or hazard fields with zero.
-Provide measured evidence, declare a conservative charge, narrow the claim, keep
-the packet in exploration, or reject the transition.
-
-## Core Concepts
-
-**Abstraction token**: an operational object extracted from traces with a stable
-signature, representation, adapter, verifier contract, guard, cost/risk model,
-provenance, and typed dependencies. A token can be a proof tactic, patch
-pattern, evaluator harness, workflow policy, diagnostic rule, interface, or
-governance constraint.
-
-**Executable certificate packet**: the machine-readable record consumed by the
-kernel. It separates declaration, evidence, bounds, validity, monitor, and
-fallback layers so every capital-relevant claim is bound to typed fields.
-
-**Signed surplus**: the central economic quantity. For positive settlement, the
-bootloader uses the conservative lower-bound discipline:
-
-```text
-value_lower_bound - cost_upper_bound - risk_upper_bound - transport_upper_bound
-```
-
-Negative or stale certificates use the opposite upper-bound direction. Undefined
-coordinates do not default to zero.
-
-**Dual-ledger settlement**: exploration evidence and settlement evidence are
-separate. Proxy-only evidence, weak mechanism evidence, sandbox trials, failed
-candidates, threat findings, and high-variance experiments stay in the
-exploration ledger. Safe certified capital is computed only from settlement
-entries.
-
-**Fail-closed certification kernel**: the kernel returns admit, reject, defer,
-suspend, deprecate, rollback, or resurrect. It never admits a packet because a
-free-text argument is persuasive.
-
-## What This Bootloader Implements
-
-| Area | Status | Public surface |
-| --- | --- | --- |
-| Packet schema and examples | Implemented | `schemas/`, `examples/` |
-| Python models and CLI | Implemented | `Packet`, `KernelState`, `altk` |
-| Signed lower and upper bounds | Implemented | `compute_signed_bounds` |
-| Dual ledgers and lifecycle transitions | Implemented | `run_kernel_transition` |
-| Admission predicate names | Implemented as status gates | `ValidationReport.predicates` |
-| CARA target-crossing fields | Parseable and fail-closed | conditional validation |
-| Bridge and kernel update packets | Parsed and audit-only in v1 | old kernel remains authoritative |
-| Causal value, transport, roots, finality | Deferred | interfaces only |
-| Reproduction, recombination, ASI target crossing | Deferred | fail-closed placeholders |
-
-The v1 predicate report includes the paper-aligned gates:
-
-`SchemaOK`, `NetLowerBoundOK`, `MissionOK`, `TargetValidityOK`,
-`BaselineEnvelopeOK`, `BaselineLive`, `OpportunityLawOK`, `EvidenceLive`,
-`SelectionOK`, `TelemetryOK`, `TransportOK`, `HazardOK`, `AuthorityOK`,
-`CapabilityOK`, `ThreatOK`, `DependencyClosed`, `RootOK`, `QuorumOK`,
-`FinalityOK`, `BudgetOK`, `CapacityOK`, `RefreshOK`, `RollbackOK`,
-`DeprecationOK`, `RawNetSolvencyOK`, `RuntimeWitnessOK`, `NoncompHazardOK`,
-and `ViabilityOK`.
-
-In v1 these are field and status predicates. A full ALT foundry should replace
-status assertions with evidence-producing modules while preserving the same
-field names, failure semantics, and ledger discipline.
-
-## Non-Python Implementers
-
-Use Python as an executable reference, not as a dependency requirement. A
-compatible TypeScript, Rust, Go, JVM, or other implementation should:
-
-- consume the JSON Schemas in `schemas/`;
-- preserve packet type and lifecycle enums exactly;
-- expose the same predicate names and `true`/`false`/`null` semantics;
-- compute signed lower and upper bounds with the same conservative direction;
-- keep proxy-only evidence out of settlement capital;
-- implement the same fail-closed lifecycle transitions;
-- write every state-changing decision to an audit surface;
-- pass the example packet suite and public conformance checks.
-
-See `docs/language-neutral-contract.md` for the wire contract and conformance
-expectations.
-
-## What Is Deliberately Deferred
-
-The bootloader does not certify:
-
-- causal token-effect identification
-- mission-validity bridges
-- proxy-to-gold calibration
-- finite-sample LCB/UCB or anytime-valid inference
-- density-ratio, drift, or causal-invariance transport
-- root/quorum cryptographic verification
-- finality and PoUA weighting
-- dynamic hazard and irreversible-risk ledgers
-- reproduction matrices and recombination tensors
-- capability-basis target membership
-- certified ASI realization acceleration claims
-
-Those modules should emit executable certificate packets rather than bypassing
-the kernel. Until they supply typed evidence, their claims remain exploration
-evidence or fail closed.
+Repair order for failed packets: schema, packet-type fields, dependency closure,
+mission/baseline/opportunity, measurement/evidence, signed bounds, telemetry,
+transport, hazard, authority, capability, threat, root/quorum/finality, budget,
+capacity, refresh, rollback, deprecation, raw-net solvency, noncompensable
+hazard, viability, and only then CARA target-crossing fields.
 
 ## Install
 
@@ -157,90 +71,159 @@ evidence or fail closed.
 uv sync --dev
 ```
 
+Runtime dependencies are local libraries only: `pydantic`, `jsonschema`,
+`typer`, `numpy`, `scipy`, `networkx`, and `cryptography`. There are no hosted
+services, databases, telemetry callbacks, or private infrastructure
+requirements.
+
 ## CLI
+
+Backwards-compatible single-argument packet validation:
 
 ```bash
 uv run altk validate examples/admission_packet.json
-uv run altk decide examples/admission_packet.json --state examples/kernel_state_empty.json
-uv run altk schema packet
-uv run altk init-example admission
+```
+
+v0.2 language-neutral validation and certification:
+
+```bash
+uv run altk validate packet examples/admission_packet.json
+uv run altk validate state examples/kernel_state_empty.json
+uv run altk validate transcript conformance/v0.2.0/golden_admission_transcript.json
+uv run altk certify measurement examples/certificates/measurement_spec.json
+uv run altk certify causal examples/certificates/causal_certificate.json
+uv run altk certify transport examples/certificates/transport_certificate.json
+uv run altk certify risk examples/certificates/risk_ledger.json
+uv run altk certify authority examples/certificates/authority_certificate.json
+uv run altk certify root-finality examples/certificates/root_finality_record.json
+uv run altk certify cara examples/certificates/cara_claim.json
+uv run altk certify reproduction examples/certificates/reproduction_record.json
+uv run altk conformance --fixtures conformance
+uv run altk dashboard examples/kernel_state_empty.json
 uv run altk audit-public --strict
 ```
 
 ## Python API
 
 ```python
-from alt_foundry_kernel import KernelState, compute_signed_bounds, run_kernel_transition
+from alt_foundry_kernel import (
+    KernelState,
+    compute_signed_bounds,
+    run_kernel_transition,
+    validate_transport_certificate,
+)
 
-state = KernelState()
-packet = {
-    "id": "pkt-example",
-    "type": "candidate",
-    "token_id": "tok-example",
-    "version": "0.1.0",
-    "state": "candidate",
-    "scope_hash": "sha256:scope",
-    "declaration": {
-        "lineage": {"source": "trace-derived"},
-        "dependencies": {"objects": [], "dependency_closure": {"closed": True}},
-        "scope": {"receiver_class": "example-agent"},
-        "grammar": {"class": "WorkflowPolicyToken"},
-        "baseline": {"policy_id": "baseline-policy"},
-        "mission": {"mission_id": "example-mission"},
-    },
-    "evidence": {"status": "not-yet-collected"},
-    "bounds": {"status": "not-yet-estimated"},
-    "validity": {"status": "candidate-only"},
-    "monitor": {"deprecation_rule": "declare before settlement"},
-    "fallback": {"action": "keep-in-candidate-queue"},
-    "signatures": [],
-}
-
-result = run_kernel_transition(state, packet)
-assert result.decision == "defer"
-
-bounds = compute_signed_bounds(
+signed = compute_signed_bounds(
     {
-        "value_lower_bound": 12,
-        "cost_upper_bound": 3,
-        "risk_upper_bound": 1,
-        "transport_upper_bound": 1,
+        "value_lower_bound": 12.0,
+        "cost_upper_bound": 3.0,
+        "risk_upper_bound": 1.0,
+        "transport_upper_bound": 1.0,
     }
 )
-assert bounds.lower_bound == 7
+assert signed.lower_bound == 7.0
+
+transport = validate_transport_certificate(
+    {
+        "source_context": "source",
+        "target_context": "target",
+        "support": {"status": "covered", "overlap_min": 0.25},
+        "density_ratio": {"upper_bound": 2.0},
+        "drift": {"status": "stable"},
+        "refresh": {"status": "valid"},
+        "transport_cost": {"upper_bound": 1.0},
+    }
+)
+assert transport.ok
+
+result = run_kernel_transition(KernelState(), {...})
 ```
+
+## Implemented Modules
+
+| Paper-facing area | v0.2.0 implementation |
+| --- | --- |
+| Executable certificate packet | JSON Schema, Pydantic model, packet validation, examples |
+| Signed surplus | lower/upper conservative arithmetic and missing-coordinate rejection |
+| Dual ledgers | exploration, settlement, negative, resurrection, hazard, audit surfaces |
+| Lifecycle kernel | candidate, admission, monitor-alarm, transport-refresh, deprecation, rollback, resurrection, bridge, kernel-update |
+| Measurement | task/solver/protocol, trace sufficiency, sample design, instrumentation, evaluator firewall, contamination, selection |
+| Statistical bounds | t-intervals, empirical-Bernstein lower bound, post-selection confidence adjustment |
+| Causal certificates | randomized, paired, replay, off-policy, doubly robust, calibrated-proxy, proxy-only gates |
+| Transport | support coverage, density-ratio bound, drift, refresh, transport cost |
+| Risk | reserve, hazard, irreversible loss, raw-net solvency, noncompensable hazard |
+| Authority | authority, capability, threat, guarded deployment, telemetry, runtime witness |
+| Root/finality | root status, role separation, quorum, finality, rollback path, optional Ed25519 verification |
+| Portfolio | dependency closure, DAG check, settlement-only capital accounting, dominance check |
+| Reproduction | matrix, gauge, capacity, identification, recombination fail-closed gate |
+| CARA | target validity, baseline envelope, target membership, viability, time-to-target improvement |
+| Foundry conformance | deterministic transcript replay and dashboard summary |
+| Public release | strict audit for DOI links, local paths, paper source, secrets, schemas, examples, conformance |
+
+## Scientific Limits
+
+The kernel does not convert weak evidence into capital. These claims require
+external evidence and remain fail-closed unless supplied through typed
+certificates:
+
+- causal effect identification;
+- mission-valid value bridges;
+- proxy-to-gold calibration;
+- transportability and causal invariance;
+- evaluator-root soundness beyond declared root/quorum records;
+- proof-of-useful-abstraction weighting;
+- dynamic hazard estimation;
+- reproduction-matrix identification;
+- recombination tensor estimation;
+- capability-basis target membership;
+- ASI target realization or acceleration.
+
+This repository provides the executable contract for those modules. It does not
+replace the scientific work required to produce their evidence.
+
+## Non-Python Implementers
+
+A compatible non-Python implementation should:
+
+- consume every schema in `schemas/`;
+- preserve packet type, lifecycle, decision, predicate, and ledger names;
+- produce the same signed-bound arithmetic;
+- keep proxy-only and failed evidence out of settlement capital;
+- emit the same JSON shape for validation reports, certificate reports,
+  transitions, dashboards, and conformance results;
+- replay `conformance/` fixtures deterministically;
+- reject missing capital-relevant evidence instead of defaulting it to zero.
+
+See `docs/language-neutral-contract.md` for the conformance levels.
 
 ## Repository Map
 
-- `schemas/`: language-neutral JSON Schemas for external agents and other
-  runtimes.
-- `src/alt_foundry_kernel/`: Python models, validation, signed-bound logic,
-  public audit, and kernel transitions.
-- `examples/`: candidate, proxy-only admission, positive admission,
-  monitor-alarm, transport-refresh, deprecation, rollback, resurrection,
-  bridge, and kernel-update packets.
-- `docs/theory-map.md`: paper objects mapped to repo APIs and schemas.
-- `docs/schema-contract.md`: paper-to-JSON packet field dictionary.
-- `docs/language-neutral-contract.md`: conformance contract for non-Python
-  implementations.
-- `docs/agent-bootloader.md`: end-to-end workflow for agents.
-- `docs/full-implementation-roadmap.md`: path from v1 bootloader to full ALT
-  foundry.
-- `docs/theory-alignment-audit.md`: implemented, approximated, deferred, and not
-  certified theory claims.
-- `docs/pre-release-audit.md`: reproducible public-release audit checklist.
+- `schemas/`: language-neutral JSON Schemas.
+- `examples/`: packet and certificate examples.
+- `conformance/`: golden deterministic transcripts.
+- `src/alt_foundry_kernel/`: Python reference implementation.
+- `docs/theory-map.md`: paper object to implementation map.
+- `docs/schema-contract.md`: field dictionary and packet contract.
+- `docs/agent-bootloader.md`: trace-to-token workflow.
+- `docs/full-implementation-roadmap.md`: path beyond v0.2.0.
+- `docs/theory-alignment-audit.md`: implemented, approximate, deferred, not certified.
+- `docs/pre-release-audit.md`: reproducible public audit checklist.
+- `docs/measurement-and-evidence.md`: measurement and evidence handoff.
+- `docs/causal-transport-risk.md`: causal, transport, and risk contracts.
+- `docs/root-portfolio-cara.md`: root, portfolio, reproduction, and CARA contracts.
 
-## Validation And CI
+## Verification
 
 ```bash
 uv run ruff check .
 uv run mypy src
-uv run pytest
+uv run pytest --cov=alt_foundry_kernel
 uv run pip-audit
+uv run altk conformance --fixtures conformance
 uv run altk audit-public --strict
 ```
 
-Validate all bundled examples:
+Validate all bundled packet examples on POSIX shells:
 
 ```bash
 for f in examples/*_packet.json; do uv run altk validate "$f"; done
@@ -251,18 +234,6 @@ On Windows PowerShell:
 ```powershell
 Get-ChildItem examples\*_packet.json | ForEach-Object { uv run altk validate $_.FullName }
 ```
-
-## Building Toward Full ALT
-
-A full implementation should add modules for trace instrumentation, token
-grammar validation, opportunity-measure construction, mission validity, baseline
-refresh, finite-sample lower and upper bounds, causal identification, proxy
-calibration, telemetry collection, transport monitors, root/quorum finality,
-dynamic risk, reproduction estimates, recombination confidence sets, and CARA
-target-crossing checks.
-
-The invariant is simple: until those modules emit typed evidence through an
-executable certificate packet, they do not increase safe certified capital.
 
 ## Citation
 

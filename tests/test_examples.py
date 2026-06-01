@@ -7,6 +7,14 @@ from jsonschema import Draft202012Validator
 
 import alt_foundry_kernel.validation as validation_module
 from alt_foundry_kernel import KernelState, Packet, load_schema, validate_packet
+from alt_foundry_kernel.authority import validate_authority_certificate
+from alt_foundry_kernel.cara import validate_cara_certificate
+from alt_foundry_kernel.causal import validate_causal_certificate
+from alt_foundry_kernel.measurement import validate_measurement_spec
+from alt_foundry_kernel.reproduction import validate_reproduction_certificate
+from alt_foundry_kernel.risk import validate_risk_certificate
+from alt_foundry_kernel.root_finality import validate_root_finality_certificate
+from alt_foundry_kernel.transport import validate_transport_certificate
 
 ROOT = Path(__file__).resolve().parents[1]
 EXAMPLES = ROOT / "examples"
@@ -32,6 +40,28 @@ def test_empty_kernel_state_example_matches_python_model() -> None:
     parsed = KernelState.model_validate(state)
     assert parsed.certified_capital == 0.0
     assert parsed.admitted_tokens == []
+
+
+def test_certificate_examples_validate_with_schema_and_python_checkers() -> None:
+    checks = {
+        "measurement_spec.json": ("measurement-spec", validate_measurement_spec),
+        "transport_certificate.json": ("transport-certificate", validate_transport_certificate),
+        "risk_ledger.json": ("risk-ledger", validate_risk_certificate),
+        "authority_certificate.json": ("authority-certificate", validate_authority_certificate),
+        "root_finality_record.json": (
+            "root-finality-record",
+            validate_root_finality_certificate,
+        ),
+        "causal_certificate.json": ("causal-certificate", validate_causal_certificate),
+        "cara_claim.json": ("cara-claim", validate_cara_certificate),
+        "reproduction_record.json": ("reproduction-record", validate_reproduction_certificate),
+    }
+    cert_dir = EXAMPLES / "certificates"
+    for filename, (schema_name, checker) in checks.items():
+        payload = json.loads((cert_dir / filename).read_text(encoding="utf-8"))
+        Draft202012Validator(load_schema(schema_name)).validate(payload)
+        report = checker(payload)
+        assert report.ok, filename
 
 
 def test_all_public_schemas_are_valid_and_refs_resolve() -> None:

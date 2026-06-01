@@ -25,8 +25,9 @@ Before publishing a release:
 uv sync --dev
 uv run ruff check .
 uv run mypy src
-uv run pytest
+uv run pytest --cov=alt_foundry_kernel
 uv run pip-audit
+uv run altk conformance --fixtures conformance
 uv run altk audit-public --strict
 ```
 
@@ -45,13 +46,14 @@ uv run altk validate examples/bridge_packet.json
 uv run altk validate examples/kernel_update_packet.json
 ```
 
-`altk audit-public --strict` checks DOI links, schema validity, example packet
-validity, local path leakage, `.env*` files, downloaded paper source, obvious
-secret assignments, and placeholder publishing URLs. Local virtual environments
-and caches are reported as cleanup warnings and excluded from content scanning.
+`altk audit-public --strict` checks DOI links, schema validity, packet examples,
+certificate examples, conformance replay, local path leakage, `.env*` files,
+downloaded paper source, obvious secret assignments, and placeholder publishing
+URLs. Local virtual environments and caches are reported as cleanup warnings and
+excluded from content scanning.
 
 ## Reporting Issues
 
 Report parser, schema, or fail-closed behavior issues through the repository's
-public issue tracker after the real publishing location is configured. Do not
-include credentials or private trace payloads in reports.
+public issue tracker. Do not include credentials or private trace payloads in
+reports.

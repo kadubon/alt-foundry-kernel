@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:causal-certificate:0.2.0",
+  "title": "ALT Causal Certificate",
+  "description": "Potential-outcome, baseline, identification, effect-bound, and evidence-mode contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["estimand", "baseline", "identification", "effect", "evidence"],
+  "properties": {
+    "estimand": {
+      "type": "object",
+      "required": ["estimand_type"],
+      "additionalProperties": true,
+      "properties": {
+        "estimand_type": {
+          "type": "string",
+          "enum": ["causal", "calibrated-proxy", "proxy-only"]
+        }
+      }
+    },
+    "baseline": {
+      "type": "object",
+      "required": ["status", "comparator_id"],
+      "additionalProperties": true
+    },
+    "identification": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true
+    },
+    "effect": {
+      "type": "object",
+      "required": ["lower_bound", "unit"],
+      "additionalProperties": true,
+      "properties": { "lower_bound": { "type": "number" } }
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["mode"],
+      "additionalProperties": true,
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["randomized", "paired", "replay", "off_policy", "doubly_robust"]
+        }
+      }
+    },
+    "calibration": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": { "status": { "type": "string" } }
+    }
+  }
+}

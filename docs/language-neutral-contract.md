@@ -3,10 +3,10 @@
 Paper DOI: [https://doi.org/10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200)
 
 ALT Foundry Kernel is intentionally not a Python-only specification. The Python
-package is the reference implementation for the v0.1.0 bootloader. The portable
-contract is the executable certificate packet shape, the schema semantics, the
-predicate report, the signed-bound discipline, the lifecycle state machine, and
-the dual-ledger accounting rule.
+package is the reference implementation for v0.2.0. The portable contract is
+the executable certificate packet shape, module-level certificate schemas,
+predicate reports, signed-bound discipline, lifecycle state machine, dual-ledger
+accounting rule, and replayable conformance transcripts.
 
 ## Required Wire Surface
 
@@ -50,11 +50,11 @@ admit | reject | defer | suspend | deprecate | rollback | resurrect
 
 Predicate reports must use `true`, `false`, or `null`.
 
-- `true`: the packet supplies the required typed evidence for the v1 gate.
+- `true`: the packet supplies the required typed evidence for the v0.2.0 gate.
 - `false`: the gate is claimed or required and fails.
 - `null`: the gate is not applicable to that packet type or conditional claim.
 
-The v0.1.0 predicate names are:
+The packet-level predicate names are:
 
 `SchemaOK`, `NetLowerBoundOK`, `MissionOK`, `TargetValidityOK`,
 `BaselineEnvelopeOK`, `BaselineLive`, `OpportunityLawOK`, `EvidenceLive`,
@@ -101,9 +101,9 @@ noncompensable-hazard, and viability gates that are required for the claim.
 
 ## Lifecycle Transitions
 
-A conforming implementation must preserve these v0.1.0 transition semantics:
+A conforming implementation must preserve these v0.2.0 transition semantics:
 
-| Packet type | Capital effect | v0.1.0 behavior |
+| Packet type | Capital effect | v0.2.0 behavior |
 | --- | --- | --- |
 | `candidate` | none | write candidate queue or reject invalid packet |
 | `admission` | possible increase | admit only with settlement-grade evidence |
@@ -112,15 +112,28 @@ A conforming implementation must preserve these v0.1.0 transition semantics:
 | `deprecation` | none | write negative registry and stop contribution |
 | `rollback` | possible decrease | charge reserve and restore declared state |
 | `resurrection` | possible increase | add capital only with admission-grade current evidence |
-| `bridge` | none | audit-only in v0.1.0 |
+| `bridge` | none | audit-only in v0.2.0 |
 | `kernel-update` | none | audit-only; current kernel remains authoritative |
+
+## Conformance Levels
+
+| Level | Required behavior |
+| --- | --- |
+| L0 schema | parse all schemas and validate packet/certificate examples |
+| L1 arithmetic | reproduce signed bounds, raw-net capital, and settlement-only capital accounting |
+| L2 kernel | reproduce packet decisions and lifecycle transitions |
+| L3 module reports | emit compatible `CertificateReport` objects for measurement, causal, transport, risk, authority, root/finality, reproduction, and CARA checks |
+| L4 transcript | replay `conformance/` fixtures deterministically |
+| L5 public release | pass an audit equivalent to `altk audit-public --strict` |
 
 ## Conformance Tests
 
 Non-Python implementations should:
 
-- validate every `examples/*_packet.json` against the JSON Schema;
-- reproduce the reference decisions for the example packets;
+- validate every `examples/*_packet.json` and
+  `examples/certificates/*.json` against the JSON Schemas;
+- reproduce the reference decisions for packet examples;
+- replay `conformance/v0.2.0/golden_admission_transcript.json`;
 - reject missing required fields for every packet type;
 - keep proxy-only admission in exploration;
 - prevent resurrection capital without admission-grade current evidence;
@@ -133,3 +146,24 @@ Language conformance does not imply full ALT certification. Causal inference,
 finite-sample bounds, transport, root/quorum finality, dynamic risk,
 recombination, reproduction, and CARA target crossing require independent
 scientific modules that emit typed evidence into the same packet contract.
+
+## Report Shape
+
+Module checkers should emit a report equivalent to:
+
+```json
+{
+  "name": "transport",
+  "ok": true,
+  "claim": "context transport and opportunity-law refresh certificate",
+  "level": "settlement",
+  "predicates": {"SupportCovered": true},
+  "metrics": {"transport_cost_upper_bound": 1.0},
+  "artifacts": {},
+  "issues": []
+}
+```
+
+Issues are structured records with `severity`, `code`, `path`, and `message`.
+Capital-relevant failures use `severity: "error"` and must block settlement or
+route to exploration.

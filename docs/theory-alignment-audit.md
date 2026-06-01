@@ -29,31 +29,40 @@ substitute for the paper.
 - Fail-closed required-field validation for every packet type.
 - Lifecycle preconditions for monitor-alarm, transport-refresh, deprecation,
   rollback, and resurrection.
-- Audit-only bridge and kernel-update packet handling in v1.
+- Audit-only bridge and kernel-update packet handling in v0.2.0.
 - Public audit CLI for DOI links, examples, schemas, local-path leakage,
   paper-source leakage, env files, secret-like assignments, and placeholder
   publishing URLs.
-- Language-neutral conformance documentation for non-Python implementations.
+- Language-neutral conformance documentation and golden transcript replay for
+  non-Python implementations.
+- Module-level certificate validators for measurement, statistics, causal
+  evidence, transport, risk, authority, root/finality, portfolio, reproduction,
+  and CARA target claims.
+- JSON Schemas for module certificates, foundry transcripts, and conformance
+  results.
 
 ## Approximated
 
-- Predicate checks are status and field gates. They are not independent
-  scientific verifiers.
-- Root and quorum validity are represented as status records. No cryptographic
-  or Byzantine quorum verification is performed.
+- Packet-level predicate checks are status and field gates. Module validators
+  verify certificate structure, but they are not a substitute for independent
+  scientific instruments.
+- Root and quorum validity are represented as status and quorum records.
+  Optional Ed25519 signature verification exists, but Byzantine quorum
+  governance is not implemented.
 - Finality is represented as `finalized` or explicit exemption. No consensus or
   PoUA implementation is present.
 - Runtime capital witness is represented as a declared status field.
-- Transport, hazard, mission, budget, capacity, refresh, rollback, deprecation,
-  and viability checks are parsed and gated, not statistically or formally
-  certified.
+- Transport, hazard, mission, budget, capacity, refresh, rollback,
+  deprecation, and viability checks are parsed, structurally validated, and
+  gated; full domain certification still depends on supplied evidence.
 - Resurrection can add capital only if the packet supplies admission-grade
-  current evidence; otherwise it returns to candidate. The v1 checker is a
+  current evidence; otherwise it returns to candidate. The v0.2.0 checker is a
   conservative field/status approximation.
 
 ## Deferred
 
-- Trace sufficiency, leakage, contamination, and hidden-resource audits.
+- Production-grade trace sufficiency, leakage, contamination, and
+  hidden-resource audits beyond the module contract.
 - Mission/generated/externality opportunity-law construction.
 - Baseline refresh bridges and direct remeasurement.
 - Proxy calibration and common-estimand bridges.
@@ -61,13 +70,15 @@ substitute for the paper.
 - Finite-sample lower and upper confidence bounds, confidence sequences, and
   post-selection correction.
 - Telemetry collection and formation-cost measurement.
-- Transport support, density-ratio, drift, and causal-invariance evidence.
-- Dynamic risk, irreversible-risk, hazard, and ruin ledgers.
-- Root/quorum cryptographic verification, finality, and PoUA weighting.
-- Portfolio optimization, equivalence quotienting, and dominance checks.
-- Reproduction matrices, recombination tensors, phase control, and capacity
+- Causal-invariance evidence beyond declared transport certificates.
+- Dynamic risk, ruin ledgers, and calibrated hazard estimation.
+- Byzantine root/quorum governance, finality consensus, and PoUA weighting.
+- Portfolio optimization and equivalence quotienting beyond the provided
+  closure/dominance utilities.
+- Recombination tensor identification, phase control, and production capacity
   oracles.
-- Full target-valid ALT-CARA certification and ASI target crossing.
+- Full target-valid ALT-CARA certification and ASI target crossing beyond the
+  structural target-crossing checker.
 
 ## Explicitly Not Certified
 
@@ -76,9 +87,9 @@ kernel can bind fields and apply fail-closed transition rules. Scientific
 validity requires evidence-producing modules that populate those fields under
 declared measurement protocols.
 
-The v1 bootloader therefore does not certify causal value, transportability,
-root independence, finality, recombination, or ASI acceleration. It provides the
-agent-operable boundary those modules must write into.
+The v0.2.0 kernel therefore does not certify causal value, transportability,
+root independence, finality, recombination, or ASI acceleration by itself. It
+provides the agent-operable boundary those modules must write into.
 
 ## Current Public-Release Audit Expectations
 
@@ -87,12 +98,14 @@ Before publication, run:
 ```bash
 uv run ruff check .
 uv run mypy src
-uv run pytest
+uv run pytest --cov=alt_foundry_kernel
 uv run pip-audit
+uv run altk conformance --fixtures conformance
 uv run altk audit-public --strict
 ```
 
 The audit must show no local paths, no downloaded paper source, no `.env*`
 files, no fake repository URLs, DOI links in public docs, valid schemas, and
-valid examples. Local build caches and virtual environments are ignored for
-content scanning but reported as cleanup warnings.
+valid packet/certificate examples and conformance fixtures. Local build caches
+and virtual environments are ignored for content scanning but reported as
+cleanup warnings.

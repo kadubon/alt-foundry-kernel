@@ -3,9 +3,10 @@
 Paper DOI: [https://doi.org/10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200)
 
 This guide is the handoff surface for AI agents that clone this repository and
-build toward a full ALT foundry. The bootloader provides the parser, schemas,
-predicate report, signed-bound discipline, dual ledgers, and deterministic
-state machine. Agents should extend those boundaries rather than bypass them.
+build toward a full ALT foundry. v0.2.0 provides the parser, schemas,
+certificate checkers, predicate report, signed-bound discipline, dual ledgers,
+deterministic state machine, dashboards, and replayable conformance fixtures.
+Agents should extend those boundaries rather than bypass them.
 
 ## End-To-End Workflow
 
@@ -29,10 +30,10 @@ state machine. Agents should extend those boundaries rather than bypass them.
    rollback, resurrection, bridge, and kernel-update packets.
 9. Run `uv run altk audit-public --strict` before publishing a fork or release.
 
-For non-Python implementations, treat the CLI as an oracle for v0.1.0 behavior.
-Implement the wire format, predicates, signed bounds, and lifecycle transitions
-described in `docs/language-neutral-contract.md`, then compare decisions against
-the bundled examples.
+For non-Python implementations, treat the CLI and `conformance/` fixtures as
+oracles for v0.2.0 behavior. Implement the wire format, module certificate
+reports, predicates, signed bounds, lifecycle transitions, dashboards, and
+transcript replay described in `docs/language-neutral-contract.md`.
 
 ## Packet Repair Order
 
@@ -66,9 +67,9 @@ worst-case charge, a narrowed scope, or a fail-closed transition.
 - `resurrection`: address a prior negative certificate with new evidence.
   Without admission-grade current evidence, it returns to candidate.
 - `bridge`: record a proxy, baseline, opportunity, transport, or semantics
-  bridge. v1 records this as audit evidence only.
+  bridge. v0.2.0 records this as audit evidence only.
 - `kernel-update`: propose a conservative parser/kernel update through the old
-  kernel boundary. v1 records this; the old kernel remains authoritative.
+  kernel boundary. v0.2.0 records this; the old kernel remains authoritative.
 
 ## Full Implementation Modules
 
@@ -90,6 +91,11 @@ A full ALT implementation should add modules that emit typed packet fields:
 - CARA target-validity, capability-basis, baseline-envelope, target-membership,
   raw-net, and time-to-target verifiers.
 
+v0.2.0 includes reference validators for these module boundaries. They verify
+declared certificates and reject missing evidence; production foundries should
+connect them to real trace stores, measurement systems, causal estimators,
+transport monitors, root services, and risk ledgers.
+
 ## Module Handoff Contract
 
 Each full-implementation module should return one of three artifacts:
@@ -101,6 +107,18 @@ Each full-implementation module should return one of three artifacts:
 
 Modules should not directly mutate settlement capital. The kernel remains the
 only boundary that can write a capital-changing transition.
+
+## v0.2.0 Commands For Agents
+
+```bash
+uv run altk certify measurement examples/certificates/measurement_spec.json
+uv run altk certify causal examples/certificates/causal_certificate.json
+uv run altk certify transport examples/certificates/transport_certificate.json
+uv run altk certify risk examples/certificates/risk_ledger.json
+uv run altk certify root-finality examples/certificates/root_finality_record.json
+uv run altk certify cara examples/certificates/cara_claim.json
+uv run altk conformance --fixtures conformance
+```
 
 ## Agent Rule
 

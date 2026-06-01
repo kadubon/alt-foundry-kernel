@@ -1,0 +1,9 @@
+{
+  "source_context": "heldout-workflow-triage-v1",
+  "target_context": "receiver-team-a-triage-v1",
+  "support": { "status": "covered", "overlap_min": 0.42 },
+  "density_ratio": { "upper_bound": 1.6 },
+  "drift": { "status": "stable" },
+  "refresh": { "status": "valid" },
+  "transport_cost": { "upper_bound": 1.0 }
+}

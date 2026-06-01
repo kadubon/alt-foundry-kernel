@@ -6,7 +6,8 @@ Takahashi, K. (2026). *Abstraction Liquidity Theory*. Zenodo.
 
 This document maps the implementation-facing objects in Abstraction Liquidity
 Theory (ALT) to the bootloader. The paper remains the normative source; this
-repository supplies a deterministic entry kernel that agents can extend.
+repository supplies a deterministic reference kernel and language-neutral
+contract that agents can extend.
 
 ## Central Claim
 
@@ -37,7 +38,15 @@ misapplication charges.
 | Exploration ledger | Proxy-only or weak evidence that cannot add capital | `exploration_ledger` |
 | Settlement ledger | Finalized or exempt settlement evidence | `settlement_ledger` |
 | Negative registry | Scope-limited stale or harmful certificates | `negative_registry` |
-| Dashboard protocol | Agent-readable foundry state and allocation surface | `schemas/dashboard.schema.json` |
+| Measurement specification | Task, solver, protocol, trace view, sample, instrumentation, firewall | `measurement`, `schemas/measurement-spec.schema.json` |
+| Causal certificate | Potential-outcome estimand, baseline, identification, effect lower bound | `causal`, `schemas/causal-certificate.schema.json` |
+| Transport certificate | Support, density-ratio, drift, refresh, transport cost | `transport`, `schemas/transport-certificate.schema.json` |
+| Risk ledger | Reserve, hazard, irreversible loss, raw-net solvency | `risk`, `schemas/risk-ledger.schema.json` |
+| Root/finality record | Root, role separation, quorum, finality, rollback path | `root_finality`, `schemas/root-finality-record.schema.json` |
+| Portfolio state | Dependency closure, DAG, settlement-only capital accounting | `portfolio`, `schemas/portfolio-state.schema.json` |
+| Reproduction record | Matrix, gauge, capacity, identification, recombination gate | `reproduction`, `schemas/reproduction-record.schema.json` |
+| CARA claim | Target validity, baseline envelope, membership, viability, time-to-target | `cara`, `schemas/cara-claim.schema.json` |
+| Dashboard protocol | Agent-readable foundry state and allocation surface | `foundry`, `schemas/dashboard.schema.json` |
 
 ## Kernel Tuple Mapping
 
@@ -75,11 +84,14 @@ predicate names in `ValidationReport.predicates`:
 `DeprecationOK`, `RawNetSolvencyOK`, `RuntimeWitnessOK`, `NoncompHazardOK`,
 and `ViabilityOK`.
 
-In v1, these are status and field gates. A full implementation should replace
-each status gate with an evidence-producing verifier while preserving the same
-failure semantics. If a predicate required for capital admission is false, the
-kernel rejects or defers. If it is undefined because a conditional claim is not
-made, it remains `null` and does not block ordinary admission.
+In v0.2.0, the packet kernel still exposes these as packet-level gates, and the
+new certificate modules provide evidence-facing validators for measurement,
+causal effect, transport, risk, authority, root/finality, portfolio,
+reproduction, and CARA claims. A full domain foundry should replace status
+assertions with evidence-producing instruments while preserving the same failure
+semantics. If a predicate required for capital admission is false, the kernel
+rejects or defers. If it is undefined because a conditional claim is not made,
+it remains `null` and does not block ordinary admission.
 
 ## Deterministic Settlement Loop
 
@@ -92,14 +104,32 @@ parse -> schema -> typed layers -> dependencies -> mission
 -> ledger -> budget -> capacity -> monitor -> kernel decision
 ```
 
-The bootloader implements the parser, schema, typed-layer, signed-bound,
-predicate-report, dual-ledger, and lifecycle portions. The scientific modules
-for mission validity, causal inference, transport, root/quorum, finality,
-dynamic risk, recombination, and CARA target crossing remain deferred.
+The v0.2.0 implementation covers the parser, schema, typed layers,
+signed-bound discipline, predicate reports, dual-ledger accounting, lifecycle
+transitions, deterministic transcript replay, and module-level certificate
+checkers. It does not infer scientific truth from raw traces; it verifies the
+declared certificate records that a measurement, causal, transport, risk,
+root/finality, reproduction, or CARA module supplies.
+
+## Module Handoff Map
+
+| Module | Inputs | Outputs | Fail-closed boundary |
+| --- | --- | --- | --- |
+| `measurement` | task, solver, protocol, trace, sample, instrumentation | measurement `CertificateReport` | missing firewall, trace sufficiency, contamination, or selection |
+| `statistics` | bounded samples, confidence, selection count | lower bounds and reproducible metrics | empty sample, invalid range, invalid confidence |
+| `causal` | estimand, baseline, identification, effect, evidence mode | settlement-grade or exploration certificate | proxy-only or missing mode-specific evidence |
+| `transport` | source/target context, support, ratio, drift, refresh | transport cost and validity report | uncovered support, unbounded ratio, stale refresh |
+| `risk` | capital, reserve, hazard, irreversible loss | raw-net solvency report | noncompensable hazard or nonpositive raw net |
+| `authority` | authority, capability, threat, telemetry, guard | guarded-deployment report | uncleared threat or invalid runtime witness |
+| `root_finality` | root, role separation, quorum, finality, rollback | finality report and optional signature count | missing quorum or nonfinal evidence |
+| `portfolio` | dependencies, available objects, ledgers | closure and capital accounting | cycles, missing dependencies, exploration capital |
+| `reproduction` | matrix, gauge, capacity, identification | reproduction report | unidentified recombination claim |
+| `cara` | target, basis, baseline envelope, membership, viability, time-to-target | target-crossing report | missing target evidence or no time improvement |
 
 ## Non-Reduction Boundary
 
 This repository does not reduce ALT to JSON validation. JSON Schema means only
 that the packet is parseable. Certification requires evidence modules that
-populate the packet fields under declared measurement protocols. Until those
-modules exist, the correct behavior is exploration-only or fail-closed.
+populate packet and certificate fields under declared measurement protocols.
+Until those modules produce typed evidence, the correct behavior is
+exploration-only or fail-closed.

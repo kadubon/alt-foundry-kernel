@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:transport-certificate:0.2.0",
+  "title": "ALT Transport Certificate",
+  "description": "Support, density-ratio, drift, refresh, and transport-cost contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "source_context",
+    "target_context",
+    "support",
+    "density_ratio",
+    "drift",
+    "refresh",
+    "transport_cost"
+  ],
+  "properties": {
+    "source_context": { "type": ["string", "object"] },
+    "target_context": { "type": ["string", "object"] },
+    "support": {
+      "type": "object",
+      "required": ["status", "overlap_min"],
+      "additionalProperties": true,
+      "properties": {
+        "status": { "type": "string" },
+        "overlap_min": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "density_ratio": {
+      "type": "object",
+      "required": ["upper_bound"],
+      "additionalProperties": true,
+      "properties": { "upper_bound": { "type": "number", "minimum": 1 } }
+    },
+    "drift": { "$ref": "#/$defs/status_object" },
+    "refresh": { "$ref": "#/$defs/status_object" },
+    "transport_cost": {
+      "type": "object",
+      "required": ["upper_bound"],
+      "additionalProperties": true,
+      "properties": { "upper_bound": { "type": "number", "minimum": 0 } }
+    }
+  },
+  "$defs": {
+    "status_object": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": { "status": { "type": "string" } }
+    }
+  }
+}

@@ -17,7 +17,7 @@ jobs:
       - run: uv sync --dev
       - run: uv run ruff check .
       - run: uv run mypy src
-      - run: uv run pytest
+      - run: uv run pytest --cov=alt_foundry_kernel
       - run: uv run pip-audit
       - run: uv run altk validate examples/candidate_packet.json
       - run: uv run altk validate examples/proxy_only_packet.json
@@ -29,4 +29,13 @@ jobs:
       - run: uv run altk validate examples/resurrection_packet.json
       - run: uv run altk validate examples/bridge_packet.json
       - run: uv run altk validate examples/kernel_update_packet.json
+      - run: uv run altk certify measurement examples/certificates/measurement_spec.json
+      - run: uv run altk certify transport examples/certificates/transport_certificate.json
+      - run: uv run altk certify risk examples/certificates/risk_ledger.json
+      - run: uv run altk certify authority examples/certificates/authority_certificate.json
+      - run: uv run altk certify root-finality examples/certificates/root_finality_record.json
+      - run: uv run altk certify causal examples/certificates/causal_certificate.json
+      - run: uv run altk certify cara examples/certificates/cara_claim.json
+      - run: uv run altk certify reproduction examples/certificates/reproduction_record.json
+      - run: uv run altk conformance --fixtures conformance
       - run: uv run altk audit-public --strict

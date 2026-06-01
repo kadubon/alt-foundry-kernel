@@ -25,7 +25,7 @@ def _public_files() -> list[Path]:
     for path in ROOT.rglob("*"):
         if any(part in excluded_dirs for part in path.parts):
             continue
-        if path.name == "uv.lock":
+        if path.name in {"uv.lock", ".coverage", "coverage.xml"}:
             continue
         if path.is_file():
             files.append(path)

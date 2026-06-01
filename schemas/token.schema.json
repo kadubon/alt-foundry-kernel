@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:token:0.1.0",
+  "$id": "urn:alt-foundry-kernel:schema:token:0.2.0",
   "title": "ALT Abstraction Token",
   "type": "object",
   "additionalProperties": true,

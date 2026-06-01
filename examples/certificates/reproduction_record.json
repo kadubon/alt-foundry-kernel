@@ -1,0 +1,13 @@
+{
+  "matrix": {
+    "status": "valid",
+    "values": [[0.2, 0.1], [0.0, 0.3]],
+    "spectral_radius": 0.3
+  },
+  "gauge": { "status": "valid" },
+  "capacity": { "status": "valid" },
+  "identification": { "status": "valid" },
+  "recombination": {
+    "claimed": false
+  }
+}

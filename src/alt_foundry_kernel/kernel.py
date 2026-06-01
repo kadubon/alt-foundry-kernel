@@ -53,8 +53,12 @@ def _append_by_ledger(state: KernelState, entry: LedgerEntry) -> None:
         state.exploration_ledger.append(entry)
     elif entry.ledger == "settlement":
         state.settlement_ledger.append(entry)
+    elif entry.ledger == "hazard":
+        state.hazard_ledger.append(entry)
     elif entry.ledger == "negative_registry":
         state.negative_registry.append(entry)
+    elif entry.ledger == "resurrection":
+        state.resurrection_queue.append(entry)
     _append_audit(state, entry)
 
 
@@ -236,7 +240,7 @@ def _parse_packet(packet: Packet | Mapping[str, Any]) -> Packet:
 def run_kernel_transition(
     state: KernelState | Mapping[str, Any], packet: Packet | Mapping[str, Any]
 ) -> TransitionResult:
-    """Run one deterministic v1 kernel transition.
+    """Run one deterministic ALT kernel transition.
 
     The function implements the bootloader rule, not a full ALT foundry. Missing
     capital-relevant evidence never defaults to zero; it rejects, defers, suspends,
@@ -380,7 +384,7 @@ def run_kernel_transition(
             "settlement",
             Decision.ADMIT,
             LifecycleState.ACTIVE,
-            "Admission packet satisfied v1 settlement gates.",
+            "Admission packet satisfied v0.2.0 settlement gates.",
             capital_delta=capital_delta,
             details={"signed_lower_bound": signed.lower_bound},
         )
@@ -613,7 +617,7 @@ def run_kernel_transition(
             "audit",
             Decision.DEFER,
             typed_packet.state,
-            "Bridge packet recorded; v1 bootloader does not apply bridge semantics.",
+            "Bridge packet recorded; v0.2.0 does not apply bridge semantics.",
         )
         _append_audit(next_state, entry)
         return TransitionResult(
@@ -632,7 +636,7 @@ def run_kernel_transition(
             "audit",
             Decision.DEFER,
             LifecycleState.ACTIVE,
-            "Kernel update packet recorded; the current kernel remains authoritative in v1.",
+            "Kernel update packet recorded; the current kernel remains authoritative.",
         )
         _append_audit(next_state, entry)
         return TransitionResult(
@@ -650,6 +654,6 @@ def run_kernel_transition(
         typed_packet,
         Decision.DEFER,
         typed_packet.state,
-        "Packet type is parsed but v1 bootloader does not perform a capital-changing transition.",
+        "Packet type is parsed but v0.2.0 does not perform a capital-changing transition.",
         signed,
     )

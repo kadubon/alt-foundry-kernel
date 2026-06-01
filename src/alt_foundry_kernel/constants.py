@@ -1,4 +1,4 @@
-"""Constants for the v1 ALT bootloader contract."""
+"""Constants for the ALT Foundry Kernel contract."""
 
 from __future__ import annotations
 

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:risk-ledger:0.2.0",
+  "title": "ALT Risk Ledger",
+  "description": "Hazard envelope, reserve charge, irreversible-loss, and raw-net capital contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["capital", "reserve", "hazard", "irreversible_loss"],
+  "properties": {
+    "capital": {
+      "type": "object",
+      "required": ["lower_bound"],
+      "properties": { "lower_bound": { "type": "number" } },
+      "additionalProperties": true
+    },
+    "reserve": {
+      "type": "object",
+      "required": ["upper_bound"],
+      "properties": { "upper_bound": { "type": "number", "minimum": 0 } },
+      "additionalProperties": true
+    },
+    "hazard": {
+      "type": "object",
+      "required": ["status", "upper_bound", "noncompensable_clearance"],
+      "additionalProperties": true,
+      "properties": {
+        "status": { "type": "string" },
+        "upper_bound": { "type": "number", "minimum": 0 },
+        "noncompensable_clearance": { "type": "boolean" }
+      }
+    },
+    "irreversible_loss": {
+      "type": "object",
+      "required": ["upper_bound"],
+      "additionalProperties": true,
+      "properties": { "upper_bound": { "type": "number", "minimum": 0 } }
+    }
+  }
+}

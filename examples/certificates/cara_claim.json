@@ -1,0 +1,14 @@
+{
+  "claims_target_crossing": true,
+  "claims_time_to_target_comparison": true,
+  "asi_target_id": "asi-target-demo",
+  "capability_basis_id": "capability-basis-demo",
+  "target_validity_certificate": { "status": "valid" },
+  "baseline_upper_envelope": { "status": "valid" },
+  "target_membership_proof": { "status": "valid" },
+  "viability_witness": { "status": "valid" },
+  "time_to_target_claim": {
+    "baseline_upper": 100.0,
+    "candidate_upper": 80.0
+  }
+}

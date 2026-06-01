@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:evidence-split:0.2.0",
+  "title": "ALT Evidence Split",
+  "description": "Train, candidate, proxy, gold, held-out, and audit evidence split contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["status", "splits", "selection_status"],
+  "properties": {
+    "status": { "type": "string" },
+    "selection_status": { "type": "string" },
+    "splits": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "train": { "type": ["string", "object", "array"] },
+        "candidate": { "type": ["string", "object", "array"] },
+        "proxy": { "type": ["string", "object", "array"] },
+        "gold": { "type": ["string", "object", "array"] },
+        "heldout": { "type": ["string", "object", "array"] },
+        "audit": { "type": ["string", "object", "array"] }
+      }
+    }
+  }
+}

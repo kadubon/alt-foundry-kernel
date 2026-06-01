@@ -1,0 +1,10 @@
+{
+  "capital": { "lower_bound": 6.5 },
+  "reserve": { "upper_bound": 1.0 },
+  "hazard": {
+    "status": "valid",
+    "upper_bound": 0.5,
+    "noncompensable_clearance": true
+  },
+  "irreversible_loss": { "upper_bound": 0.25 }
+}

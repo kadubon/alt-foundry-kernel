@@ -4,8 +4,8 @@ title: "ALT Foundry Kernel"
 type: software
 authors:
   - name: "ALT Foundry Kernel contributors"
-version: 0.1.0
-date-released: 2026-05-31
+version: 0.2.0
+date-released: 2026-06-01
 license: Apache-2.0
 repository-code: "https://github.com/kadubon/alt-foundry-kernel"
 preferred-citation:

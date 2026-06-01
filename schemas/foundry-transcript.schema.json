@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:foundry-transcript:0.2.0",
+  "title": "ALT Foundry Transcript",
+  "description": "Replayable deterministic kernel transcript for language-neutral conformance.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "initial_state", "packets", "transitions", "final_state"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "initial_state": { "type": "object", "additionalProperties": true },
+    "packets": {
+      "type": "array",
+      "items": { "$ref": "packet.schema.json" }
+    },
+    "transitions": {
+      "type": "array",
+      "items": { "type": "object", "additionalProperties": true }
+    },
+    "final_state": { "$ref": "kernel-state.schema.json" }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:opportunity-law:0.2.0",
+  "title": "ALT Opportunity Law",
+  "description": "Mission, generated, and externality opportunity-law contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["status", "law_id", "measure", "mission"],
+  "properties": {
+    "status": { "type": "string" },
+    "law_id": { "type": "string" },
+    "measure": { "type": ["string", "object"] },
+    "mission": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": { "status": { "type": "string" } }
+    },
+    "generated": { "type": "object", "additionalProperties": true },
+    "externality": { "type": "object", "additionalProperties": true }
+  }
+}

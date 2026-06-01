@@ -1,0 +1,8 @@
+{
+  "authority": { "status": "valid" },
+  "capability": { "status": "valid" },
+  "threat_model": { "status": "cleared" },
+  "runtime_witness": { "status": "valid" },
+  "telemetry": { "status": "valid" },
+  "guard": { "status": "confined" }
+}

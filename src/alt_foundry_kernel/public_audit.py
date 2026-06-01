@@ -9,8 +9,17 @@ from typing import Literal
 
 from jsonschema import Draft202012Validator
 
+from alt_foundry_kernel.authority import validate_authority_certificate
+from alt_foundry_kernel.cara import validate_cara_certificate
+from alt_foundry_kernel.causal import validate_causal_certificate
+from alt_foundry_kernel.conformance import run_conformance
+from alt_foundry_kernel.measurement import validate_measurement_spec
 from alt_foundry_kernel.models import Packet
+from alt_foundry_kernel.reproduction import validate_reproduction_certificate
+from alt_foundry_kernel.risk import validate_risk_certificate
+from alt_foundry_kernel.root_finality import validate_root_finality_certificate
 from alt_foundry_kernel.schemas import load_schema
+from alt_foundry_kernel.transport import validate_transport_certificate
 from alt_foundry_kernel.validation import validate_packet
 
 DOI = "https://doi.org/10.5281/zenodo.20476200"
@@ -24,7 +33,11 @@ IGNORED_DIRS = {
     "__pycache__",
     "build",
     "dist",
+    "htmlcov",
 }
+
+IGNORED_FILES = {"uv.lock", ".coverage", "coverage.xml"}
+LOCAL_ARTIFACT_DIRS = IGNORED_DIRS - {".git"}
 
 
 @dataclass(frozen=True)
@@ -57,7 +70,7 @@ def _is_ignored(path: Path, root: Path) -> bool:
 def _public_files(root: Path) -> list[Path]:
     files: list[Path] = []
     for path in root.rglob("*"):
-        if _is_ignored(path, root) or path.name == "uv.lock":
+        if _is_ignored(path, root) or path.name in IGNORED_FILES:
             continue
         if path.is_file():
             files.append(path)
@@ -198,10 +211,59 @@ def _check_examples(root: Path, findings: list[AuditFinding]) -> None:
                 )
             )
 
+    certificate_checks = {
+        "measurement_spec.json": ("measurement-spec", validate_measurement_spec),
+        "transport_certificate.json": ("transport-certificate", validate_transport_certificate),
+        "risk_ledger.json": ("risk-ledger", validate_risk_certificate),
+        "authority_certificate.json": ("authority-certificate", validate_authority_certificate),
+        "root_finality_record.json": (
+            "root-finality-record",
+            validate_root_finality_certificate,
+        ),
+        "causal_certificate.json": ("causal-certificate", validate_causal_certificate),
+        "cara_claim.json": ("cara-claim", validate_cara_certificate),
+        "reproduction_record.json": ("reproduction-record", validate_reproduction_certificate),
+    }
+    certificate_dir = root / "examples" / "certificates"
+    for filename, (schema_name, checker) in certificate_checks.items():
+        path = certificate_dir / filename
+        relative = path.relative_to(root)
+        try:
+            payload = json.loads(_text(path))
+            Draft202012Validator(load_schema(schema_name)).validate(payload)
+            certificate_report = checker(payload)
+        except Exception as exc:
+            findings.append(_finding("error", "certificate-example-invalid", relative, str(exc)))
+            continue
+        if not certificate_report.ok:
+            findings.append(
+                _finding(
+                    "error",
+                    "certificate-example-fails-alt-validation",
+                    relative,
+                    "; ".join(issue.message for issue in certificate_report.issues),
+                )
+            )
+
+
+def _check_conformance(root: Path, findings: list[AuditFinding]) -> None:
+    conformance_dir = root / "conformance"
+    if not conformance_dir.exists():
+        findings.append(
+            _finding("error", "conformance-missing", "conformance", "Fixture directory missing.")
+        )
+        return
+    report = run_conformance(conformance_dir)
+    if not report.ok:
+        for finding in report.findings:
+            findings.append(
+                _finding("error", "conformance-replay-failed", finding.path, finding.message)
+            )
+
 
 def _check_local_artifacts(root: Path, findings: list[AuditFinding]) -> None:
     for path in sorted(root.iterdir()):
-        if path.is_dir() and path.name in IGNORED_DIRS:
+        if path.is_dir() and path.name in LOCAL_ARTIFACT_DIRS:
             findings.append(
                 _finding(
                     "warning",
@@ -241,6 +303,7 @@ def run_public_audit(root: Path | None = None, strict: bool = False) -> PublicAu
     _check_docs(audit_root, findings)
     _check_schemas(audit_root, findings)
     _check_examples(audit_root, findings)
+    _check_conformance(audit_root, findings)
     _check_local_artifacts(audit_root, findings)
     ok = not any(finding.severity == "error" for finding in findings)
     return PublicAuditReport(ok=ok, strict=strict, root=str(audit_root), findings=findings)
