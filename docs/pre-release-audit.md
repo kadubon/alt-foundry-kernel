@@ -51,6 +51,15 @@ uv run altk certify foundry-control examples/certificates/foundry_control_state.
 uv run altk certify cara-ext examples/certificates/cara_process.json
 ```
 
+Run every estimator example:
+
+```bash
+for f in examples/estimators/*.json; do
+  kind="$(basename "$f" .json | tr '_' '-')"
+  uv run altk estimate "$kind" "$f"
+done
+```
+
 ## What `altk audit-public --strict` Checks
 
 - `README.ja.md` is absent.
@@ -66,6 +75,8 @@ uv run altk certify cara-ext examples/certificates/cara_process.json
   `Packet` model, and ALT semantic validation.
 - Every `examples/certificates/*.json` validates through its JSON Schema and
   module-level certificate checker.
+- Every `examples/estimators/*.json` produces an `ok` estimator report through
+  `altk estimate`.
 - Every `conformance/*.json` transcript replays deterministically or, for
   certificate fixtures, produces the declared expected result.
 - Local caches and virtual environments are excluded from content scanning and
@@ -81,12 +92,16 @@ uv run altk certify cara-ext examples/certificates/cara_process.json
 - Confirm `docs/language-neutral-contract.md` is present and linked from the
   README for non-Python implementers.
 - Confirm bridge and kernel-update packets are described as audit-only in
-  v0.3.0.
+  v0.4.0.
 - Confirm resurrection does not add capital without admission-grade current
   evidence.
 - Confirm non-reduction shortcuts, self-certification, evaluator cycles, naive
   certificate composition, transport radius failures, and CARA target failures
   are represented as hard negative conformance fixtures.
+- Confirm no trace sufficiency, no off-policy overlap, invalid proxy bridge,
+  high-dimensional transport, PoUA-as-authority, unidentified recombination,
+  guard calibration failure, unsafe CARA timing, and exhausted evidence budget
+  are represented as hard negative v0.4.0 fixtures.
 
 ## Cleanup Before Packaging
 

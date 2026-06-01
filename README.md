@@ -29,19 +29,23 @@ useful abstraction, PoUA finality, certificate algebra, sequential evidence,
 transport robustness, CARA target-crossing guard, language-neutral JSON Schema,
 and conformance fixtures.
 
-## What v0.3.0 Is
+## What v0.4.0 Is
 
-`v0.3.0` is a theory-alignment expansion of the v0.2.0 reference kernel. It is
-still scientifically bounded: it validates declared certificates and deterministic
-kernel behavior; it does not fabricate causal identification, transportability,
-root authority, recombination evidence, or ASI target realization.
+`v0.4.0` is the first v1.0.0-equivalent reference surface: a packet kernel,
+certificate validators, raw-data estimator helpers, language-neutral schemas,
+examples, conformance fixtures, and public-release audit in one repository. It
+is still scientifically bounded: estimators compute generic certificates from
+declared data, but the kernel does not fabricate causal identification,
+transportability, root authority, recombination evidence, or ASI target
+realization.
 
 The public contract is language-neutral:
 
 - `schemas/` defines wire formats for packets, kernel state, ledgers,
-  dashboards, module certificates, robust transport, finality/PoUA, certificate
-  composition, extended CARA, and conformance results.
-- `examples/` gives valid packet and certificate examples.
+  dashboards, module certificates, estimator artifacts, robust transport,
+  finality/PoUA, certificate composition, extended CARA, and conformance
+  results.
+- `examples/` gives valid packet, certificate, and estimator-input examples.
 - `conformance/` gives deterministic golden transcripts and negative fixtures
   for non-Python implementations.
 - `src/alt_foundry_kernel/` is the Python reference implementation.
@@ -58,7 +62,8 @@ The public contract is language-neutral:
    before implementing ALT in TypeScript, Rust, Go, JVM languages, or another
    runtime.
 4. Inspect `schemas/packet.schema.json`,
-   `schemas/foundry-transcript.schema.json`, and the v0.3.0 certificate schemas.
+   `schemas/foundry-transcript.schema.json`, and the v0.4.0 certificate and
+   estimator schemas.
 5. Validate a packet:
 
    ```bash
@@ -81,13 +86,21 @@ The public contract is language-neutral:
    uv run altk certify cara-ext examples/certificates/cara_process.json
    ```
 
-8. Replay the portable contract:
+8. Generate estimator-backed certificate reports from declared data:
+
+   ```bash
+   uv run altk estimate finite-sample examples/estimators/finite_sample.json
+   uv run altk estimate causal-effect examples/estimators/causal_effect.json
+   uv run altk estimate transport-diagnostics examples/estimators/transport_diagnostics.json
+   ```
+
+9. Replay the portable contract:
 
    ```bash
    uv run altk conformance --fixtures conformance --level L5
    ```
 
-9. Before publication or redistribution:
+10. Before publication or redistribution:
 
    ```bash
    uv run altk audit-public --strict
@@ -109,7 +122,9 @@ uv sync --dev
 Runtime dependencies are local libraries only: `pydantic`, `jsonschema`,
 `typer`, `numpy`, `scipy`, `networkx`, and `cryptography`. There are no hosted
 services, databases, telemetry callbacks, or private infrastructure
-requirements.
+requirements. Heavier estimator ecosystem packages are optional under the
+`estimators` extra; the reference estimators in this release run with the core
+dependencies.
 
 ## CLI Surface
 
@@ -142,6 +157,17 @@ uv run altk certify certificate-algebra examples/certificates/certificate_compos
 uv run altk certify portfolio-ext examples/certificates/portfolio_constraints.json
 uv run altk certify foundry-control examples/certificates/foundry_control_state.json
 uv run altk certify cara-ext examples/certificates/cara_process.json
+uv run altk estimate finite-sample examples/estimators/finite_sample.json
+uv run altk estimate proxy-bridge examples/estimators/proxy_bridge.json
+uv run altk estimate causal-effect examples/estimators/causal_effect.json
+uv run altk estimate transport-diagnostics examples/estimators/transport_diagnostics.json
+uv run altk estimate guard-risk examples/estimators/guard_risk.json
+uv run altk estimate federated-pooling examples/estimators/federated_pooling.json
+uv run altk estimate portfolio-selection examples/estimators/portfolio_selection.json
+uv run altk estimate foundry-phase examples/estimators/foundry_phase.json
+uv run altk estimate reproduction-phase examples/estimators/reproduction_phase.json
+uv run altk estimate cara-time-to-target examples/estimators/cara_time_to_target.json
+uv run altk estimate alpha-budget examples/estimators/alpha_budget.json
 uv run altk conformance --fixtures conformance --level L5
 uv run altk dashboard examples/kernel_state_empty.json
 uv run altk audit-public --strict
@@ -189,7 +215,7 @@ result = run_kernel_transition(KernelState(), {...})
 
 ## Implemented Modules
 
-| Paper-facing area | v0.3.0 implementation |
+| Paper-facing area | v0.4.0 implementation |
 | --- | --- |
 | Executable certificate packet | JSON Schema, Pydantic model, packet validation, examples |
 | Signed surplus | lower/upper conservative arithmetic and missing-coordinate rejection |
@@ -214,6 +240,7 @@ result = run_kernel_transition(KernelState(), {...})
 | Reproduction | matrix, gauge, capacity, identification, recombination fail-closed gate |
 | CARA | target validity, baseline envelope, target membership, viability, time-to-target improvement |
 | Extended CARA | target-valid process, non-tradable target constraints, viability-controlled acceleration preconditions |
+| Estimator helpers | finite-sample, proxy bridge, causal modes, transport diagnostics, guard risk, federated pooling, portfolio selection, foundry phase, reproduction phase, CARA time-to-target, alpha budget |
 | Foundry conformance | deterministic transcript replay, negative certificate fixtures, conformance levels L0-L5 |
 | Public release | strict audit for DOI links, local paths, paper source, secrets, schemas, examples, conformance |
 
@@ -248,6 +275,8 @@ A compatible implementation in another language should:
   dashboards, conformance results, and public-audit results;
 - replay `conformance/` fixtures deterministically at the claimed level;
 - implement negative fixtures as hard failures, not warnings.
+- match estimator report shape and fail-closed behavior for `examples/estimators/`
+  if claiming v0.4.0 L5 conformance.
 
 See [docs/language-neutral-contract.md](docs/language-neutral-contract.md) for
 L0-L5 conformance levels and report shapes.
@@ -256,12 +285,14 @@ L0-L5 conformance levels and report shapes.
 
 - `schemas/`: language-neutral JSON Schemas.
 - `examples/`: packet and certificate examples.
+- `examples/estimators/`: declared estimator inputs for certificate builders.
 - `conformance/`: golden deterministic transcripts and negative fixtures.
 - `src/alt_foundry_kernel/`: Python reference implementation.
 - [docs/theory-map.md](docs/theory-map.md): paper object to implementation map.
 - [docs/theory-to-module-matrix.md](docs/theory-to-module-matrix.md): theorem/proposition-class coverage.
 - [docs/schema-contract.md](docs/schema-contract.md): field dictionary and packet contract.
 - [docs/language-neutral-contract.md](docs/language-neutral-contract.md): non-Python conformance.
+- [docs/estimator-contract.md](docs/estimator-contract.md): estimator input/output contracts.
 - [docs/non-reduction-and-mechanism.md](docs/non-reduction-and-mechanism.md): non-reduction and mechanism guards.
 - [docs/evaluator-finality-and-poua.md](docs/evaluator-finality-and-poua.md): evaluator hierarchy, roots, quorum, finality, PoUA.
 - [docs/sequential-transport-and-control.md](docs/sequential-transport-and-control.md): sequential evidence, robust transport, foundry control.

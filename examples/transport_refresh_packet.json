@@ -2,7 +2,7 @@
   "id": "pkt-transport-refresh-001",
   "type": "transport-refresh",
   "token_id": "tok-workflow-triage",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "state": "suspended",
   "scope_hash": "sha256:scope-workflow-triage-v2",
   "declaration": {

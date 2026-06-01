@@ -1,0 +1,9 @@
+{
+  "confidence": 0.8,
+  "correlation_upper_bound": 0.1,
+  "records": [
+    { "mean": 2.1, "variance": 1.0, "n": 50 },
+    { "mean": 1.9, "variance": 1.2, "n": 45 },
+    { "mean": 2.2, "variance": 1.1, "n": 40 }
+  ]
+}

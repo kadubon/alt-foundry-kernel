@@ -7,6 +7,20 @@ from alt_foundry_kernel.cara_ext import validate_cara_process
 from alt_foundry_kernel.causal import validate_causal_certificate
 from alt_foundry_kernel.certificate_algebra import validate_certificate_composition
 from alt_foundry_kernel.conformance import ConformanceReport, run_conformance
+from alt_foundry_kernel.estimators import (
+    estimate_alpha_budget,
+    estimate_cara_time_to_target,
+    estimate_causal_effect,
+    estimate_certificate,
+    estimate_federated_pooling,
+    estimate_finite_sample,
+    estimate_foundry_phase,
+    estimate_guard_risk,
+    estimate_portfolio_selection,
+    estimate_proxy_bridge,
+    estimate_reproduction_phase,
+    estimate_transport_diagnostics,
+)
 from alt_foundry_kernel.evaluator import validate_evaluator_hierarchy
 from alt_foundry_kernel.finality import validate_finality_poua_ledger
 from alt_foundry_kernel.foundry import (
@@ -71,6 +85,18 @@ __all__ = [
     "compute_portfolio_capital",
     "compute_raw_net_capital",
     "compute_signed_bounds",
+    "estimate_alpha_budget",
+    "estimate_cara_time_to_target",
+    "estimate_causal_effect",
+    "estimate_certificate",
+    "estimate_federated_pooling",
+    "estimate_finite_sample",
+    "estimate_foundry_phase",
+    "estimate_guard_risk",
+    "estimate_portfolio_selection",
+    "estimate_proxy_bridge",
+    "estimate_reproduction_phase",
+    "estimate_transport_diagnostics",
     "load_schema",
     "make_dashboard",
     "replay_transcript",

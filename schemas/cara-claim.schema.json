@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:cara-claim:0.3.0",
+  "$id": "urn:alt-foundry-kernel:schema:cara-claim:0.4.0",
   "title": "ALT CARA Claim",
   "description": "Capability acceleration and target-crossing claim contract.",
   "type": "object",

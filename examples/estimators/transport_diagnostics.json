@@ -1,0 +1,13 @@
+{
+  "source_points": [[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]],
+  "target_points": [[0.1, 0.1], [0.9, 0.2], [0.2, 0.8]],
+  "support": {
+    "radius": 0.35
+  },
+  "wasserstein": {
+    "radius_threshold": 0.3
+  },
+  "dimension": {
+    "max_effective": 2
+  }
+}

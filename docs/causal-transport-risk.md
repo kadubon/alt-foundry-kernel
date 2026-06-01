@@ -2,7 +2,7 @@
 
 Paper DOI: [https://doi.org/10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200)
 
-v0.3.0 provides structural validators for the paper's counterfactual value,
+v0.4.0 provides structural validators for the paper's counterfactual value,
 transport, and hazard accounting surfaces. These validators check executable
 certificate records. They do not create identification assumptions or evidence.
 
@@ -32,7 +32,7 @@ Transport claims fail closed when support is uncovered, density ratio is
 unbounded, drift is stale, refresh is missing, or transport cost is undefined.
 
 `transport-robustness.schema.json` and `validate_transport_robustness` add the
-v0.3.0 robust transport layer: support coverage, robust estimated transport,
+v0.4.0 robust transport layer: support coverage, robust estimated transport,
 Wasserstein-radius thresholding, causal-invariance record, and observable
 stopping. This validator checks supplied robustness evidence; it does not learn
 transportability from raw samples.

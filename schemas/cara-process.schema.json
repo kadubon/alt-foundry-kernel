@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:cara-process:0.3.0",
+  "$id": "urn:alt-foundry-kernel:schema:cara-process:0.4.0",
   "title": "ALT-CARA Process",
   "description": "Target-valid ALT-CARA process, non-tradable target constraints, viability control, and time-to-target improvement contract.",
   "type": "object",

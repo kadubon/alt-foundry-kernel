@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:causal-certificate:0.3.0",
+  "$id": "urn:alt-foundry-kernel:schema:causal-certificate:0.4.0",
   "title": "ALT Causal Certificate",
   "description": "Potential-outcome, baseline, identification, effect-bound, and evidence-mode contract.",
   "type": "object",

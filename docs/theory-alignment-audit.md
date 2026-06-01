@@ -29,7 +29,7 @@ substitute for the paper.
 - Fail-closed required-field validation for every packet type.
 - Lifecycle preconditions for monitor-alarm, transport-refresh, deprecation,
   rollback, and resurrection.
-- Audit-only bridge and kernel-update packet handling in v0.3.0.
+- Audit-only bridge and kernel-update packet handling in v0.4.0.
 - Public audit CLI for DOI links, examples, schemas, local-path leakage,
   paper-source leakage, env files, secret-like assignments, and placeholder
   publishing URLs.
@@ -55,9 +55,17 @@ substitute for the paper.
 - Certificate algebra validator for common-estimand composition, naive
   composition rejection, and negative-certificate scope propagation.
 - Extended portfolio, foundry-control, and CARA process validators.
-- v0.3.0 conformance fixtures for proxy-only routing, deprecation/resurrection,
+- Deterministic estimator helpers for finite-sample confidence accounting,
+  proxy bridges, causal-effect modes, transport diagnostics, guard risk,
+  federated pooling, portfolio selection, foundry phase control, reproduction
+  phase, CARA time-to-target, and alpha-budget gates.
+- v0.4.0 conformance fixtures for proxy-only routing, deprecation/resurrection,
   self-certification rejection, naive-composition rejection, transport
   fail-closed behavior, evaluator-cycle rejection, and CARA target failure.
+- v0.4.0 estimator conformance fixtures for no trace sufficiency, no off-policy
+  overlap, invalid proxy bridge, high-dimensional transport fail,
+  PoUA-as-authority fail, unidentified recombination, guard calibration fail,
+  unsafe CARA timing, and exhausted evidence budget.
 
 ## Approximated
 
@@ -75,13 +83,15 @@ substitute for the paper.
   deprecation, and viability checks are parsed, structurally validated, and
   gated; full domain certification still depends on supplied evidence.
 - Resurrection can add capital only if the packet supplies admission-grade
-  current evidence; otherwise it returns to candidate. The v0.3.0 checker is a
+  current evidence; otherwise it returns to candidate. The v0.4.0 checker is a
   conservative field/status approximation.
 - Non-reduction, mechanism, evaluator, finality, sequential, robust transport,
   certificate-algebra, portfolio, foundry-control, and extended CARA validators
   check declared certificate records. They do not run the experiments,
   governance systems, transport estimators, or optimization procedures that
   would produce those records.
+- Estimator helpers run small generic calculations from supplied JSON. They do
+  not prove that the supplied design is valid outside its declared assumptions.
 
 ## Deferred
 
@@ -117,7 +127,7 @@ kernel can bind fields and apply fail-closed transition rules. Scientific
 validity requires evidence-producing modules that populate those fields under
 declared measurement protocols.
 
-The v0.3.0 kernel therefore does not certify causal value, transportability,
+The v0.4.0 kernel therefore does not certify causal value, transportability,
 root independence, finality, recombination, portfolio optimality, or ASI
 acceleration by itself. It provides the agent-operable boundary those modules
 must write into.

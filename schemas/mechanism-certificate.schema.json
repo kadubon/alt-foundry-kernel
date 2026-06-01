@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:mechanism-certificate:0.3.0",
+  "$id": "urn:alt-foundry-kernel:schema:mechanism-certificate:0.4.0",
   "title": "ALT Mechanism Certificate",
   "description": "Placebo-controlled reuse, mechanism ablation, actor-neutrality, evaluator independence, and self-certification guard contract.",
   "type": "object",

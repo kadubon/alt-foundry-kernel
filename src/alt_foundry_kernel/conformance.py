@@ -12,6 +12,7 @@ from alt_foundry_kernel.cara import validate_cara_certificate
 from alt_foundry_kernel.cara_ext import validate_cara_process
 from alt_foundry_kernel.causal import validate_causal_certificate
 from alt_foundry_kernel.certificate_algebra import validate_certificate_composition
+from alt_foundry_kernel.estimators import estimate_certificate
 from alt_foundry_kernel.evaluator import validate_evaluator_hierarchy
 from alt_foundry_kernel.finality import validate_finality_poua_ledger
 from alt_foundry_kernel.foundry import replay_transcript
@@ -112,6 +113,36 @@ def _check_fixture(
                     f"Certificate fixture expected ok={expected_ok!r}, got ok={report.ok!r}.",
                 )
             )
+        return
+
+    if fixture_type == "estimator":
+        if level in {"L1", "L2"}:
+            return
+        kind = payload.get("kind")
+        if not isinstance(kind, str):
+            findings.append(ConformanceFinding(str(path), "Estimator fixture missing kind."))
+            return
+        report = estimate_certificate(kind, payload.get("payload", {}))
+        expected_ok = payload.get("expected_ok", True)
+        if report.ok is not expected_ok:
+            findings.append(
+                ConformanceFinding(
+                    str(path),
+                    f"Estimator fixture expected ok={expected_ok!r}, got ok={report.ok!r}.",
+                )
+            )
+            return
+        expected_metrics = payload.get("expected_metrics", {})
+        if isinstance(expected_metrics, dict):
+            for key, expected in expected_metrics.items():
+                actual = report.metrics.get(str(key))
+                if actual != expected:
+                    findings.append(
+                        ConformanceFinding(
+                            str(path),
+                            f"Estimator metric {key!r} expected {expected!r}, got {actual!r}.",
+                        )
+                    )
         return
 
     if level in {"L1", "L2", "L4", "L5"} and not replay_transcript(payload):

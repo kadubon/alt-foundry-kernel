@@ -15,6 +15,7 @@ from alt_foundry_kernel.cara_ext import validate_cara_process
 from alt_foundry_kernel.causal import validate_causal_certificate
 from alt_foundry_kernel.certificate_algebra import validate_certificate_composition
 from alt_foundry_kernel.conformance import run_conformance
+from alt_foundry_kernel.estimators import estimate_certificate
 from alt_foundry_kernel.evaluator import validate_evaluator_hierarchy
 from alt_foundry_kernel.finality import validate_finality_poua_ledger
 from alt_foundry_kernel.foundry import make_dashboard, replay_transcript
@@ -56,7 +57,7 @@ def validate(
     ],
     path: Annotated[Path | None, typer.Argument(help="JSON file to validate.")] = None,
 ) -> None:
-    """Validate a packet or v0.3.0 language-neutral artifact."""
+    """Validate a packet or v0.4.0 language-neutral artifact."""
 
     if path is None:
         report = validate_packet(_read_json(Path(kind_or_path)))
@@ -138,6 +139,36 @@ def certify(
         raise typer.BadParameter(f"Unknown certificate kind {kind!r}.")
     report = checker(payload)
     typer.echo(report.model_dump_json(indent=2))
+    if not report.ok:
+        raise typer.Exit(code=1)
+
+
+@app.command()
+def estimate(
+    kind: Annotated[
+        str,
+        typer.Argument(
+            help=(
+                "Estimator kind: finite-sample, proxy-bridge, causal-effect, "
+                "transport-diagnostics, guard-risk, federated-pooling, "
+                "portfolio-selection, foundry-phase, reproduction-phase, "
+                "cara-time-to-target, alpha-budget."
+            )
+        ),
+    ],
+    path: Annotated[Path, typer.Argument(help="Estimator input JSON file.")],
+    out: Annotated[
+        Path | None,
+        typer.Option("--out", help="Optional path for the estimator report JSON."),
+    ] = None,
+) -> None:
+    """Generate a deterministic certificate report from declared estimator input."""
+
+    report = estimate_certificate(kind, _read_json(path))
+    payload = report.model_dump(mode="json")
+    if out:
+        _write_json(out, payload)
+    typer.echo(json.dumps(payload, indent=2, sort_keys=True))
     if not report.ok:
         raise typer.Exit(code=1)
 

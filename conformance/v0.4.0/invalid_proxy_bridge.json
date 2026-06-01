@@ -1,0 +1,13 @@
+{
+  "fixture_type": "estimator",
+  "kind": "proxy-bridge",
+  "expected_ok": false,
+  "payload": {
+    "proxy_effect": { "lower_bound": 1.0 },
+    "calibration": {
+      "status": "valid",
+      "bias_upper_bound": 1.5,
+      "residual_upper_bound": 0.5
+    }
+  }
+}

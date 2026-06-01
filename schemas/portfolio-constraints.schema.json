@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:portfolio-constraints:0.3.0",
+  "$id": "urn:alt-foundry-kernel:schema:portfolio-constraints:0.4.0",
   "title": "ALT Portfolio Constraints",
   "description": "Conflict graph, breadth partition, cherry-picking, behavioral covering, and submodular interface contract.",
   "type": "object",

@@ -16,7 +16,7 @@ class DecisionTranscript(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    schema_version: str = "0.3.0"
+    schema_version: str = "0.4.0"
     initial_state: dict[str, Any] = Field(default_factory=dict)
     packets: list[dict[str, Any]]
     transitions: list[dict[str, Any]]
@@ -84,7 +84,7 @@ def make_dashboard(state: KernelState | Mapping[str, Any]) -> dict[str, Any]:
 
     parsed = state if isinstance(state, KernelState) else KernelState.model_validate(state)
     return {
-        "schema_version": "0.3.0",
+        "schema_version": "0.4.0",
         "epoch": 0,
         "kernel_state": parsed.model_dump(mode="json"),
         "mission_status": {},

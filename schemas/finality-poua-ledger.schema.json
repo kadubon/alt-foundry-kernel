@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:finality-poua-ledger:0.3.0",
+  "$id": "urn:alt-foundry-kernel:schema:finality-poua-ledger:0.4.0",
   "title": "ALT Finality And PoUA Ledger",
   "description": "Federated finality, weighted quorum, PoUA non-authority, and finality-safe settlement contract.",
   "type": "object",

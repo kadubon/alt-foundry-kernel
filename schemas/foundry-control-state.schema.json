@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:foundry-control-state:0.3.0",
+  "$id": "urn:alt-foundry-kernel:schema:foundry-control-state:0.4.0",
   "title": "ALT Foundry Control State",
   "description": "Bottleneck, shadow-price, absorption, conservative exploration, and phase-control contract.",
   "type": "object",

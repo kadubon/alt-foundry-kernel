@@ -1,0 +1,18 @@
+{
+  "fixture_type": "certificate",
+  "kind": "measurement",
+  "expected_ok": false,
+  "payload": {
+    "task": { "id": "task" },
+    "solver": { "id": "solver" },
+    "protocol": { "id": "protocol" },
+    "estimand": { "estimand_type": "causal" },
+    "trace_view": { "projection": "redacted trace" },
+    "sample": { "design": "paired", "size": 12 },
+    "instrumentation": { "status": "valid" },
+    "trace_sufficiency": { "status": "insufficient" },
+    "selection": { "status": "valid" },
+    "firewall": { "status": "valid" },
+    "contamination": { "status": "clear" }
+  }
+}

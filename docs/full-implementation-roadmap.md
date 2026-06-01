@@ -2,11 +2,11 @@
 
 Paper DOI: [https://doi.org/10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200)
 
-This roadmap describes how to extend the v0.3.0 reference kernel into a fuller
+This roadmap describes how to extend the v0.4.0 reference kernel into a fuller
 Abstraction Liquidity Theory foundry while preserving the executable packet,
 certificate, and transcript contracts.
 
-## Stage 0: v0.3.0 Kernel Boundary
+## Stage 0: v0.4.0 Kernel Boundary
 
 - Preserve the public packet schema, lifecycle states, predicate names, and
   fail-closed transition semantics.

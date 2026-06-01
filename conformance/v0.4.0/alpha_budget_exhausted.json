@@ -1,0 +1,10 @@
+{
+  "fixture_type": "estimator",
+  "kind": "alpha-budget",
+  "expected_ok": false,
+  "payload": {
+    "alpha_total": 0.05,
+    "alpha_spent": 0.04,
+    "alpha_requested": 0.02
+  }
+}

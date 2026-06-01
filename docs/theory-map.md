@@ -57,6 +57,7 @@ misapplication charges.
 | CARA claim | Target validity, baseline envelope, membership, viability, time-to-target | `cara`, `schemas/cara-claim.schema.json` |
 | Extended CARA process | Non-tradable target constraints and viability-controlled acceleration | `cara_ext`, `schemas/cara-process.schema.json` |
 | Dashboard protocol | Agent-readable foundry state and allocation surface | `foundry`, `schemas/dashboard.schema.json` |
+| Estimator surface | Generic raw-data builders for certificates | `estimators`, `examples/estimators`, `docs/estimator-contract.md` |
 
 ## Kernel Tuple Mapping
 
@@ -94,7 +95,7 @@ predicate names in `ValidationReport.predicates`:
 `DeprecationOK`, `RawNetSolvencyOK`, `RuntimeWitnessOK`, `NoncompHazardOK`,
 and `ViabilityOK`.
 
-In v0.3.0, the packet kernel still exposes these as packet-level gates, and the
+In v0.4.0, the packet kernel still exposes these as packet-level gates, and the
 certificate modules provide evidence-facing validators for measurement, causal
 effect, transport, risk, authority, root/finality, portfolio, reproduction,
 CARA, non-reduction, mechanism, evaluator/finality, sequential evidence,
@@ -116,13 +117,14 @@ parse -> schema -> typed layers -> dependencies -> mission
 -> ledger -> budget -> capacity -> monitor -> kernel decision
 ```
 
-The v0.3.0 implementation covers the parser, schema, typed layers,
+The v0.4.0 implementation covers the parser, schema, typed layers,
 signed-bound discipline, predicate reports, dual-ledger accounting, lifecycle
-transitions, deterministic transcript replay, and module-level certificate
-checkers. It does not infer scientific truth from raw traces; it verifies the
-declared certificate records that a measurement, causal, transport, risk,
-root/finality, reproduction, CARA, non-reduction, mechanism, evaluator,
-sequential, algebra, portfolio, or foundry-control module supplies.
+transitions, deterministic transcript replay, module-level certificate
+checkers, and generic estimator helpers for bounded finite-sample evidence,
+causal modes, transport diagnostics, guard risk, federated pooling, portfolio
+selection, foundry phase, reproduction phase, and CARA time-to-target. It does
+not infer scientific truth from raw traces; it verifies or estimates only the
+declared certificate records and fails closed when assumptions are missing.
 
 ## Module Handoff Map
 
@@ -145,6 +147,7 @@ sequential, algebra, portfolio, or foundry-control module supplies.
 | `certificate_algebra` | certificates, estimands, operation, negative scope | composition report | naive composition or mismatched estimands |
 | `portfolio_ext` | selection, conflicts, breadth, behavior cover | portfolio constraint report | cherry-picking or selected conflict |
 | `foundry_control` | min-cut, demand, shadow price, absorption, exploration | foundry phase-control report | capacity bottleneck or excessive risk |
+| `estimators` | declared samples, trajectories, graphs, budgets, portfolios | certificate-shaped reports and artifacts | missing assumptions, unsupported mode, no overlap, uncovered support |
 | `reproduction` | matrix, gauge, capacity, identification | reproduction report | unidentified recombination claim |
 | `cara` / `cara_ext` | target, basis, baseline envelope, membership, viability, time-to-target | target-crossing and process reports | missing target evidence, non-tradable failure, or no time improvement |
 

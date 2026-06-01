@@ -1,0 +1,92 @@
+{
+  "version": "0.4.0",
+  "paper_doi": "https://doi.org/10.5281/zenodo.20476200",
+  "status_vocabulary": ["implemented", "estimator", "validator", "schema", "deferred", "not certified"],
+  "entries": [
+    {
+      "paper_class": "Corrected signed certificate discipline",
+      "status": "implemented",
+      "surface": "bounds.compute_signed_bounds"
+    },
+    {
+      "paper_class": "Executable packet, kernel state, lifecycle, and dual ledgers",
+      "status": "implemented",
+      "surface": "Packet, KernelState, run_kernel_transition, conformance transcripts"
+    },
+    {
+      "paper_class": "Measurement validity, trace sufficiency, evaluator firewall, contamination",
+      "status": "validator",
+      "surface": "measurement validator and measurement-spec schema"
+    },
+    {
+      "paper_class": "Finite sample, post-selection, and confidence accounting",
+      "status": "estimator",
+      "surface": "statistics helpers and finite-sample estimator"
+    },
+    {
+      "paper_class": "Proxy bridge and value-estimand hierarchy",
+      "status": "estimator",
+      "surface": "causal validator and proxy-bridge estimator"
+    },
+    {
+      "paper_class": "Causal token-effect modes",
+      "status": "estimator",
+      "surface": "causal-effect estimator and causal certificate validator"
+    },
+    {
+      "paper_class": "Transport support, density ratio, Wasserstein diagnostics, observable stopping",
+      "status": "estimator",
+      "surface": "transport validators and transport-diagnostics estimator"
+    },
+    {
+      "paper_class": "Non-reduction results",
+      "status": "validator",
+      "surface": "non_reduction validator and non-reduction audit schema"
+    },
+    {
+      "paper_class": "Mechanism-mediated reuse and self-certification rejection",
+      "status": "validator",
+      "surface": "mechanism validator and evaluator hierarchy fixtures"
+    },
+    {
+      "paper_class": "Root, finality, quorum, and PoUA non-authority",
+      "status": "validator",
+      "surface": "root_finality and finality validators"
+    },
+    {
+      "paper_class": "Sequential settle-or-sample and finite evidence budget",
+      "status": "estimator",
+      "surface": "sequential validator and alpha-budget estimator"
+    },
+    {
+      "paper_class": "Certificate algebra and negative-certificate scope propagation",
+      "status": "validator",
+      "surface": "certificate_algebra validator"
+    },
+    {
+      "paper_class": "Portfolio conflicts, breadth, covering, and submodular selection",
+      "status": "estimator",
+      "surface": "portfolio_ext validator and portfolio-selection estimator"
+    },
+    {
+      "paper_class": "Foundry min-cut, shadow price, absorption, and phase control",
+      "status": "estimator",
+      "surface": "foundry_control validator and foundry-phase estimator"
+    },
+    {
+      "paper_class": "Reproduction, capacity-capped phase, and recombination identification",
+      "status": "estimator",
+      "surface": "reproduction validator and reproduction-phase estimator"
+    },
+    {
+      "paper_class": "Target-valid ALT-CARA",
+      "status": "estimator",
+      "surface": "cara validators and cara-time-to-target estimator"
+    },
+    {
+      "paper_class": "Real-world ASI realization",
+      "status": "not certified",
+      "surface": "explicitly bounded in docs and CARA validators"
+    }
+  ]
+}

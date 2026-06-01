@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:guard-risk-record:0.4.0",
+  "title": "ALT Guard Risk Record",
+  "description": "Split-calibration guard threshold and risk upper-bound certificate.",
+  "type": "object",
+  "required": ["threshold", "risk_upper_bound"],
+  "additionalProperties": true,
+  "properties": {
+    "threshold": { "type": "number" },
+    "risk_upper_bound": { "type": "number", "minimum": 0 }
+  }
+}

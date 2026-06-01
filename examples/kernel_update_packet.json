@@ -2,7 +2,7 @@
   "id": "pkt-kernel-update-001",
   "type": "kernel-update",
   "token_id": "kernel-alt-bootloader",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "state": "active",
   "scope_hash": "sha256:kernel-semantics-v2",
   "declaration": {

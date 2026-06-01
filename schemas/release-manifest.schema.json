@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:release-manifest:0.4.0",
+  "title": "ALT Release Manifest",
+  "description": "Public release manifest tying version, DOI, conformance, and audit state.",
+  "type": "object",
+  "required": ["version", "paper_doi", "conformance_level", "public_audit"],
+  "additionalProperties": true,
+  "properties": {
+    "version": { "type": "string" },
+    "paper_doi": { "type": "string" },
+    "conformance_level": { "type": "string" },
+    "public_audit": { "type": "string" }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:portfolio-state:0.3.0",
+  "$id": "urn:alt-foundry-kernel:schema:portfolio-state:0.4.0",
   "title": "ALT Portfolio State",
   "description": "Dependency-closed portfolio and capital-accounting state contract.",
   "type": "object",

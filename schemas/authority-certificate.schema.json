@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:authority-certificate:0.3.0",
+  "$id": "urn:alt-foundry-kernel:schema:authority-certificate:0.4.0",
   "title": "ALT Authority Certificate",
   "description": "Authority, capability, threat, runtime-witness, telemetry, and guard contract.",
   "type": "object",

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:submodular-selection-result:0.4.0",
+  "title": "ALT Submodular Selection Result",
+  "description": "Conflict-aware portfolio selection output.",
+  "type": "object",
+  "required": ["selection", "used_budget"],
+  "additionalProperties": true,
+  "properties": {
+    "selection": { "type": "array", "items": { "type": "string" } },
+    "used_budget": { "type": "number", "minimum": 0 }
+  }
+}

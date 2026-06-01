@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:recombination-estimate:0.4.0",
+  "title": "ALT Recombination Estimate",
+  "description": "Capacity-capped reproduction and recombination estimator artifact.",
+  "type": "object",
+  "required": ["capacity_capped_growth", "spectral_radius", "phase"],
+  "additionalProperties": true,
+  "properties": {
+    "capacity_capped_growth": { "type": "array", "items": { "type": "number" } },
+    "spectral_radius": { "type": "number", "minimum": 0 },
+    "phase": { "type": "string" }
+  }
+}

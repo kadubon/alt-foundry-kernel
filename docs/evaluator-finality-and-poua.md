@@ -9,7 +9,7 @@ claim.
 
 ## Evaluator Hierarchy
 
-The v0.3.0 `evaluator` module validates a stratified evaluator graph:
+The v0.4.0 `evaluator` module validates a stratified evaluator graph:
 
 - evaluator IDs and strata are explicit;
 - evaluation edges form a directed acyclic graph;
@@ -30,7 +30,7 @@ cycle rejection as a portable requirement.
 
 ## Finality And PoUA
 
-The v0.3.0 `finality` module checks:
+The v0.4.0 `finality` module checks:
 
 - federated finality is finalized;
 - root status is valid;

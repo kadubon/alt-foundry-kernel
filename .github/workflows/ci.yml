@@ -47,5 +47,16 @@ jobs:
       - run: uv run altk certify portfolio-ext examples/certificates/portfolio_constraints.json
       - run: uv run altk certify foundry-control examples/certificates/foundry_control_state.json
       - run: uv run altk certify cara-ext examples/certificates/cara_process.json
+      - run: uv run altk estimate finite-sample examples/estimators/finite_sample.json
+      - run: uv run altk estimate proxy-bridge examples/estimators/proxy_bridge.json
+      - run: uv run altk estimate causal-effect examples/estimators/causal_effect.json
+      - run: uv run altk estimate transport-diagnostics examples/estimators/transport_diagnostics.json
+      - run: uv run altk estimate guard-risk examples/estimators/guard_risk.json
+      - run: uv run altk estimate federated-pooling examples/estimators/federated_pooling.json
+      - run: uv run altk estimate portfolio-selection examples/estimators/portfolio_selection.json
+      - run: uv run altk estimate foundry-phase examples/estimators/foundry_phase.json
+      - run: uv run altk estimate reproduction-phase examples/estimators/reproduction_phase.json
+      - run: uv run altk estimate cara-time-to-target examples/estimators/cara_time_to_target.json
+      - run: uv run altk estimate alpha-budget examples/estimators/alpha_budget.json
       - run: uv run altk conformance --fixtures conformance --level L5
       - run: uv run altk audit-public --strict

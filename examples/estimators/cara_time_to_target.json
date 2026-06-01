@@ -1,0 +1,12 @@
+{
+  "target": {
+    "status": "valid"
+  },
+  "candidate_path": [1.0, 2.5, 4.0, 5.5],
+  "baseline_upper_envelope": [1.0, 1.8, 2.7, 3.5, 4.2, 5.1],
+  "target_threshold": 5.0,
+  "margin": 1.0,
+  "raw_net_capital": {
+    "lower_bound": 2.0
+  }
+}

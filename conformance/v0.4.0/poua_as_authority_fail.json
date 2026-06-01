@@ -1,0 +1,15 @@
+{
+  "fixture_type": "certificate",
+  "kind": "finality",
+  "expected_ok": false,
+  "payload": {
+    "federated_finality": { "state": "finalized" },
+    "root": { "status": "valid" },
+    "quorum": { "threshold": 3.0, "signed_weight": 4.0 },
+    "poua_ledger": {
+      "status": "valid",
+      "used_as_epistemic_authority": true
+    },
+    "settlement": { "finality_safe": true }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:non-reduction-audit:0.3.0",
+  "$id": "urn:alt-foundry-kernel:schema:non-reduction-audit:0.4.0",
   "title": "ALT Non-Reduction Audit",
   "description": "Rejects claims that substitute compression, novelty, benchmark score, trace volume, library size, static surplus, evidence volume, or packaging for certified liquidity.",
   "type": "object",

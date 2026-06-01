@@ -9,7 +9,7 @@ and still fail to become safe certified abstraction capital.
 
 ## Non-Reduction Contract
 
-The v0.3.0 `non_reduction` module makes this explicit. It rejects attempts to
+The v0.4.0 `non_reduction` module makes this explicit. It rejects attempts to
 use these properties as substitutes for liquidity certification:
 
 - compression;

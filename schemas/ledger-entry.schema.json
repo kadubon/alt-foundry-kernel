@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:ledger-entry:0.3.0",
+  "$id": "urn:alt-foundry-kernel:schema:ledger-entry:0.4.0",
   "title": "ALT Ledger Entry",
   "type": "object",
   "additionalProperties": false,

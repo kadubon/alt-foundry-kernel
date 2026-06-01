@@ -1,0 +1,12 @@
+{
+  "fixture_type": "estimator",
+  "kind": "transport-diagnostics",
+  "expected_ok": false,
+  "payload": {
+    "source_points": [[0.0, 0.0, 0.0], [1.0, 1.0, 1.0]],
+    "target_points": [[10.0, 10.0, 10.0]],
+    "support": { "radius": 0.2 },
+    "wasserstein": { "radius_threshold": 0.2 },
+    "dimension": { "max_effective": 2 }
+  }
+}

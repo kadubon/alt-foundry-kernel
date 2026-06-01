@@ -68,11 +68,27 @@ uv run altk certify foundry-control examples/certificates/foundry_control_state.
 uv run altk certify cara-ext examples/certificates/cara_process.json
 ```
 
+Run estimator examples:
+
+```bash
+uv run altk estimate finite-sample examples/estimators/finite_sample.json
+uv run altk estimate proxy-bridge examples/estimators/proxy_bridge.json
+uv run altk estimate causal-effect examples/estimators/causal_effect.json
+uv run altk estimate transport-diagnostics examples/estimators/transport_diagnostics.json
+uv run altk estimate guard-risk examples/estimators/guard_risk.json
+uv run altk estimate federated-pooling examples/estimators/federated_pooling.json
+uv run altk estimate portfolio-selection examples/estimators/portfolio_selection.json
+uv run altk estimate foundry-phase examples/estimators/foundry_phase.json
+uv run altk estimate reproduction-phase examples/estimators/reproduction_phase.json
+uv run altk estimate cara-time-to-target examples/estimators/cara_time_to_target.json
+uv run altk estimate alpha-budget examples/estimators/alpha_budget.json
+```
+
 `altk audit-public --strict` checks DOI links, schema validity, packet examples,
-certificate examples, conformance replay, local path leakage, `.env*` files,
-downloaded paper source, obvious secret assignments, and placeholder publishing
-URLs. Local virtual environments and caches are reported as cleanup warnings and
-excluded from content scanning.
+certificate examples, estimator examples, conformance replay, local path
+leakage, `.env*` files, downloaded paper source, obvious secret assignments,
+and placeholder publishing URLs. Local virtual environments and caches are
+reported as cleanup warnings and excluded from content scanning.
 
 ## Reporting Issues
 

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:evidence-budget:0.4.0",
+  "title": "ALT Evidence Budget",
+  "description": "Finite alpha or evidence-budget spending record for settlement.",
+  "type": "object",
+  "required": ["alpha_remaining"],
+  "additionalProperties": true,
+  "properties": {
+    "alpha_remaining": { "type": "number" }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "mode": "paired",
+  "confidence": 0.8,
+  "unit": "mission-valid-fcu",
+  "identification": {
+    "status": "valid"
+  },
+  "effect_bounds": {
+    "lower": 3.0,
+    "upper": 5.0
+  },
+  "records": [
+    { "candidate": 9.0, "baseline": 4.0 },
+    { "candidate": 8.5, "baseline": 4.0 },
+    { "candidate": 8.0, "baseline": 4.0 },
+    { "candidate": 8.0, "baseline": 4.5 },
+    { "candidate": 7.5, "baseline": 4.0 },
+    { "candidate": 8.5, "baseline": 4.5 }
+  ]
+}

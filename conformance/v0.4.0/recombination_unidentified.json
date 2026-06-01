@@ -1,0 +1,14 @@
+{
+  "fixture_type": "estimator",
+  "kind": "reproduction-phase",
+  "expected_ok": false,
+  "payload": {
+    "matrix": [[0.4, 0.2], [0.1, 0.5]],
+    "state": [4.0, 3.0],
+    "capacity": [3.0, 3.0],
+    "recombination": {
+      "claimed": true,
+      "identification_status": "missing"
+    }
+  }
+}

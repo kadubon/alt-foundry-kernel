@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:phase-control-record:0.4.0",
+  "title": "ALT Phase Control Record",
+  "description": "Foundry bottleneck, min-cut, and phase-control record.",
+  "type": "object",
+  "required": ["phase", "min_cut_capacity"],
+  "additionalProperties": true,
+  "properties": {
+    "phase": { "type": "string" },
+    "min_cut_capacity": { "type": "number", "minimum": 0 },
+    "shadow_price_signal": { "type": "number", "minimum": 0 }
+  }
+}

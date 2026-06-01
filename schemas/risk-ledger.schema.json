@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:risk-ledger:0.3.0",
+  "$id": "urn:alt-foundry-kernel:schema:risk-ledger:0.4.0",
   "title": "ALT Risk Ledger",
   "description": "Hazard envelope, reserve charge, irreversible-loss, and raw-net capital contract.",
   "type": "object",

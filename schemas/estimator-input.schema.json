@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:estimator-input:0.4.0",
+  "title": "ALT Estimator Input",
+  "description": "Generic declared input envelope for deterministic ALT estimator helpers.",
+  "type": "object",
+  "additionalProperties": true
+}

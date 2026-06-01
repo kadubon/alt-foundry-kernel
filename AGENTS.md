@@ -1,6 +1,6 @@
 # Agent Instructions
 
-This repository implements the ALT Foundry Kernel v0.3.0 reference kernel and
+This repository implements the ALT Foundry Kernel v0.4.0 reference kernel and
 language-neutral contract. Preserve the paper-linked contract: packets and
 certificates are executable records, not informal claims. Theory citation:
 https://doi.org/10.5281/zenodo.20476200
@@ -43,6 +43,9 @@ uv run altk certify certificate-algebra examples/certificates/certificate_compos
 uv run altk certify portfolio-ext examples/certificates/portfolio_constraints.json
 uv run altk certify foundry-control examples/certificates/foundry_control_state.json
 uv run altk certify cara-ext examples/certificates/cara_process.json
+uv run altk estimate finite-sample examples/estimators/finite_sample.json
+uv run altk estimate causal-effect examples/estimators/causal_effect.json
+uv run altk estimate transport-diagnostics examples/estimators/transport_diagnostics.json
 uv run altk conformance --fixtures conformance --level L5
 uv run altk audit-public --strict
 uv run ruff check .
@@ -66,6 +69,10 @@ uv run pytest --cov=alt_foundry_kernel
     algebra, portfolio conflicts, and foundry-control capacity.
 11. CARA target-validity, baseline-envelope, target-membership, viability, and
     time-to-target fields, only when target crossing is claimed.
+12. Estimator output artifacts. Estimators may compute generic certificate
+    reports from declared data, but they must fail closed when assumptions,
+    overlap, support, calibration, identification, budget, or target evidence is
+    missing.
 
 Missing evidence is undefined, not zero. Use measured evidence, a declared
 worst-case charge, a narrowed claim, exploration-only status, or rejection.
@@ -88,3 +95,18 @@ worst-case charge, a narrowed claim, exploration-only status, or rejection.
 - Non-reduction, mechanism, evaluator, finality/PoUA, sequential, robust
   transport, certificate-algebra, portfolio, and foundry-control modules verify
   declared certificate records. Do not treat them as estimators.
+- Estimator helpers produce certificate-shaped reports from explicit JSON
+  inputs. They are deterministic builders, not scientific authority. A failed
+  estimator report must not be patched into a settlement packet.
+
+## Automatic Implementation Order
+
+1. Read the DOI, `README.md`, `docs/theory-map.md`,
+   `docs/schema-contract.md`, `docs/estimator-contract.md`, and
+   `docs/language-neutral-contract.md`.
+2. Generate or validate estimator inputs under `examples/estimators/`.
+3. Convert successful estimator reports into certificate records only when all
+   assumptions are explicit.
+4. Assemble packet fields from certificates.
+5. Run `altk validate`, `altk decide`, `altk conformance --level L5`, and
+   `altk audit-public --strict`.

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:confidence-accounting:0.4.0",
+  "title": "ALT Confidence Accounting",
+  "description": "Finite-sample confidence and post-selection accounting record.",
+  "type": "object",
+  "required": ["values_count", "lower_bound", "adjusted_confidence"],
+  "additionalProperties": true,
+  "properties": {
+    "values_count": { "type": "integer", "minimum": 1 },
+    "lower_bound": { "type": "number" },
+    "adjusted_confidence": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 },
+    "selected_from": { "type": "integer", "minimum": 1 }
+  }
+}

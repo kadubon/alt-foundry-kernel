@@ -1,0 +1,10 @@
+{
+  "source": "trace",
+  "sink": "settlement",
+  "demand_upper_bound": 4.0,
+  "edges": [
+    { "from": "trace", "to": "measurement", "capacity": 6.0 },
+    { "from": "measurement", "to": "certification", "capacity": 5.0 },
+    { "from": "certification", "to": "settlement", "capacity": 4.5 }
+  ]
+}

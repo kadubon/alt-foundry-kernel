@@ -15,6 +15,7 @@ from alt_foundry_kernel.cara_ext import validate_cara_process
 from alt_foundry_kernel.causal import validate_causal_certificate
 from alt_foundry_kernel.certificate_algebra import validate_certificate_composition
 from alt_foundry_kernel.conformance import run_conformance
+from alt_foundry_kernel.estimators import estimate_certificate
 from alt_foundry_kernel.evaluator import validate_evaluator_hierarchy
 from alt_foundry_kernel.finality import validate_finality_poua_ledger
 from alt_foundry_kernel.foundry_control import validate_foundry_control_state
@@ -289,6 +290,28 @@ def _check_examples(root: Path, findings: list[AuditFinding]) -> None:
                     "certificate-example-fails-alt-validation",
                     relative,
                     "; ".join(issue.message for issue in certificate_report.issues),
+                )
+            )
+
+    estimator_dir = root / "examples" / "estimators"
+    report_validator = Draft202012Validator(load_schema("certificate-report"))
+    for path in sorted(estimator_dir.glob("*.json")):
+        relative = path.relative_to(root)
+        kind = path.stem.replace("_", "-")
+        try:
+            payload = json.loads(_text(path))
+            estimator_report = estimate_certificate(kind, payload)
+            report_validator.validate(estimator_report.model_dump(mode="json"))
+        except Exception as exc:
+            findings.append(_finding("error", "estimator-example-invalid", relative, str(exc)))
+            continue
+        if not estimator_report.ok:
+            findings.append(
+                _finding(
+                    "error",
+                    "estimator-example-fails-alt-validation",
+                    relative,
+                    "; ".join(issue.message for issue in estimator_report.issues),
                 )
             )
 

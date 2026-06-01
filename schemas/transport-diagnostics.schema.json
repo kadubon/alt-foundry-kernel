@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:transport-diagnostics:0.4.0",
+  "title": "ALT Transport Diagnostics",
+  "description": "Support and empirical transport-radius diagnostics.",
+  "type": "object",
+  "required": ["support", "wasserstein"],
+  "additionalProperties": true,
+  "properties": {
+    "support": { "type": "object", "additionalProperties": true },
+    "wasserstein": { "type": "object", "additionalProperties": true }
+  }
+}

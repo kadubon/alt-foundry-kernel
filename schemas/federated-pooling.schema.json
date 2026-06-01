@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:federated-pooling:0.4.0",
+  "title": "ALT Federated Pooling Record",
+  "description": "Federated evidence pooling result with effective-sample penalty.",
+  "type": "object",
+  "required": ["pooled_lower_bound", "effective_n"],
+  "additionalProperties": true,
+  "properties": {
+    "pooled_lower_bound": { "type": "number" },
+    "effective_n": { "type": "number", "minimum": 0 }
+  }
+}

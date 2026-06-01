@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:packet:0.3.0",
+  "$id": "urn:alt-foundry-kernel:schema:packet:0.4.0",
   "title": "ALT Executable Certificate Packet",
   "description": "Language-neutral packet surface for Abstraction Liquidity Theory executable certificate packets. The schema validates syntax; the kernel applies packet-type and fail-closed semantic requirements.",
   "type": "object",

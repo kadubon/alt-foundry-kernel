@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:proxy-bridge-record:0.4.0",
+  "title": "ALT Proxy Bridge Record",
+  "description": "Bias-bounded proxy-to-utility bridge certificate.",
+  "type": "object",
+  "required": ["status", "bridged_lower_bound"],
+  "additionalProperties": true,
+  "properties": {
+    "status": { "type": "string" },
+    "bridged_lower_bound": { "type": ["number", "null"] }
+  }
+}

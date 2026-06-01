@@ -1,0 +1,11 @@
+{
+  "budget": 5.0,
+  "tokens": [
+    { "token_id": "tok-a", "value_lower_bound": 5.0, "cost_upper_bound": 2.0, "risk_upper_bound": 0.5 },
+    { "token_id": "tok-b", "value_lower_bound": 4.0, "cost_upper_bound": 2.0, "risk_upper_bound": 0.4 },
+    { "token_id": "tok-c", "value_lower_bound": 3.0, "cost_upper_bound": 1.0, "risk_upper_bound": 0.2 }
+  ],
+  "conflicts": [
+    { "left": "tok-a", "right": "tok-b" }
+  ]
+}

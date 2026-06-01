@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:sequential-decision:0.3.0",
+  "$id": "urn:alt-foundry-kernel:schema:sequential-decision:0.4.0",
   "title": "ALT Sequential Decision",
   "description": "Adaptive horizon, EVSI, settle-or-sample, and finite evidence-budget decision contract.",
   "type": "object",

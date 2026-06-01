@@ -10,7 +10,7 @@ information and fail-closed semantics to the kernel.
 For implementation conformance outside Python, see
 `docs/language-neutral-contract.md`.
 
-v0.3.0 separates the public contract into packet schemas and module-level
+v0.4.0 separates the public contract into packet schemas and module-level
 certificate schemas. Packets remain the kernel input. Certificate schemas are
 the portable records emitted by measurement, causal, transport, risk,
 root/finality, reproduction, CARA, non-reduction, mechanism, evaluator,
@@ -72,10 +72,10 @@ Python validation applies semantic requirements on top of JSON Schema:
 - `resurrection`: old negative certificate, overwriting evidence, new signed
   bounds, raw-net lower bound, hazard, and finality. Capital addition also
   requires admission-grade current evidence at transition time.
-- `bridge`: claim id, bridge object, and root status. v0.3.0 records it as
+- `bridge`: claim id, bridge object, and root status. v0.4.0 records it as
   audit evidence only.
 - `kernel-update`: old semantics, new semantics, bridge, independent root, and
-  rollback path. v0.3.0 records it; the current kernel remains authoritative.
+  rollback path. v0.4.0 records it; the current kernel remains authoritative.
 
 ## Conditional CARA Fields
 
@@ -123,7 +123,7 @@ A compatible implementation must preserve:
 - CARA conditional fields;
 - auditability of every state-changing packet.
 
-## v0.3.0 Module Schemas
+## v0.4.0 Module Schemas
 
 | Schema | Purpose | Typical producer |
 | --- | --- | --- |
@@ -151,6 +151,17 @@ A compatible implementation must preserve:
 | `cara-process.schema.json` | target-valid process, non-tradable constraints, viability-controlled acceleration | CARA process auditor |
 | `foundry-transcript.schema.json` | replayable deterministic transition transcript | conformance runner |
 | `conformance-result.schema.json` | portable replay result | CI or release audit |
+| `estimator-input.schema.json` | generic estimator input envelope | non-Python estimator harness |
+| `confidence-accounting.schema.json` | finite-sample and post-selection confidence artifact | finite-sample estimator |
+| `evidence-budget.schema.json` | alpha or finite evidence-budget gate | sequential controller |
+| `guard-risk-record.schema.json` | split-calibration guard-risk artifact | guard-risk estimator |
+| `proxy-bridge-record.schema.json` | bias-bounded proxy bridge artifact | proxy bridge estimator |
+| `federated-pooling.schema.json` | pooled evidence with correlation penalty | federated evidence estimator |
+| `transport-diagnostics.schema.json` | support and empirical transport radius artifact | transport diagnostics estimator |
+| `submodular-selection-result.schema.json` | conflict-aware portfolio selection artifact | portfolio estimator |
+| `phase-control-record.schema.json` | foundry min-cut and phase-control artifact | foundry phase estimator |
+| `recombination-estimate.schema.json` | spectral/capacity reproduction and recombination artifact | reproduction estimator |
+| `release-manifest.schema.json` | release DOI, conformance, and audit manifest | release process |
 
 The module schemas are deliberately not hidden Python internals. They are
 intended for agents implementing the paper in any programming language. A

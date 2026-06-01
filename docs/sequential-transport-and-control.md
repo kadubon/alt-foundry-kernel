@@ -2,7 +2,7 @@
 
 Paper DOI: [https://doi.org/10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200)
 
-v0.3.0 adds deterministic validators for three paper-facing control surfaces:
+v0.4.0 adds deterministic validators for three paper-facing control surfaces:
 sequential evidence decisions, robust transport boundaries, and foundry phase
 control. They are certificate checkers, not data-generating estimators.
 

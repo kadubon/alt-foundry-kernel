@@ -2,7 +2,7 @@
 
 Paper DOI: [https://doi.org/10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200)
 
-This document covers v0.3.0 contracts for the paper's root/finality,
+This document covers v0.4.0 contracts for the paper's root/finality,
 portfolio, reproduction, recombination, and target-crossing surfaces.
 
 ## Root And Finality
@@ -14,7 +14,7 @@ Optional Ed25519 signatures can be verified when a message and base64 public
 keys/signatures are present.
 
 `evaluator-hierarchy.schema.json` and `finality-poua-ledger.schema.json` add
-v0.3.0 guards for stratified evaluator DAGs, independent root rotation,
+v0.4.0 guards for stratified evaluator DAGs, independent root rotation,
 federated finality, weighted quorum, PoUA non-authority, and finality-safe
 settlement. These checkers do not implement Byzantine governance by themselves.
 They verify records supplied by evaluator and finality services.
@@ -50,7 +50,7 @@ comparison is claimed, the record must include target validity, capability
 basis, baseline upper envelope, target membership, viability witness, and
 candidate/baseline time-to-target bounds.
 
-`cara-process.schema.json` and `validate_cara_process` add v0.3.0 guardrails for
+`cara-process.schema.json` and `validate_cara_process` add v0.4.0 guardrails for
 target-valid processes, non-tradable target constraints, baseline envelopes,
 viability-controlled acceleration, raw-net capital, and stopping conditions.
 These checkers verify structural target-crossing conditions and time-to-target

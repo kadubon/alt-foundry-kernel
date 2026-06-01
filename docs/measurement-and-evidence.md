@@ -2,7 +2,7 @@
 
 Paper DOI: [https://doi.org/10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200)
 
-This document describes how v0.3.0 turns the paper's task, solver, protocol,
+This document describes how v0.4.0 turns the paper's task, solver, protocol,
 trace, value-estimand, and evaluator-firewall requirements into reusable
 implementation contracts.
 

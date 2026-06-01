@@ -3,10 +3,11 @@
 Paper DOI: [https://doi.org/10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200)
 
 ALT Foundry Kernel is intentionally not a Python-only specification. The Python
-package is the reference implementation for v0.3.0. The portable contract is
+package is the reference implementation for v0.4.0. The portable contract is
 the executable packet shape, module certificate schemas, predicate semantics,
 signed-bound discipline, lifecycle state machine, dual-ledger accounting rule,
-certificate report shape, and replayable conformance fixtures.
+certificate report shape, estimator report shape, and replayable conformance
+fixtures.
 
 ## Required Wire Surface
 
@@ -68,7 +69,7 @@ CARA target crossing or a time-to-target comparison. If the claim is present,
 missing target-validity, target-membership, baseline-envelope, viability, or
 time-to-target fields fail closed.
 
-## v0.3.0 Certificate Predicates
+## v0.4.0 Certificate Predicates
 
 Module checkers use the same report shape but different predicate namespaces.
 Conforming implementations should preserve these names when implementing the
@@ -87,8 +88,18 @@ corresponding modules:
 | `foundry-control` | `BottleneckCapacityOK`, `AbsorptionCapacityOK`, `CapitalConservativeExploration` |
 | `cara-ext` | `TargetValidityOK`, `NonTradableConstraintsOK`, `ViabilityControlledOK` |
 
-These validators check declared certificates. They are not estimators. A false
-predicate blocks settlement or keeps the record audit-only.
+These validators check declared certificates. Estimator helpers add deterministic
+builders for selected generic certificate artifacts, but a false predicate still
+blocks settlement or keeps the record audit-only.
+
+## v0.4.0 Estimator Reports
+
+Estimator commands use the same `CertificateReport` shape as validators. The
+stable kinds are `finite-sample`, `proxy-bridge`, `causal-effect`,
+`transport-diagnostics`, `guard-risk`, `federated-pooling`,
+`portfolio-selection`, `foundry-phase`, `reproduction-phase`,
+`cara-time-to-target`, and `alpha-budget`. Their output artifacts are described
+in `docs/estimator-contract.md`.
 
 ## Signed-Bound Discipline
 
@@ -141,15 +152,16 @@ noncompensable-hazard, and viability gates required for the claim.
 | L0 schema | parse all schemas and validate packet/certificate examples |
 | L1 arithmetic | reproduce signed bounds, raw-net capital, and settlement-only accounting |
 | L2 kernel | reproduce packet decisions and lifecycle transitions |
-| L3 module reports | emit compatible `CertificateReport` objects for all certificate modules |
+| L3 module reports | emit compatible `CertificateReport` objects for all certificate and estimator modules |
 | L4 transcript | replay `conformance/` fixtures deterministically |
 | L5 public release | pass an audit equivalent to `altk audit-public --strict` |
 
 `altk conformance --fixtures conformance --level L5` is the reference command.
-The runner includes historical v0.3.0 admission replay and v0.3.0 fixtures for
-proxy-only routing, deprecation/resurrection, rejected self-certification,
-invalid naive composition, transport fail-closed behavior, evaluator-cycle
-rejection, and CARA target-crossing failure.
+The runner includes historical v0.2.0 admission replay, v0.3.0 packet and
+certificate fixtures, and v0.4.0 estimator fixtures for no trace sufficiency,
+no off-policy overlap, invalid proxy bridge, high-dimensional transport failure,
+PoUA-as-authority failure, unidentified recombination, guard calibration
+failure, unsafe CARA target timing, and exhausted evidence budget.
 
 ## Report Shape
 

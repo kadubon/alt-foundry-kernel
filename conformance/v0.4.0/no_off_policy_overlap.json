@@ -1,0 +1,13 @@
+{
+  "fixture_type": "estimator",
+  "kind": "causal-effect",
+  "expected_ok": false,
+  "payload": {
+    "mode": "off_policy",
+    "confidence": 0.8,
+    "identification": { "status": "valid" },
+    "records": [
+      { "reward": 1.0, "target_prob": 1.0, "logging_prob": 0.0 }
+    ]
+  }
+}

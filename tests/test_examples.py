@@ -52,6 +52,11 @@ def test_empty_kernel_state_example_matches_python_model() -> None:
     assert parsed.admitted_tokens == []
 
 
+def test_release_manifest_matches_public_schema() -> None:
+    manifest = _load("release_manifest.json")
+    Draft202012Validator(load_schema("release-manifest")).validate(manifest)
+
+
 def test_certificate_examples_validate_with_schema_and_python_checkers() -> None:
     checks = {
         "measurement_spec.json": ("measurement-spec", validate_measurement_spec),
