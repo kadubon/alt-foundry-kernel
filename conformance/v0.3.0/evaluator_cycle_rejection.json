@@ -1,0 +1,43 @@
+{
+  "fixture_type": "certificate",
+  "kind": "evaluator",
+  "expected_ok": false,
+  "payload": {
+    "hierarchy_id": "eval-cycle-negative",
+    "root": {
+      "status": "valid",
+      "root_id": "root-evaluator-v1"
+    },
+    "root_rotation": {
+      "status": "valid",
+      "epoch": 3
+    },
+    "evaluators": [
+      {
+        "id": "root-evaluator-v1",
+        "stratum": 3,
+        "independent": true
+      },
+      {
+        "id": "evaluator-a",
+        "stratum": 2,
+        "independent": true
+      },
+      {
+        "id": "evaluator-b",
+        "stratum": 2,
+        "independent": true
+      }
+    ],
+    "evaluation_edges": [
+      {
+        "evaluator": "evaluator-a",
+        "subject": "evaluator-b"
+      },
+      {
+        "evaluator": "evaluator-b",
+        "subject": "evaluator-a"
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "liquidity_claim": { "status": "explicit" },
+  "measurement": { "status": "valid" },
+  "signed_surplus": { "status": "valid" },
+  "transport": { "status": "valid" },
+  "hazard": { "status": "bounded" },
+  "authority": { "status": "valid" },
+  "lifecycle": { "status": "valid" },
+  "finality": { "status": "finalized" },
+  "kernel_route": { "status": "valid" },
+  "capital_effect": { "claims_settlement": true },
+  "shortcuts": [
+    { "name": "compression", "used_as_certification": false },
+    { "name": "benchmark_score", "used_as_certification": false },
+    { "name": "trace_volume", "used_as_certification": false }
+  ]
+}

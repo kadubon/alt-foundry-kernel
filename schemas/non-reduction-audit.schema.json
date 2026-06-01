@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:non-reduction-audit:0.3.0",
+  "title": "ALT Non-Reduction Audit",
+  "description": "Rejects claims that substitute compression, novelty, benchmark score, trace volume, library size, static surplus, evidence volume, or packaging for certified liquidity.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "liquidity_claim",
+    "measurement",
+    "signed_surplus",
+    "transport",
+    "hazard",
+    "authority",
+    "lifecycle",
+    "finality",
+    "shortcuts"
+  ],
+  "properties": {
+    "liquidity_claim": { "$ref": "#/$defs/status_object" },
+    "measurement": { "$ref": "#/$defs/status_object" },
+    "signed_surplus": { "$ref": "#/$defs/status_object" },
+    "transport": { "$ref": "#/$defs/status_object" },
+    "hazard": { "$ref": "#/$defs/status_object" },
+    "authority": { "$ref": "#/$defs/status_object" },
+    "lifecycle": { "$ref": "#/$defs/status_object" },
+    "finality": { "$ref": "#/$defs/status_object" },
+    "kernel_route": { "$ref": "#/$defs/status_object" },
+    "capital_effect": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": { "claims_settlement": { "type": "boolean" } }
+    },
+    "shortcuts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "used_as_certification"],
+        "additionalProperties": true,
+        "properties": {
+          "name": { "type": "string" },
+          "used_as_certification": { "type": "boolean" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "status_object": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": { "status": { "type": "string" } }
+    }
+  }
+}

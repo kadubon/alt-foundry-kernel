@@ -1,0 +1,11 @@
+{
+  "tokens": ["tok-a", "tok-b", "tok-c"],
+  "selection": ["tok-a", "tok-c"],
+  "conflicts": [
+    { "left": "tok-a", "right": "tok-b" }
+  ],
+  "breadth_partition": { "status": "valid" },
+  "cherry_picking": { "status": "cleared" },
+  "behavioral_cover": { "status": "valid" },
+  "submodular_interface": { "status": "valid" }
+}

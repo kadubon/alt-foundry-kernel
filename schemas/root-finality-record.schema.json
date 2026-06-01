@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:root-finality-record:0.2.0",
+  "$id": "urn:alt-foundry-kernel:schema:root-finality-record:0.3.0",
   "title": "ALT Root And Finality Record",
   "description": "Root-of-trust, quorum, role-separation, finality, signature, and rollback contract.",
   "type": "object",

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:mechanism-certificate:0.3.0",
+  "title": "ALT Mechanism Certificate",
+  "description": "Placebo-controlled reuse, mechanism ablation, actor-neutrality, evaluator independence, and self-certification guard contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "placebo",
+    "ablation",
+    "actor_neutrality",
+    "evaluator_independence",
+    "self_certification",
+    "mechanism_effect"
+  ],
+  "properties": {
+    "placebo": { "$ref": "#/$defs/status_object" },
+    "ablation": { "$ref": "#/$defs/status_object" },
+    "actor_neutrality": { "$ref": "#/$defs/status_object" },
+    "evaluator_independence": { "$ref": "#/$defs/status_object" },
+    "self_certification": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": {
+        "status": { "type": "string" },
+        "self_certified": { "type": "boolean" }
+      }
+    },
+    "mechanism_effect": {
+      "type": "object",
+      "required": ["lower_bound"],
+      "additionalProperties": true,
+      "properties": { "lower_bound": { "type": "number" } }
+    }
+  },
+  "$defs": {
+    "status_object": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": { "status": { "type": "string" } }
+    }
+  }
+}

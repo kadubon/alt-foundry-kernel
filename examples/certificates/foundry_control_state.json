@@ -1,0 +1,14 @@
+{
+  "bottleneck": {
+    "min_cut_capacity": 8.0,
+    "demand_upper_bound": 6.0
+  },
+  "shadow_price": { "status": "valid" },
+  "absorption": { "capacity_lower_bound": 7.0 },
+  "exploration": {
+    "capital_at_risk_upper_bound": 1.0,
+    "risk_budget": 2.0
+  },
+  "phase": { "status": "valid" },
+  "conservative_exploration": { "status": "valid" }
+}

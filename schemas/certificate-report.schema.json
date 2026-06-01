@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:certificate-report:0.2.0",
+  "$id": "urn:alt-foundry-kernel:schema:certificate-report:0.3.0",
   "title": "ALT Certificate Report",
   "description": "Portable result object emitted by module-level ALT certificate checkers.",
   "type": "object",

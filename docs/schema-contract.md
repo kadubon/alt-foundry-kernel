@@ -10,11 +10,13 @@ information and fail-closed semantics to the kernel.
 For implementation conformance outside Python, see
 `docs/language-neutral-contract.md`.
 
-v0.2.0 separates the public contract into packet schemas and module-level
+v0.3.0 separates the public contract into packet schemas and module-level
 certificate schemas. Packets remain the kernel input. Certificate schemas are
 the portable records emitted by measurement, causal, transport, risk,
-root/finality, reproduction, and CARA modules before their results are copied
-into packet `declaration`, `evidence`, `bounds`, and `validity` fields.
+root/finality, reproduction, CARA, non-reduction, mechanism, evaluator,
+sequential, certificate-algebra, portfolio, and foundry-control modules before
+their results are copied into packet `declaration`, `evidence`, `bounds`, and
+`validity` fields.
 
 ## Top-Level Packet
 
@@ -70,10 +72,10 @@ Python validation applies semantic requirements on top of JSON Schema:
 - `resurrection`: old negative certificate, overwriting evidence, new signed
   bounds, raw-net lower bound, hazard, and finality. Capital addition also
   requires admission-grade current evidence at transition time.
-- `bridge`: claim id, bridge object, and root status. v0.2.0 records it as
+- `bridge`: claim id, bridge object, and root status. v0.3.0 records it as
   audit evidence only.
 - `kernel-update`: old semantics, new semantics, bridge, independent root, and
-  rollback path. v0.2.0 records it; the current kernel remains authoritative.
+  rollback path. v0.3.0 records it; the current kernel remains authoritative.
 
 ## Conditional CARA Fields
 
@@ -121,7 +123,7 @@ A compatible implementation must preserve:
 - CARA conditional fields;
 - auditability of every state-changing packet.
 
-## v0.2.0 Module Schemas
+## v0.3.0 Module Schemas
 
 | Schema | Purpose | Typical producer |
 | --- | --- | --- |
@@ -134,9 +136,19 @@ A compatible implementation must preserve:
 | `risk-ledger.schema.json` | reserve, hazard, irreversible loss, raw-net solvency | risk ledger |
 | `authority-certificate.schema.json` | authority, capability, threat, runtime witness, telemetry, guard | guarded-deployment controller |
 | `root-finality-record.schema.json` | root, role separation, quorum, finality, rollback, optional signatures | evaluator root service |
+| `non-reduction-audit.schema.json` | shortcut audit for compression, novelty, benchmark, trace volume, static surplus, packaging | release auditor or certification kernel |
+| `mechanism-certificate.schema.json` | placebo control, mechanism ablation, actor-neutrality, self-certification guard | mechanism evaluator |
+| `evaluator-hierarchy.schema.json` | stratified evaluator graph and root rotation | evaluator governance system |
+| `finality-poua-ledger.schema.json` | federated finality, weighted quorum, PoUA non-authority | finality service |
+| `sequential-decision.schema.json` | horizon, surplus, sampling cost, EVSI, finite evidence budget | adaptive measurement controller |
+| `transport-robustness.schema.json` | robust estimate, Wasserstein radius, causal invariance, observable stopping | transport estimator |
+| `certificate-composition.schema.json` | common-estimand composition and negative-scope propagation | certificate algebra engine |
+| `portfolio-constraints.schema.json` | conflicts, breadth partition, cherry-picking, behavioral cover | portfolio controller |
+| `foundry-control-state.schema.json` | bottleneck, shadow price, absorption, phase control, exploration risk | foundry allocator |
 | `portfolio-state.schema.json` | available objects, dependencies, settlement ledgers | portfolio accountant |
 | `reproduction-record.schema.json` | reproduction matrix, gauge, capacity, identification, recombination | foundry growth estimator |
 | `cara-claim.schema.json` | target validity, baseline envelope, target membership, viability, time-to-target | CARA target checker |
+| `cara-process.schema.json` | target-valid process, non-tradable constraints, viability-controlled acceleration | CARA process auditor |
 | `foundry-transcript.schema.json` | replayable deterministic transition transcript | conformance runner |
 | `conformance-result.schema.json` | portable replay result | CI or release audit |
 

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:finality-poua-ledger:0.3.0",
+  "title": "ALT Finality And PoUA Ledger",
+  "description": "Federated finality, weighted quorum, PoUA non-authority, and finality-safe settlement contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["federated_finality", "root", "quorum", "poua_ledger", "settlement"],
+  "properties": {
+    "federated_finality": {
+      "type": "object",
+      "required": ["state"],
+      "additionalProperties": true,
+      "properties": { "state": { "type": "string" } }
+    },
+    "root": { "$ref": "#/$defs/status_object" },
+    "quorum": {
+      "type": "object",
+      "required": ["threshold", "signed_weight"],
+      "additionalProperties": true,
+      "properties": {
+        "threshold": { "type": "number", "exclusiveMinimum": 0 },
+        "signed_weight": { "type": "number", "minimum": 0 }
+      }
+    },
+    "poua_ledger": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": {
+        "status": { "type": "string" },
+        "used_as_epistemic_authority": { "type": "boolean" }
+      }
+    },
+    "settlement": {
+      "type": "object",
+      "required": ["finality_safe"],
+      "additionalProperties": true,
+      "properties": { "finality_safe": { "type": "boolean" } }
+    }
+  },
+  "$defs": {
+    "status_object": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": { "status": { "type": "string" } }
+    }
+  }
+}

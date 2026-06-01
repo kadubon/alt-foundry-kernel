@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:foundry-transcript:0.2.0",
+  "$id": "urn:alt-foundry-kernel:schema:foundry-transcript:0.3.0",
   "title": "ALT Foundry Transcript",
   "description": "Replayable deterministic kernel transcript for language-neutral conformance.",
   "type": "object",

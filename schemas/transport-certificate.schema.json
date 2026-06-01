@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:transport-certificate:0.2.0",
+  "$id": "urn:alt-foundry-kernel:schema:transport-certificate:0.3.0",
   "title": "ALT Transport Certificate",
   "description": "Support, density-ratio, drift, refresh, and transport-cost contract.",
   "type": "object",

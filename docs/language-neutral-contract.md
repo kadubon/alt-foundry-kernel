@@ -3,10 +3,10 @@
 Paper DOI: [https://doi.org/10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200)
 
 ALT Foundry Kernel is intentionally not a Python-only specification. The Python
-package is the reference implementation for v0.2.0. The portable contract is
-the executable certificate packet shape, module-level certificate schemas,
-predicate reports, signed-bound discipline, lifecycle state machine, dual-ledger
-accounting rule, and replayable conformance transcripts.
+package is the reference implementation for v0.3.0. The portable contract is
+the executable packet shape, module certificate schemas, predicate semantics,
+signed-bound discipline, lifecycle state machine, dual-ledger accounting rule,
+certificate report shape, and replayable conformance fixtures.
 
 ## Required Wire Surface
 
@@ -19,10 +19,9 @@ Packet := {id, type, token_id, version, state, scope_hash,
            monitor, fallback, signatures}
 ```
 
-The implementation may use JSON Schema, a typed DSL, protobuf, generated model
-classes, or another deterministic parser, but it must expose semantically
-equivalent fields to the admission kernel. When exporting interoperable packets,
-use the JSON files in `schemas/` as the public wire format.
+The implementation may use JSON Schema, generated model classes, a typed DSL,
+protobuf, or another deterministic parser internally. Interoperability requires
+exporting JSON compatible with `schemas/*.schema.json`.
 
 ## Required Enums
 
@@ -46,15 +45,15 @@ Kernel decisions:
 admit | reject | defer | suspend | deprecate | rollback | resurrect
 ```
 
-## Predicate Semantics
+## Packet Predicate Semantics
 
 Predicate reports must use `true`, `false`, or `null`.
 
-- `true`: the packet supplies the required typed evidence for the v0.2.0 gate.
+- `true`: the packet supplies the required typed evidence for the gate.
 - `false`: the gate is claimed or required and fails.
 - `null`: the gate is not applicable to that packet type or conditional claim.
 
-The packet-level predicate names are:
+Packet-level predicate names are:
 
 `SchemaOK`, `NetLowerBoundOK`, `MissionOK`, `TargetValidityOK`,
 `BaselineEnvelopeOK`, `BaselineLive`, `OpportunityLawOK`, `EvidenceLive`,
@@ -68,6 +67,28 @@ and `ViabilityOK`.
 CARA target crossing or a time-to-target comparison. If the claim is present,
 missing target-validity, target-membership, baseline-envelope, viability, or
 time-to-target fields fail closed.
+
+## v0.3.0 Certificate Predicates
+
+Module checkers use the same report shape but different predicate namespaces.
+Conforming implementations should preserve these names when implementing the
+corresponding modules:
+
+| Module kind | Representative predicates |
+| --- | --- |
+| `non-reduction` | `LiquidityClaimExplicit`, `ShortcutFree`, `KernelRouteDeclared` |
+| `mechanism` | `PlaceboControlled`, `AblationOK`, `ActorNeutralOK`, `SelfCertificationFree` |
+| `evaluator` | `RootOK`, `RootRotationOK`, `EvaluatorGraphAcyclic`, `StratifiedEdgesOK` |
+| `finality` | `FederatedFinalityOK`, `WeightedQuorumOK`, `PoUANotEpistemicAuthority` |
+| `sequential` | `FiniteEvidenceBudgetOK`, `HorizonOK`, `SettleOrSampleOK` |
+| `transport-ext` | `SupportCoverageOK`, `RobustEstimateOK`, `WassersteinRadiusOK` |
+| `certificate-algebra` | `NaiveCompositionRejected`, `CommonEstimandOK`, `NegativeScopePropagationOK` |
+| `portfolio-ext` | `ConflictFreeSelection`, `BreadthPartitionOK`, `CherryPickingCleared` |
+| `foundry-control` | `BottleneckCapacityOK`, `AbsorptionCapacityOK`, `CapitalConservativeExploration` |
+| `cara-ext` | `TargetValidityOK`, `NonTradableConstraintsOK`, `ViabilityControlledOK` |
+
+These validators check declared certificates. They are not estimators. A false
+predicate blocks settlement or keeps the record audit-only.
 
 ## Signed-Bound Discipline
 
@@ -84,7 +105,7 @@ value_upper_bound - cost_lower_bound - risk_lower_bound - transport_lower_bound
 ```
 
 Undefined coordinates do not default to zero. A conforming implementation must
-return an undecidable or fail-closed result when a capital-relevant bound is
+return an undecidable or fail-closed result when a capital-relevant coordinate is
 missing.
 
 ## Dual-Ledger Rule
@@ -97,13 +118,11 @@ The settlement ledger may increase safe certified capital only when the packet
 passes the value-estimand hierarchy, signed-bound discipline, telemetry,
 transport, hazard, authority, capability, threat, root/quorum, finality, budget,
 capacity, refresh, rollback, deprecation, raw-net, runtime-witness,
-noncompensable-hazard, and viability gates that are required for the claim.
+noncompensable-hazard, and viability gates required for the claim.
 
 ## Lifecycle Transitions
 
-A conforming implementation must preserve these v0.2.0 transition semantics:
-
-| Packet type | Capital effect | v0.2.0 behavior |
+| Packet type | Capital effect | Required behavior |
 | --- | --- | --- |
 | `candidate` | none | write candidate queue or reject invalid packet |
 | `admission` | possible increase | admit only with settlement-grade evidence |
@@ -112,7 +131,7 @@ A conforming implementation must preserve these v0.2.0 transition semantics:
 | `deprecation` | none | write negative registry and stop contribution |
 | `rollback` | possible decrease | charge reserve and restore declared state |
 | `resurrection` | possible increase | add capital only with admission-grade current evidence |
-| `bridge` | none | audit-only in v0.2.0 |
+| `bridge` | none | audit-only in this reference kernel |
 | `kernel-update` | none | audit-only; current kernel remains authoritative |
 
 ## Conformance Levels
@@ -120,32 +139,17 @@ A conforming implementation must preserve these v0.2.0 transition semantics:
 | Level | Required behavior |
 | --- | --- |
 | L0 schema | parse all schemas and validate packet/certificate examples |
-| L1 arithmetic | reproduce signed bounds, raw-net capital, and settlement-only capital accounting |
+| L1 arithmetic | reproduce signed bounds, raw-net capital, and settlement-only accounting |
 | L2 kernel | reproduce packet decisions and lifecycle transitions |
-| L3 module reports | emit compatible `CertificateReport` objects for measurement, causal, transport, risk, authority, root/finality, reproduction, and CARA checks |
+| L3 module reports | emit compatible `CertificateReport` objects for all certificate modules |
 | L4 transcript | replay `conformance/` fixtures deterministically |
 | L5 public release | pass an audit equivalent to `altk audit-public --strict` |
 
-## Conformance Tests
-
-Non-Python implementations should:
-
-- validate every `examples/*_packet.json` and
-  `examples/certificates/*.json` against the JSON Schemas;
-- reproduce the reference decisions for packet examples;
-- replay `conformance/v0.2.0/golden_admission_transcript.json`;
-- reject missing required fields for every packet type;
-- keep proxy-only admission in exploration;
-- prevent resurrection capital without admission-grade current evidence;
-- pass public-surface checks equivalent to `altk audit-public --strict`;
-- keep the DOI link and avoid bundling the paper source.
-
-## Deferred Scientific Modules
-
-Language conformance does not imply full ALT certification. Causal inference,
-finite-sample bounds, transport, root/quorum finality, dynamic risk,
-recombination, reproduction, and CARA target crossing require independent
-scientific modules that emit typed evidence into the same packet contract.
+`altk conformance --fixtures conformance --level L5` is the reference command.
+The runner includes historical v0.3.0 admission replay and v0.3.0 fixtures for
+proxy-only routing, deprecation/resurrection, rejected self-certification,
+invalid naive composition, transport fail-closed behavior, evaluator-cycle
+rejection, and CARA target-crossing failure.
 
 ## Report Shape
 
@@ -153,12 +157,12 @@ Module checkers should emit a report equivalent to:
 
 ```json
 {
-  "name": "transport",
+  "name": "transport_ext",
   "ok": true,
-  "claim": "context transport and opportunity-law refresh certificate",
+  "claim": "robust transportability certificate",
   "level": "settlement",
-  "predicates": {"SupportCovered": true},
-  "metrics": {"transport_cost_upper_bound": 1.0},
+  "predicates": {"SupportCoverageOK": true},
+  "metrics": {"wasserstein_radius_upper_bound": 0.1},
   "artifacts": {},
   "issues": []
 }
@@ -167,3 +171,10 @@ Module checkers should emit a report equivalent to:
 Issues are structured records with `severity`, `code`, `path`, and `message`.
 Capital-relevant failures use `severity: "error"` and must block settlement or
 route to exploration.
+
+## Deferred Scientific Modules
+
+Language conformance does not imply full ALT certification. Causal inference,
+finite-sample bounds, transportability, root/quorum finality, dynamic risk,
+recombination, reproduction, and CARA target crossing require independent
+scientific modules that emit typed evidence into the same packet contract.

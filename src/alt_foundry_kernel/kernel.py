@@ -384,7 +384,7 @@ def run_kernel_transition(
             "settlement",
             Decision.ADMIT,
             LifecycleState.ACTIVE,
-            "Admission packet satisfied v0.2.0 settlement gates.",
+            "Admission packet satisfied v0.3.0 settlement gates.",
             capital_delta=capital_delta,
             details={"signed_lower_bound": signed.lower_bound},
         )
@@ -617,7 +617,7 @@ def run_kernel_transition(
             "audit",
             Decision.DEFER,
             typed_packet.state,
-            "Bridge packet recorded; v0.2.0 does not apply bridge semantics.",
+            "Bridge packet recorded; v0.3.0 does not apply bridge semantics.",
         )
         _append_audit(next_state, entry)
         return TransitionResult(
@@ -654,6 +654,6 @@ def run_kernel_transition(
         typed_packet,
         Decision.DEFER,
         typed_packet.state,
-        "Packet type is parsed but v0.2.0 does not perform a capital-changing transition.",
+        "Packet type is parsed but v0.3.0 does not perform a capital-changing transition.",
         signed,
     )

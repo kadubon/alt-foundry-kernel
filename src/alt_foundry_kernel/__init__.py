@@ -3,8 +3,12 @@
 from alt_foundry_kernel.authority import validate_authority_certificate
 from alt_foundry_kernel.bounds import SignedBoundReport, compute_signed_bounds
 from alt_foundry_kernel.cara import validate_cara_certificate
+from alt_foundry_kernel.cara_ext import validate_cara_process
 from alt_foundry_kernel.causal import validate_causal_certificate
+from alt_foundry_kernel.certificate_algebra import validate_certificate_composition
 from alt_foundry_kernel.conformance import ConformanceReport, run_conformance
+from alt_foundry_kernel.evaluator import validate_evaluator_hierarchy
+from alt_foundry_kernel.finality import validate_finality_poua_ledger
 from alt_foundry_kernel.foundry import (
     DecisionTranscript,
     build_transcript,
@@ -12,8 +16,10 @@ from alt_foundry_kernel.foundry import (
     replay_transcript,
     run_foundry_sequence,
 )
+from alt_foundry_kernel.foundry_control import validate_foundry_control_state
 from alt_foundry_kernel.kernel import TransitionResult, run_kernel_transition
 from alt_foundry_kernel.measurement import validate_measurement_spec
+from alt_foundry_kernel.mechanism import validate_mechanism_certificate
 from alt_foundry_kernel.models import (
     Decision,
     KernelState,
@@ -23,7 +29,9 @@ from alt_foundry_kernel.models import (
     ValidationIssue,
     ValidationReport,
 )
+from alt_foundry_kernel.non_reduction import validate_non_reduction_audit
 from alt_foundry_kernel.portfolio import compute_portfolio_capital, validate_dependency_closure
+from alt_foundry_kernel.portfolio_ext import validate_portfolio_constraints
 from alt_foundry_kernel.public_audit import PublicAuditReport, run_public_audit
 from alt_foundry_kernel.reports import CertificateIssue, CertificateReport
 from alt_foundry_kernel.reproduction import (
@@ -36,8 +44,10 @@ from alt_foundry_kernel.root_finality import (
     verify_ed25519_signature,
 )
 from alt_foundry_kernel.schemas import load_schema
+from alt_foundry_kernel.sequential import validate_sequential_decision
 from alt_foundry_kernel.statistics import bounded_mean_report
 from alt_foundry_kernel.transport import validate_transport_certificate
+from alt_foundry_kernel.transport_ext import validate_transport_robustness
 from alt_foundry_kernel.validation import validate_packet
 
 __all__ = [
@@ -70,13 +80,23 @@ __all__ = [
     "run_public_audit",
     "validate_authority_certificate",
     "validate_cara_certificate",
+    "validate_cara_process",
+    "validate_certificate_composition",
     "validate_causal_certificate",
     "validate_dependency_closure",
+    "validate_evaluator_hierarchy",
+    "validate_finality_poua_ledger",
+    "validate_foundry_control_state",
+    "validate_mechanism_certificate",
     "validate_measurement_spec",
+    "validate_non_reduction_audit",
     "validate_packet",
+    "validate_portfolio_constraints",
     "validate_reproduction_certificate",
     "validate_risk_certificate",
     "validate_root_finality_certificate",
+    "validate_sequential_decision",
     "validate_transport_certificate",
+    "validate_transport_robustness",
     "verify_ed25519_signature",
 ]

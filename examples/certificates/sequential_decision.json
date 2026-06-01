@@ -1,0 +1,13 @@
+{
+  "decision": "sample",
+  "horizon": { "remaining": 4 },
+  "surplus": { "lower_bound": -0.2 },
+  "sampling": {
+    "cost_upper_bound": 0.5,
+    "evsi_lower_bound": 1.2
+  },
+  "budget": {
+    "remaining": 2.0,
+    "max_sampling_cost": 2.0
+  }
+}

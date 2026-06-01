@@ -1,6 +1,6 @@
 [project]
 name = "alt-foundry-kernel"
-version = "0.2.0"
+version = "0.3.0"
 description = "Language-neutral ALT foundry kernel for executable certificate packets, abstraction tokens, dual-ledger settlement, and safe certified abstraction capital."
 readme = "README.md"
 requires-python = ">=3.11"

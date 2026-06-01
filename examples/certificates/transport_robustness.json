@@ -1,0 +1,10 @@
+{
+  "support": { "status": "covered" },
+  "robust_estimate": { "status": "valid" },
+  "wasserstein": {
+    "radius_upper_bound": 0.12,
+    "radius_threshold": 0.2
+  },
+  "causal_invariance": { "status": "valid" },
+  "observable_stopping": { "status": "valid" }
+}

@@ -1,0 +1,11 @@
+{
+  "operation": "compose",
+  "certificates": [
+    { "certificate_id": "cert-a", "estimand_id": "mission-fcu-savings" },
+    { "certificate_id": "cert-b", "estimand_id": "mission-fcu-savings" }
+  ],
+  "composition": {
+    "naive": false
+  },
+  "common_estimand": { "status": "valid" }
+}

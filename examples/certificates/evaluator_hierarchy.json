@@ -1,0 +1,13 @@
+{
+  "root": { "status": "valid" },
+  "root_rotation": { "status": "valid" },
+  "evaluators": [
+    { "id": "root-evaluator", "stratum": 2 },
+    { "id": "gold-evaluator", "stratum": 1 },
+    { "id": "candidate-evaluator", "stratum": 0 }
+  ],
+  "evaluation_edges": [
+    { "evaluator": "root-evaluator", "subject": "gold-evaluator" },
+    { "evaluator": "gold-evaluator", "subject": "candidate-evaluator" }
+  ]
+}

@@ -1,6 +1,6 @@
 # Agent Instructions
 
-This repository implements the ALT Foundry Kernel v0.2.0 reference kernel and
+This repository implements the ALT Foundry Kernel v0.3.0 reference kernel and
 language-neutral contract. Preserve the paper-linked contract: packets and
 certificates are executable records, not informal claims. Theory citation:
 https://doi.org/10.5281/zenodo.20476200
@@ -33,7 +33,17 @@ uv run altk certify authority examples/certificates/authority_certificate.json
 uv run altk certify root-finality examples/certificates/root_finality_record.json
 uv run altk certify cara examples/certificates/cara_claim.json
 uv run altk certify reproduction examples/certificates/reproduction_record.json
-uv run altk conformance --fixtures conformance
+uv run altk certify non-reduction examples/certificates/non_reduction_audit.json
+uv run altk certify mechanism examples/certificates/mechanism_certificate.json
+uv run altk certify evaluator examples/certificates/evaluator_hierarchy.json
+uv run altk certify finality examples/certificates/finality_poua_ledger.json
+uv run altk certify sequential examples/certificates/sequential_decision.json
+uv run altk certify transport-ext examples/certificates/transport_robustness.json
+uv run altk certify certificate-algebra examples/certificates/certificate_composition.json
+uv run altk certify portfolio-ext examples/certificates/portfolio_constraints.json
+uv run altk certify foundry-control examples/certificates/foundry_control_state.json
+uv run altk certify cara-ext examples/certificates/cara_process.json
+uv run altk conformance --fixtures conformance --level L5
 uv run altk audit-public --strict
 uv run ruff check .
 uv run mypy src
@@ -51,7 +61,10 @@ uv run pytest --cov=alt_foundry_kernel
 7. runtime witness, telemetry, transport, hazard, authority, capability, threat.
 8. root/quorum, finality, budget, capacity, refresh, rollback, deprecation.
 9. raw-net solvency, noncompensable hazard, and viability.
-10. CARA target-validity, baseline-envelope, target-membership, viability, and
+10. non-reduction shortcut guards, mechanism ablation/placebo, evaluator
+    hierarchy, finality/PoUA, sequential evidence, robust transport, certificate
+    algebra, portfolio conflicts, and foundry-control capacity.
+11. CARA target-validity, baseline-envelope, target-membership, viability, and
     time-to-target fields, only when target crossing is claimed.
 
 Missing evidence is undefined, not zero. Use measured evidence, a declared
@@ -72,3 +85,6 @@ worst-case charge, a narrowed claim, exploration-only status, or rejection.
 - Reproduction and CARA modules must fail closed unless their identification,
   target-validity, baseline-envelope, membership, viability, and time-to-target
   records are explicit.
+- Non-reduction, mechanism, evaluator, finality/PoUA, sequential, robust
+  transport, certificate-algebra, portfolio, and foundry-control modules verify
+  declared certificate records. Do not treat them as estimators.

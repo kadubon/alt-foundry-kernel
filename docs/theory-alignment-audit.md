@@ -29,7 +29,7 @@ substitute for the paper.
 - Fail-closed required-field validation for every packet type.
 - Lifecycle preconditions for monitor-alarm, transport-refresh, deprecation,
   rollback, and resurrection.
-- Audit-only bridge and kernel-update packet handling in v0.2.0.
+- Audit-only bridge and kernel-update packet handling in v0.3.0.
 - Public audit CLI for DOI links, examples, schemas, local-path leakage,
   paper-source leakage, env files, secret-like assignments, and placeholder
   publishing URLs.
@@ -40,6 +40,24 @@ substitute for the paper.
   and CARA target claims.
 - JSON Schemas for module certificates, foundry transcripts, and conformance
   results.
+- Non-reduction validators for compression, novelty, benchmark score, transfer
+  score, trace volume, library size, static surplus, evidence volume, packaging,
+  and generality shortcuts.
+- Mechanism validators for placebo-controlled reuse, mechanism ablation,
+  actor-neutrality, evaluator independence, and self-certification rejection.
+- Evaluator hierarchy validator for stratified acyclic graphs and root rotation.
+- Finality/PoUA validator for federated finality, weighted quorum, PoUA
+  non-authority, and finality-safe settlement.
+- Sequential evidence validator for adaptive horizon, settle-or-sample, EVSI
+  lower-bound comparison, and finite evidence budget.
+- Robust transport validator for support coverage, Wasserstein-radius bounds,
+  causal-invariance record, and observable stopping.
+- Certificate algebra validator for common-estimand composition, naive
+  composition rejection, and negative-certificate scope propagation.
+- Extended portfolio, foundry-control, and CARA process validators.
+- v0.3.0 conformance fixtures for proxy-only routing, deprecation/resurrection,
+  self-certification rejection, naive-composition rejection, transport
+  fail-closed behavior, evaluator-cycle rejection, and CARA target failure.
 
 ## Approximated
 
@@ -49,15 +67,21 @@ substitute for the paper.
 - Root and quorum validity are represented as status and quorum records.
   Optional Ed25519 signature verification exists, but Byzantine quorum
   governance is not implemented.
-- Finality is represented as `finalized` or explicit exemption. No consensus or
-  PoUA implementation is present.
+- Finality is represented as `finalized` or explicit exemption at packet level
+  and as a declared finality/PoUA certificate at module level. No consensus
+  protocol is implemented.
 - Runtime capital witness is represented as a declared status field.
 - Transport, hazard, mission, budget, capacity, refresh, rollback,
   deprecation, and viability checks are parsed, structurally validated, and
   gated; full domain certification still depends on supplied evidence.
 - Resurrection can add capital only if the packet supplies admission-grade
-  current evidence; otherwise it returns to candidate. The v0.2.0 checker is a
+  current evidence; otherwise it returns to candidate. The v0.3.0 checker is a
   conservative field/status approximation.
+- Non-reduction, mechanism, evaluator, finality, sequential, robust transport,
+  certificate-algebra, portfolio, foundry-control, and extended CARA validators
+  check declared certificate records. They do not run the experiments,
+  governance systems, transport estimators, or optimization procedures that
+  would produce those records.
 
 ## Deferred
 
@@ -73,8 +97,14 @@ substitute for the paper.
 - Causal-invariance evidence beyond declared transport certificates.
 - Dynamic risk, ruin ledgers, and calibrated hazard estimation.
 - Byzantine root/quorum governance, finality consensus, and PoUA weighting.
-- Portfolio optimization and equivalence quotienting beyond the provided
-  closure/dominance utilities.
+- Portfolio optimization, behavioral metric-entropy estimation, and
+  equivalence quotienting beyond the provided closure/dominance/conflict
+  utilities.
+- Sequential experimental design and EVSI estimation beyond declared fields.
+- Robust transport estimation, Wasserstein-ball construction, and causal
+  invariance discovery beyond declared certificates.
+- Certificate-algebra proof search beyond deterministic common-estimand and
+  negative-scope checks.
 - Recombination tensor identification, phase control, and production capacity
   oracles.
 - Full target-valid ALT-CARA certification and ASI target crossing beyond the
@@ -87,9 +117,10 @@ kernel can bind fields and apply fail-closed transition rules. Scientific
 validity requires evidence-producing modules that populate those fields under
 declared measurement protocols.
 
-The v0.2.0 kernel therefore does not certify causal value, transportability,
-root independence, finality, recombination, or ASI acceleration by itself. It
-provides the agent-operable boundary those modules must write into.
+The v0.3.0 kernel therefore does not certify causal value, transportability,
+root independence, finality, recombination, portfolio optimality, or ASI
+acceleration by itself. It provides the agent-operable boundary those modules
+must write into.
 
 ## Current Public-Release Audit Expectations
 
@@ -100,7 +131,7 @@ uv run ruff check .
 uv run mypy src
 uv run pytest --cov=alt_foundry_kernel
 uv run pip-audit
-uv run altk conformance --fixtures conformance
+uv run altk conformance --fixtures conformance --level L5
 uv run altk audit-public --strict
 ```
 

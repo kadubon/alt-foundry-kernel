@@ -13,7 +13,7 @@ uv run ruff check .
 uv run mypy src
 uv run pytest --cov=alt_foundry_kernel
 uv run pip-audit
-uv run altk conformance --fixtures conformance
+uv run altk conformance --fixtures conformance --level L5
 uv run altk audit-public --strict
 ```
 
@@ -27,6 +27,28 @@ On Windows PowerShell:
 
 ```powershell
 Get-ChildItem examples\*_packet.json | ForEach-Object { uv run altk validate $_.FullName }
+```
+
+Certify every module example:
+
+```bash
+uv run altk certify measurement examples/certificates/measurement_spec.json
+uv run altk certify causal examples/certificates/causal_certificate.json
+uv run altk certify transport examples/certificates/transport_certificate.json
+uv run altk certify risk examples/certificates/risk_ledger.json
+uv run altk certify authority examples/certificates/authority_certificate.json
+uv run altk certify root-finality examples/certificates/root_finality_record.json
+uv run altk certify reproduction examples/certificates/reproduction_record.json
+uv run altk certify non-reduction examples/certificates/non_reduction_audit.json
+uv run altk certify mechanism examples/certificates/mechanism_certificate.json
+uv run altk certify evaluator examples/certificates/evaluator_hierarchy.json
+uv run altk certify finality examples/certificates/finality_poua_ledger.json
+uv run altk certify sequential examples/certificates/sequential_decision.json
+uv run altk certify transport-ext examples/certificates/transport_robustness.json
+uv run altk certify certificate-algebra examples/certificates/certificate_composition.json
+uv run altk certify portfolio-ext examples/certificates/portfolio_constraints.json
+uv run altk certify foundry-control examples/certificates/foundry_control_state.json
+uv run altk certify cara-ext examples/certificates/cara_process.json
 ```
 
 ## What `altk audit-public --strict` Checks
@@ -44,7 +66,8 @@ Get-ChildItem examples\*_packet.json | ForEach-Object { uv run altk validate $_.
   `Packet` model, and ALT semantic validation.
 - Every `examples/certificates/*.json` validates through its JSON Schema and
   module-level certificate checker.
-- Every `conformance/*.json` transcript replays deterministically.
+- Every `conformance/*.json` transcript replays deterministically or, for
+  certificate fixtures, produces the declared expected result.
 - Local caches and virtual environments are excluded from content scanning and
   reported only as cleanup warnings.
 
@@ -58,9 +81,12 @@ Get-ChildItem examples\*_packet.json | ForEach-Object { uv run altk validate $_.
 - Confirm `docs/language-neutral-contract.md` is present and linked from the
   README for non-Python implementers.
 - Confirm bridge and kernel-update packets are described as audit-only in
-  v0.2.0.
+  v0.3.0.
 - Confirm resurrection does not add capital without admission-grade current
   evidence.
+- Confirm non-reduction shortcuts, self-certification, evaluator cycles, naive
+  certificate composition, transport radius failures, and CARA target failures
+  are represented as hard negative conformance fixtures.
 
 ## Cleanup Before Packaging
 

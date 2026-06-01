@@ -1,0 +1,27 @@
+{
+  "fixture_type": "certificate",
+  "kind": "transport-ext",
+  "expected_ok": false,
+  "payload": {
+    "certificate_id": "transport-robustness-negative",
+    "source_scope": "heldout-source",
+    "target_scope": "receiver-b",
+    "support": {
+      "status": "covered"
+    },
+    "robust_estimate": {
+      "status": "valid",
+      "lower_bound": 1.0
+    },
+    "wasserstein": {
+      "radius_upper_bound": 0.8,
+      "radius_threshold": 0.2
+    },
+    "causal_invariance": {
+      "status": "valid"
+    },
+    "observable_stopping": {
+      "status": "valid"
+    }
+  }
+}

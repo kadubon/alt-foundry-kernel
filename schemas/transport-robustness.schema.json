@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:transport-robustness:0.3.0",
+  "title": "ALT Transport Robustness",
+  "description": "Robust estimated transport, Wasserstein radius, causal-invariance, and observable stopping contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "support",
+    "robust_estimate",
+    "wasserstein",
+    "causal_invariance",
+    "observable_stopping"
+  ],
+  "properties": {
+    "support": { "$ref": "#/$defs/status_object" },
+    "robust_estimate": { "$ref": "#/$defs/status_object" },
+    "wasserstein": {
+      "type": "object",
+      "required": ["radius_upper_bound", "radius_threshold"],
+      "additionalProperties": true,
+      "properties": {
+        "radius_upper_bound": { "type": "number", "minimum": 0 },
+        "radius_threshold": { "type": "number", "minimum": 0 }
+      }
+    },
+    "causal_invariance": { "$ref": "#/$defs/status_object" },
+    "observable_stopping": { "$ref": "#/$defs/status_object" }
+  },
+  "$defs": {
+    "status_object": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": { "status": { "type": "string" } }
+    }
+  }
+}

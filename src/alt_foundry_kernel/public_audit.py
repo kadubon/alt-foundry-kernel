@@ -1,4 +1,4 @@
-"""Public-release surface audit for the ALT bootloader repository."""
+"""Public-release surface audit for the ALT reference-kernel repository."""
 
 from __future__ import annotations
 
@@ -11,15 +11,25 @@ from jsonschema import Draft202012Validator
 
 from alt_foundry_kernel.authority import validate_authority_certificate
 from alt_foundry_kernel.cara import validate_cara_certificate
+from alt_foundry_kernel.cara_ext import validate_cara_process
 from alt_foundry_kernel.causal import validate_causal_certificate
+from alt_foundry_kernel.certificate_algebra import validate_certificate_composition
 from alt_foundry_kernel.conformance import run_conformance
+from alt_foundry_kernel.evaluator import validate_evaluator_hierarchy
+from alt_foundry_kernel.finality import validate_finality_poua_ledger
+from alt_foundry_kernel.foundry_control import validate_foundry_control_state
 from alt_foundry_kernel.measurement import validate_measurement_spec
+from alt_foundry_kernel.mechanism import validate_mechanism_certificate
 from alt_foundry_kernel.models import Packet
+from alt_foundry_kernel.non_reduction import validate_non_reduction_audit
+from alt_foundry_kernel.portfolio_ext import validate_portfolio_constraints
 from alt_foundry_kernel.reproduction import validate_reproduction_certificate
 from alt_foundry_kernel.risk import validate_risk_certificate
 from alt_foundry_kernel.root_finality import validate_root_finality_certificate
 from alt_foundry_kernel.schemas import load_schema
+from alt_foundry_kernel.sequential import validate_sequential_decision
 from alt_foundry_kernel.transport import validate_transport_certificate
+from alt_foundry_kernel.transport_ext import validate_transport_robustness
 from alt_foundry_kernel.validation import validate_packet
 
 DOI = "https://doi.org/10.5281/zenodo.20476200"
@@ -223,6 +233,43 @@ def _check_examples(root: Path, findings: list[AuditFinding]) -> None:
         "causal_certificate.json": ("causal-certificate", validate_causal_certificate),
         "cara_claim.json": ("cara-claim", validate_cara_certificate),
         "reproduction_record.json": ("reproduction-record", validate_reproduction_certificate),
+        "non_reduction_audit.json": (
+            "non-reduction-audit",
+            validate_non_reduction_audit,
+        ),
+        "mechanism_certificate.json": (
+            "mechanism-certificate",
+            validate_mechanism_certificate,
+        ),
+        "evaluator_hierarchy.json": (
+            "evaluator-hierarchy",
+            validate_evaluator_hierarchy,
+        ),
+        "finality_poua_ledger.json": (
+            "finality-poua-ledger",
+            validate_finality_poua_ledger,
+        ),
+        "sequential_decision.json": (
+            "sequential-decision",
+            validate_sequential_decision,
+        ),
+        "transport_robustness.json": (
+            "transport-robustness",
+            validate_transport_robustness,
+        ),
+        "certificate_composition.json": (
+            "certificate-composition",
+            validate_certificate_composition,
+        ),
+        "portfolio_constraints.json": (
+            "portfolio-constraints",
+            validate_portfolio_constraints,
+        ),
+        "foundry_control_state.json": (
+            "foundry-control-state",
+            validate_foundry_control_state,
+        ),
+        "cara_process.json": ("cara-process", validate_cara_process),
     }
     certificate_dir = root / "examples" / "certificates"
     for filename, (schema_name, checker) in certificate_checks.items():
@@ -253,7 +300,7 @@ def _check_conformance(root: Path, findings: list[AuditFinding]) -> None:
             _finding("error", "conformance-missing", "conformance", "Fixture directory missing.")
         )
         return
-    report = run_conformance(conformance_dir)
+    report = run_conformance(conformance_dir, level="L5")
     if not report.ok:
         for finding in report.findings:
             findings.append(

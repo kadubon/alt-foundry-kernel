@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:sequential-decision:0.3.0",
+  "title": "ALT Sequential Decision",
+  "description": "Adaptive horizon, EVSI, settle-or-sample, and finite evidence-budget decision contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["decision", "horizon", "surplus", "sampling", "budget"],
+  "properties": {
+    "decision": { "type": "string", "enum": ["settle", "sample", "defer"] },
+    "horizon": {
+      "type": "object",
+      "required": ["remaining"],
+      "additionalProperties": true,
+      "properties": { "remaining": { "type": "number", "minimum": 0 } }
+    },
+    "surplus": {
+      "type": "object",
+      "required": ["lower_bound"],
+      "additionalProperties": true,
+      "properties": { "lower_bound": { "type": "number" } }
+    },
+    "sampling": {
+      "type": "object",
+      "required": ["cost_upper_bound", "evsi_lower_bound"],
+      "additionalProperties": true,
+      "properties": {
+        "cost_upper_bound": { "type": "number", "minimum": 0 },
+        "evsi_lower_bound": { "type": "number" }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "required": ["remaining", "max_sampling_cost"],
+      "additionalProperties": true,
+      "properties": {
+        "remaining": { "type": "number", "minimum": 0 },
+        "max_sampling_cost": { "type": "number", "minimum": 0 }
+      }
+    }
+  }
+}

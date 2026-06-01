@@ -2,13 +2,13 @@
   "id": "pkt-admission-proxy-001",
   "type": "admission",
   "token_id": "tok-workflow-triage",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "state": "exploration",
   "scope_hash": "sha256:scope-workflow-triage-v1",
   "declaration": {
     "lineage": {
       "source": "trace-derived",
-      "token_version": "0.2.0",
+      "token_version": "0.3.0",
       "extractor": "reference-extraction-pipeline"
     },
     "dependencies": {

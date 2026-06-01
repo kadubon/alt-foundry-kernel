@@ -2,7 +2,7 @@
   "id": "pkt-resurrection-001",
   "type": "resurrection",
   "token_id": "tok-workflow-triage",
-  "version": "0.1.1",
+  "version": "0.3.0",
   "state": "deprecated",
   "scope_hash": "sha256:scope-workflow-triage-v2",
   "declaration": {

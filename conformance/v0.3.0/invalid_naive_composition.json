@@ -1,0 +1,29 @@
+{
+  "fixture_type": "certificate",
+  "kind": "certificate-algebra",
+  "expected_ok": false,
+  "payload": {
+    "composition_id": "composition-naive-negative",
+    "operation": "positive_composition",
+    "certificates": [
+      {
+        "certificate_id": "cert-a",
+        "estimand_id": "mission-fcu-savings",
+        "scope": "receiver-a"
+      },
+      {
+        "certificate_id": "cert-b",
+        "estimand_id": "mission-fcu-savings",
+        "scope": "receiver-b"
+      }
+    ],
+    "composition": {
+      "naive": true,
+      "method": "unadjusted-sum"
+    },
+    "common_estimand": {
+      "status": "valid",
+      "estimand_id": "mission-fcu-savings"
+    }
+  }
+}

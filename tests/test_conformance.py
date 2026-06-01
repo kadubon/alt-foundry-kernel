@@ -20,10 +20,21 @@ def test_golden_transcript_replays_deterministically() -> None:
 
 
 def test_conformance_runner_checks_fixture_directory() -> None:
-    report = run_conformance(ROOT / "conformance")
+    report = run_conformance(ROOT / "conformance", level="L5")
 
     assert report.ok
-    assert report.checked >= 1
+    assert report.level == "L5"
+    assert report.checked >= 8
+
+
+def test_conformance_levels_are_machine_checkable() -> None:
+    l0 = run_conformance(ROOT / "conformance", level="L0")
+    unknown = run_conformance(ROOT / "conformance", level="L9")
+
+    assert l0.ok
+    assert l0.level == "L0"
+    assert unknown.ok is False
+    assert unknown.level == "L9"
 
 
 def test_build_transcript_and_dashboard_are_language_neutral_json() -> None:

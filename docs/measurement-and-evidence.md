@@ -2,7 +2,7 @@
 
 Paper DOI: [https://doi.org/10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200)
 
-This document describes how v0.2.0 turns the paper's task, solver, protocol,
+This document describes how v0.3.0 turns the paper's task, solver, protocol,
 trace, value-estimand, and evaluator-firewall requirements into reusable
 implementation contracts.
 
@@ -32,9 +32,13 @@ settlement capital.
 3. Statistical helpers compute conservative bounds, but do not decide
    settlement.
 4. Causal or calibrated-proxy modules produce certificate records.
-5. The packet copies the relevant declarations, evidence, bounds, and validity
+5. Sequential evidence control decides whether the next action is sampling,
+   settlement attempt, or deferral under a finite evidence budget.
+6. Non-reduction and mechanism guards reject shortcut properties and
+   self-certification before a claim reaches settlement.
+7. The packet copies the relevant declarations, evidence, bounds, and validity
    outputs into `declaration`, `evidence`, `bounds`, and `validity`.
-6. The kernel decides capital movement.
+8. The kernel decides capital movement.
 
 ## Fail-Closed Conditions
 

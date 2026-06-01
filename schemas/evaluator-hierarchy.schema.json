@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:evaluator-hierarchy:0.3.0",
+  "title": "ALT Evaluator Hierarchy",
+  "description": "Stratified evaluator graph, root rotation, and self-certification-cycle prevention contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["root", "root_rotation", "evaluators", "evaluation_edges"],
+  "properties": {
+    "root": { "$ref": "#/$defs/status_object" },
+    "root_rotation": { "$ref": "#/$defs/status_object" },
+    "evaluators": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "stratum"],
+        "additionalProperties": true,
+        "properties": {
+          "id": { "type": "string" },
+          "stratum": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "evaluation_edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["evaluator", "subject"],
+        "additionalProperties": true,
+        "properties": {
+          "evaluator": { "type": "string" },
+          "subject": { "type": "string" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "status_object": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": { "status": { "type": "string" } }
+    }
+  }
+}

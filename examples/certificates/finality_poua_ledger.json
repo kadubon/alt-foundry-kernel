@@ -1,0 +1,15 @@
+{
+  "federated_finality": { "state": "finalized" },
+  "root": { "status": "valid" },
+  "quorum": {
+    "threshold": 2.0,
+    "signed_weight": 2.5
+  },
+  "poua_ledger": {
+    "status": "valid",
+    "used_as_epistemic_authority": false
+  },
+  "settlement": {
+    "finality_safe": true
+  }
+}

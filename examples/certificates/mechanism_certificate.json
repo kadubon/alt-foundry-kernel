@@ -1,0 +1,14 @@
+{
+  "placebo": { "status": "valid" },
+  "ablation": { "status": "valid" },
+  "actor_neutrality": { "status": "valid" },
+  "evaluator_independence": { "status": "valid" },
+  "self_certification": {
+    "status": "cleared",
+    "self_certified": false
+  },
+  "mechanism_effect": {
+    "lower_bound": 2.4,
+    "unit": "formation-cost-unit"
+  }
+}

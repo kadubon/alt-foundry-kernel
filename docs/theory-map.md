@@ -43,9 +43,19 @@ misapplication charges.
 | Transport certificate | Support, density-ratio, drift, refresh, transport cost | `transport`, `schemas/transport-certificate.schema.json` |
 | Risk ledger | Reserve, hazard, irreversible loss, raw-net solvency | `risk`, `schemas/risk-ledger.schema.json` |
 | Root/finality record | Root, role separation, quorum, finality, rollback path | `root_finality`, `schemas/root-finality-record.schema.json` |
+| Non-reduction audit | Rejects compression, novelty, benchmarks, trace volume, static surplus as substitutes for liquidity | `non_reduction`, `schemas/non-reduction-audit.schema.json` |
+| Mechanism certificate | Placebo-controlled reuse, mechanism ablation, actor-neutrality, self-certification guard | `mechanism`, `schemas/mechanism-certificate.schema.json` |
+| Evaluator hierarchy | Stratified evaluator DAG and independent root rotation | `evaluator`, `schemas/evaluator-hierarchy.schema.json` |
+| Finality/PoUA ledger | Federated finality, weighted quorum, PoUA-not-authority guard | `finality`, `schemas/finality-poua-ledger.schema.json` |
+| Sequential evidence | Adaptive horizon, settle-or-sample, EVSI-style finite-budget gate | `sequential`, `schemas/sequential-decision.schema.json` |
+| Robust transport | Robust estimate, Wasserstein-radius bound, causal invariance, observable stopping | `transport_ext`, `schemas/transport-robustness.schema.json` |
+| Certificate algebra | Common-estimand composition, naive-composition rejection, negative propagation | `certificate_algebra`, `schemas/certificate-composition.schema.json` |
+| Extended portfolio constraints | Conflict graph, breadth partition, cherry-picking guard, behavioral cover | `portfolio_ext`, `schemas/portfolio-constraints.schema.json` |
+| Foundry control state | Bottleneck/min-cut, shadow price, absorption, phase control | `foundry_control`, `schemas/foundry-control-state.schema.json` |
 | Portfolio state | Dependency closure, DAG, settlement-only capital accounting | `portfolio`, `schemas/portfolio-state.schema.json` |
 | Reproduction record | Matrix, gauge, capacity, identification, recombination gate | `reproduction`, `schemas/reproduction-record.schema.json` |
 | CARA claim | Target validity, baseline envelope, membership, viability, time-to-target | `cara`, `schemas/cara-claim.schema.json` |
+| Extended CARA process | Non-tradable target constraints and viability-controlled acceleration | `cara_ext`, `schemas/cara-process.schema.json` |
 | Dashboard protocol | Agent-readable foundry state and allocation surface | `foundry`, `schemas/dashboard.schema.json` |
 
 ## Kernel Tuple Mapping
@@ -84,14 +94,16 @@ predicate names in `ValidationReport.predicates`:
 `DeprecationOK`, `RawNetSolvencyOK`, `RuntimeWitnessOK`, `NoncompHazardOK`,
 and `ViabilityOK`.
 
-In v0.2.0, the packet kernel still exposes these as packet-level gates, and the
-new certificate modules provide evidence-facing validators for measurement,
-causal effect, transport, risk, authority, root/finality, portfolio,
-reproduction, and CARA claims. A full domain foundry should replace status
-assertions with evidence-producing instruments while preserving the same failure
-semantics. If a predicate required for capital admission is false, the kernel
-rejects or defers. If it is undefined because a conditional claim is not made,
-it remains `null` and does not block ordinary admission.
+In v0.3.0, the packet kernel still exposes these as packet-level gates, and the
+certificate modules provide evidence-facing validators for measurement, causal
+effect, transport, risk, authority, root/finality, portfolio, reproduction,
+CARA, non-reduction, mechanism, evaluator/finality, sequential evidence,
+certificate algebra, robust transport, and foundry-control claims. A full domain
+foundry should replace status assertions with evidence-producing instruments
+while preserving the same failure semantics. If a predicate required for capital
+admission is false, the kernel rejects or defers. If it is undefined because a
+conditional claim is not made, it remains `null` and does not block ordinary
+admission.
 
 ## Deterministic Settlement Loop
 
@@ -104,12 +116,13 @@ parse -> schema -> typed layers -> dependencies -> mission
 -> ledger -> budget -> capacity -> monitor -> kernel decision
 ```
 
-The v0.2.0 implementation covers the parser, schema, typed layers,
+The v0.3.0 implementation covers the parser, schema, typed layers,
 signed-bound discipline, predicate reports, dual-ledger accounting, lifecycle
 transitions, deterministic transcript replay, and module-level certificate
 checkers. It does not infer scientific truth from raw traces; it verifies the
 declared certificate records that a measurement, causal, transport, risk,
-root/finality, reproduction, or CARA module supplies.
+root/finality, reproduction, CARA, non-reduction, mechanism, evaluator,
+sequential, algebra, portfolio, or foundry-control module supplies.
 
 ## Module Handoff Map
 
@@ -123,8 +136,17 @@ root/finality, reproduction, or CARA module supplies.
 | `authority` | authority, capability, threat, telemetry, guard | guarded-deployment report | uncleared threat or invalid runtime witness |
 | `root_finality` | root, role separation, quorum, finality, rollback | finality report and optional signature count | missing quorum or nonfinal evidence |
 | `portfolio` | dependencies, available objects, ledgers | closure and capital accounting | cycles, missing dependencies, exploration capital |
+| `non_reduction` | liquidity claim, evidence modules, shortcuts, route | non-reduction audit report | proxy property used as certification |
+| `mechanism` | placebo, ablation, actor-neutrality, evaluator independence | mechanism reuse report | self-certification or no mechanism surplus |
+| `evaluator` | evaluator strata and evaluation graph | hierarchy report | cycle, self-edge, or invalid root rotation |
+| `finality` | federated finality, quorum, PoUA, settlement flag | finality/PoUA report | PoUA used as epistemic authority |
+| `sequential` | horizon, surplus, EVSI, sampling cost, budget | settle-or-sample report | unaffordable sampling or unsupported settlement |
+| `transport_ext` | support, robust estimate, Wasserstein radius, invariance | robust transport report | uncovered support or radius beyond threshold |
+| `certificate_algebra` | certificates, estimands, operation, negative scope | composition report | naive composition or mismatched estimands |
+| `portfolio_ext` | selection, conflicts, breadth, behavior cover | portfolio constraint report | cherry-picking or selected conflict |
+| `foundry_control` | min-cut, demand, shadow price, absorption, exploration | foundry phase-control report | capacity bottleneck or excessive risk |
 | `reproduction` | matrix, gauge, capacity, identification | reproduction report | unidentified recombination claim |
-| `cara` | target, basis, baseline envelope, membership, viability, time-to-target | target-crossing report | missing target evidence or no time improvement |
+| `cara` / `cara_ext` | target, basis, baseline envelope, membership, viability, time-to-target | target-crossing and process reports | missing target evidence, non-tradable failure, or no time improvement |
 
 ## Non-Reduction Boundary
 

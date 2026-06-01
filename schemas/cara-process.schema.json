@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:cara-process:0.3.0",
+  "title": "ALT-CARA Process",
+  "description": "Target-valid ALT-CARA process, non-tradable target constraints, viability control, and time-to-target improvement contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "target",
+    "non_tradable_constraints",
+    "baseline_upper_envelope",
+    "capability_process",
+    "viability_control",
+    "raw_net_capital",
+    "time_to_target",
+    "stopping_conditions"
+  ],
+  "properties": {
+    "target": { "$ref": "#/$defs/status_object" },
+    "non_tradable_constraints": {
+      "type": "object",
+      "required": ["satisfied"],
+      "additionalProperties": true,
+      "properties": { "satisfied": { "type": "boolean" } }
+    },
+    "baseline_upper_envelope": { "$ref": "#/$defs/status_object" },
+    "capability_process": { "$ref": "#/$defs/status_object" },
+    "viability_control": { "$ref": "#/$defs/status_object" },
+    "raw_net_capital": {
+      "type": "object",
+      "required": ["lower_bound"],
+      "additionalProperties": true,
+      "properties": { "lower_bound": { "type": "number" } }
+    },
+    "time_to_target": {
+      "type": "object",
+      "required": ["acceleration_lower_bound"],
+      "additionalProperties": true,
+      "properties": { "acceleration_lower_bound": { "type": "number" } }
+    },
+    "stopping_conditions": { "$ref": "#/$defs/status_object" }
+  },
+  "$defs": {
+    "status_object": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": { "status": { "type": "string" } }
+    }
+  }
+}

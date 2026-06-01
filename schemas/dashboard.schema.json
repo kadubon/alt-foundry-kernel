@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:alt-foundry-kernel:schema:dashboard:0.2.0",
+  "$id": "urn:alt-foundry-kernel:schema:dashboard:0.3.0",
   "title": "ALT Foundry Dashboard",
   "type": "object",
   "additionalProperties": true,

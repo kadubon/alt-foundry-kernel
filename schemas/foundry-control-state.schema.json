@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:foundry-control-state:0.3.0",
+  "title": "ALT Foundry Control State",
+  "description": "Bottleneck, shadow-price, absorption, conservative exploration, and phase-control contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "bottleneck",
+    "shadow_price",
+    "absorption",
+    "exploration",
+    "phase",
+    "conservative_exploration"
+  ],
+  "properties": {
+    "bottleneck": {
+      "type": "object",
+      "required": ["min_cut_capacity", "demand_upper_bound"],
+      "additionalProperties": true,
+      "properties": {
+        "min_cut_capacity": { "type": "number", "minimum": 0 },
+        "demand_upper_bound": { "type": "number", "minimum": 0 }
+      }
+    },
+    "shadow_price": { "$ref": "#/$defs/status_object" },
+    "absorption": {
+      "type": "object",
+      "required": ["capacity_lower_bound"],
+      "additionalProperties": true,
+      "properties": { "capacity_lower_bound": { "type": "number", "minimum": 0 } }
+    },
+    "exploration": {
+      "type": "object",
+      "required": ["capital_at_risk_upper_bound", "risk_budget"],
+      "additionalProperties": true,
+      "properties": {
+        "capital_at_risk_upper_bound": { "type": "number", "minimum": 0 },
+        "risk_budget": { "type": "number", "minimum": 0 }
+      }
+    },
+    "phase": { "$ref": "#/$defs/status_object" },
+    "conservative_exploration": { "$ref": "#/$defs/status_object" }
+  },
+  "$defs": {
+    "status_object": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": { "status": { "type": "string" } }
+    }
+  }
+}

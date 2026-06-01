@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alt-foundry-kernel:schema:portfolio-constraints:0.3.0",
+  "title": "ALT Portfolio Constraints",
+  "description": "Conflict graph, breadth partition, cherry-picking, behavioral covering, and submodular interface contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "tokens",
+    "selection",
+    "conflicts",
+    "breadth_partition",
+    "cherry_picking",
+    "behavioral_cover",
+    "submodular_interface"
+  ],
+  "properties": {
+    "tokens": { "type": "array", "items": { "type": "string" } },
+    "selection": { "type": "array", "items": { "type": "string" } },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["left", "right"],
+        "additionalProperties": true,
+        "properties": {
+          "left": { "type": "string" },
+          "right": { "type": "string" }
+        }
+      }
+    },
+    "breadth_partition": { "$ref": "#/$defs/status_object" },
+    "cherry_picking": { "$ref": "#/$defs/status_object" },
+    "behavioral_cover": { "$ref": "#/$defs/status_object" },
+    "submodular_interface": { "$ref": "#/$defs/status_object" }
+  },
+  "$defs": {
+    "status_object": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": { "status": { "type": "string" } }
+    }
+  }
+}

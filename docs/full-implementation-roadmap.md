@@ -2,11 +2,11 @@
 
 Paper DOI: [https://doi.org/10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200)
 
-This roadmap describes how to extend the v0.2.0 reference kernel into a fuller
+This roadmap describes how to extend the v0.3.0 reference kernel into a fuller
 Abstraction Liquidity Theory foundry while preserving the executable packet,
 certificate, and transcript contracts.
 
-## Stage 0: v0.2.0 Kernel Boundary
+## Stage 0: v0.3.0 Kernel Boundary
 
 - Preserve the public packet schema, lifecycle states, predicate names, and
   fail-closed transition semantics.
@@ -52,22 +52,46 @@ certificate, and transcript contracts.
 
 - Implement support coverage, density-ratio, drift, and causal-invariance
   diagnostics on top of the transport certificate surface.
+- Implement robust estimated transport and Wasserstein-radius construction for
+  `schemas/transport-robustness.schema.json`; keep the validator as the
+  settlement gate.
 - Connect root/finality validation to evaluator-root, role-separated-root,
   quorum, finality, stale-packet, and partition-alarm services.
+- Connect evaluator hierarchy records to an independently operated root rotation
+  service; preserve acyclicity and self-certification-cycle rejection.
+- Connect PoUA ledgers to governance and finality; never let PoUA weight replace
+  mission-valid evidence or evaluator independence.
 - Add transport-refresh and opportunity-law refresh bridges that subtract
   declared conservative charges.
 
-## Stage 5: Portfolio, Reproduction, And Recombination
+## Stage 5: Sequential Evidence, Algebra, And Portfolio
 
+- Implement sequential sample/settle controllers that estimate EVSI and finite
+  evidence budgets before emitting `sequential-decision` records.
+- Implement certificate-algebra proof search for common estimands, bridge
+  compatibility, and negative-certificate scope propagation.
 - Extend the bundled dependency-closure and capital-accounting utilities with
   portfolio selection, conflict constraints, and behavioral-equivalence
   quotienting.
+- Add cherry-picking audits, breadth partitions, behavioral covering or metric
+  entropy records, and submodular selection interfaces.
+
+## Stage 6: Reproduction And Recombination
+
 - Add gauge compatibility for class-wise capital coordinates.
 - Add causal reproduction matrix identification, capacity-capped reproduction,
   recombination tensor confidence sets, residual charges, and phase
   classification.
 
-## Stage 6: CARA Target Claims
+## Stage 7: Foundry Control
+
+- Implement bottleneck/min-cut measurement, shadow prices, absorption-capacity
+  estimates, capital-conservative exploration, and dashboard phase-control
+  policies on top of `schemas/foundry-control-state.schema.json`.
+- Treat foundry-control outputs as allocation records; they do not certify
+  scientific validity by themselves.
+
+## Stage 8: CARA Target Claims
 
 - Add ASI target-set parser, capability-basis registry, target-membership
   checker, resource-matched baseline upper-envelope checker, raw-net-capital

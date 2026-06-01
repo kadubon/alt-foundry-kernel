@@ -1,0 +1,30 @@
+{
+  "fixture_type": "certificate",
+  "kind": "mechanism",
+  "expected_ok": false,
+  "payload": {
+    "certificate_id": "mech-self-certification-negative",
+    "mechanism_id": "workflow-policy-reuse",
+    "placebo": {
+      "status": "cleared",
+      "effect_upper_bound": 0.0
+    },
+    "ablation": {
+      "status": "valid",
+      "surplus_lower_bound": 1.5
+    },
+    "actor_neutrality": {
+      "status": "valid"
+    },
+    "evaluator_independence": {
+      "status": "independent"
+    },
+    "self_certification": {
+      "status": "cleared",
+      "self_certified": true
+    },
+    "mechanism_effect": {
+      "lower_bound": 1.2
+    }
+  }
+}

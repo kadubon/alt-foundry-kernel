@@ -1,4 +1,4 @@
-"""Command-line interface for the ALT Foundry Kernel bootloader."""
+"""Command-line interface for the ALT Foundry Kernel reference implementation."""
 
 from __future__ import annotations
 
@@ -11,18 +11,28 @@ from jsonschema import Draft202012Validator
 
 from alt_foundry_kernel.authority import validate_authority_certificate
 from alt_foundry_kernel.cara import validate_cara_certificate
+from alt_foundry_kernel.cara_ext import validate_cara_process
 from alt_foundry_kernel.causal import validate_causal_certificate
+from alt_foundry_kernel.certificate_algebra import validate_certificate_composition
 from alt_foundry_kernel.conformance import run_conformance
+from alt_foundry_kernel.evaluator import validate_evaluator_hierarchy
+from alt_foundry_kernel.finality import validate_finality_poua_ledger
 from alt_foundry_kernel.foundry import make_dashboard, replay_transcript
+from alt_foundry_kernel.foundry_control import validate_foundry_control_state
 from alt_foundry_kernel.kernel import run_kernel_transition
 from alt_foundry_kernel.measurement import validate_measurement_spec
+from alt_foundry_kernel.mechanism import validate_mechanism_certificate
 from alt_foundry_kernel.models import KernelState
+from alt_foundry_kernel.non_reduction import validate_non_reduction_audit
+from alt_foundry_kernel.portfolio_ext import validate_portfolio_constraints
 from alt_foundry_kernel.public_audit import run_public_audit
 from alt_foundry_kernel.reproduction import validate_reproduction_certificate
 from alt_foundry_kernel.risk import validate_risk_certificate
 from alt_foundry_kernel.root_finality import validate_root_finality_certificate
 from alt_foundry_kernel.schemas import load_schema
+from alt_foundry_kernel.sequential import validate_sequential_decision
 from alt_foundry_kernel.transport import validate_transport_certificate
+from alt_foundry_kernel.transport_ext import validate_transport_robustness
 from alt_foundry_kernel.validation import validate_packet
 
 app = typer.Typer(help="ALT Foundry Kernel packet tools.")
@@ -46,7 +56,7 @@ def validate(
     ],
     path: Annotated[Path | None, typer.Argument(help="JSON file to validate.")] = None,
 ) -> None:
-    """Validate a packet or v0.2.0 language-neutral artifact."""
+    """Validate a packet or v0.3.0 language-neutral artifact."""
 
     if path is None:
         report = validate_packet(_read_json(Path(kind_or_path)))
@@ -92,7 +102,9 @@ def certify(
         typer.Argument(
             help=(
                 "Certificate kind: measurement, transport, risk, authority, "
-                "root-finality, causal, cara, reproduction."
+                "root-finality, causal, cara, reproduction, non-reduction, "
+                "mechanism, evaluator, finality, sequential, transport-ext, "
+                "certificate-algebra, portfolio-ext, foundry-control, cara-ext."
             )
         ),
     ],
@@ -110,6 +122,16 @@ def certify(
         "causal": validate_causal_certificate,
         "cara": validate_cara_certificate,
         "reproduction": validate_reproduction_certificate,
+        "non-reduction": validate_non_reduction_audit,
+        "mechanism": validate_mechanism_certificate,
+        "evaluator": validate_evaluator_hierarchy,
+        "finality": validate_finality_poua_ledger,
+        "sequential": validate_sequential_decision,
+        "transport-ext": validate_transport_robustness,
+        "certificate-algebra": validate_certificate_composition,
+        "portfolio-ext": validate_portfolio_constraints,
+        "foundry-control": validate_foundry_control_state,
+        "cara-ext": validate_cara_process,
     }
     checker = checkers.get(kind)
     if checker is None:
@@ -179,10 +201,14 @@ def conformance(
         Path,
         typer.Option("--fixtures", help="Directory containing golden transcript fixtures."),
     ] = Path("conformance"),
+    level: Annotated[
+        str,
+        typer.Option("--level", help="Conformance level: L0, L1, L2, L3, L4, or L5."),
+    ] = "L5",
 ) -> None:
-    """Run language-neutral conformance transcript replay."""
+    """Run language-neutral conformance replay and certificate fixtures."""
 
-    report = run_conformance(fixtures)
+    report = run_conformance(fixtures, level=level)
     typer.echo(report.to_json())
     if not report.ok:
         raise typer.Exit(code=1)

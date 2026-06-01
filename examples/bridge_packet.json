@@ -2,7 +2,7 @@
   "id": "pkt-bridge-001",
   "type": "bridge",
   "token_id": "tok-workflow-triage",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "state": "active",
   "scope_hash": "sha256:scope-workflow-triage-v1",
   "declaration": {

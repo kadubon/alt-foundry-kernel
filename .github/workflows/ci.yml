@@ -37,5 +37,15 @@ jobs:
       - run: uv run altk certify causal examples/certificates/causal_certificate.json
       - run: uv run altk certify cara examples/certificates/cara_claim.json
       - run: uv run altk certify reproduction examples/certificates/reproduction_record.json
-      - run: uv run altk conformance --fixtures conformance
+      - run: uv run altk certify non-reduction examples/certificates/non_reduction_audit.json
+      - run: uv run altk certify mechanism examples/certificates/mechanism_certificate.json
+      - run: uv run altk certify evaluator examples/certificates/evaluator_hierarchy.json
+      - run: uv run altk certify finality examples/certificates/finality_poua_ledger.json
+      - run: uv run altk certify sequential examples/certificates/sequential_decision.json
+      - run: uv run altk certify transport-ext examples/certificates/transport_robustness.json
+      - run: uv run altk certify certificate-algebra examples/certificates/certificate_composition.json
+      - run: uv run altk certify portfolio-ext examples/certificates/portfolio_constraints.json
+      - run: uv run altk certify foundry-control examples/certificates/foundry_control_state.json
+      - run: uv run altk certify cara-ext examples/certificates/cara_process.json
+      - run: uv run altk conformance --fixtures conformance --level L5
       - run: uv run altk audit-public --strict

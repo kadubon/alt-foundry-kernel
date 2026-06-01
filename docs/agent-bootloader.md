@@ -3,7 +3,7 @@
 Paper DOI: [https://doi.org/10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200)
 
 This guide is the handoff surface for AI agents that clone this repository and
-build toward a full ALT foundry. v0.2.0 provides the parser, schemas,
+build toward a full ALT foundry. v0.3.0 provides the parser, schemas,
 certificate checkers, predicate report, signed-bound discipline, dual ledgers,
 deterministic state machine, dashboards, and replayable conformance fixtures.
 Agents should extend those boundaries rather than bypass them.
@@ -31,7 +31,7 @@ Agents should extend those boundaries rather than bypass them.
 9. Run `uv run altk audit-public --strict` before publishing a fork or release.
 
 For non-Python implementations, treat the CLI and `conformance/` fixtures as
-oracles for v0.2.0 behavior. Implement the wire format, module certificate
+oracles for v0.3.0 behavior. Implement the wire format, module certificate
 reports, predicates, signed bounds, lifecycle transitions, dashboards, and
 transcript replay described in `docs/language-neutral-contract.md`.
 
@@ -48,7 +48,10 @@ When validation fails, repair in this order:
 7. Runtime witness, telemetry, transport, hazard, authority, capability, threat.
 8. Root/quorum, finality, budget, capacity, refresh, rollback, deprecation.
 9. Raw-net solvency, noncompensable hazard, and viability.
-10. CARA target-validity, baseline-envelope, target-membership, viability, and
+10. Non-reduction shortcut audit, mechanism placebo/ablation, evaluator graph,
+    finality/PoUA, sequential evidence, robust transport, certificate algebra,
+    portfolio conflicts, and foundry-control capacity records.
+11. CARA target-validity, baseline-envelope, target-membership, viability, and
     time-to-target fields, only when target crossing is claimed.
 
 Never patch missing evidence with zero. Use measured evidence, a declared
@@ -67,9 +70,9 @@ worst-case charge, a narrowed scope, or a fail-closed transition.
 - `resurrection`: address a prior negative certificate with new evidence.
   Without admission-grade current evidence, it returns to candidate.
 - `bridge`: record a proxy, baseline, opportunity, transport, or semantics
-  bridge. v0.2.0 records this as audit evidence only.
+  bridge. v0.3.0 records this as audit evidence only.
 - `kernel-update`: propose a conservative parser/kernel update through the old
-  kernel boundary. v0.2.0 records this; the old kernel remains authoritative.
+  kernel boundary. v0.3.0 records this; the old kernel remains authoritative.
 
 ## Full Implementation Modules
 
@@ -87,11 +90,20 @@ A full ALT implementation should add modules that emit typed packet fields:
 - hazard envelope, noncompensable-hazard gate, and dynamic risk ledger;
 - authority/capability envelope and adversarial-token threat checker;
 - root/quorum verifier, finality verifier, and audit replay;
+- non-reduction auditor for shortcut claims;
+- mechanism-ablation and placebo-control evaluator;
+- stratified evaluator hierarchy and root-rotation service;
+- sequential evidence controller and EVSI estimator;
+- robust transport estimator with support and radius certificates;
+- certificate-algebra engine for common-estimand composition and negative
+  propagation;
+- portfolio conflict, breadth, cherry-picking, and behavioral-cover controller;
+- bottleneck/min-cut and conservative exploration phase controller;
 - reproduction matrix and recombination tensor estimators;
 - CARA target-validity, capability-basis, baseline-envelope, target-membership,
   raw-net, and time-to-target verifiers.
 
-v0.2.0 includes reference validators for these module boundaries. They verify
+v0.3.0 includes reference validators for these module boundaries. They verify
 declared certificates and reject missing evidence; production foundries should
 connect them to real trace stores, measurement systems, causal estimators,
 transport monitors, root services, and risk ledgers.
@@ -108,7 +120,7 @@ Each full-implementation module should return one of three artifacts:
 Modules should not directly mutate settlement capital. The kernel remains the
 only boundary that can write a capital-changing transition.
 
-## v0.2.0 Commands For Agents
+## v0.3.0 Commands For Agents
 
 ```bash
 uv run altk certify measurement examples/certificates/measurement_spec.json
@@ -117,7 +129,17 @@ uv run altk certify transport examples/certificates/transport_certificate.json
 uv run altk certify risk examples/certificates/risk_ledger.json
 uv run altk certify root-finality examples/certificates/root_finality_record.json
 uv run altk certify cara examples/certificates/cara_claim.json
-uv run altk conformance --fixtures conformance
+uv run altk certify non-reduction examples/certificates/non_reduction_audit.json
+uv run altk certify mechanism examples/certificates/mechanism_certificate.json
+uv run altk certify evaluator examples/certificates/evaluator_hierarchy.json
+uv run altk certify finality examples/certificates/finality_poua_ledger.json
+uv run altk certify sequential examples/certificates/sequential_decision.json
+uv run altk certify transport-ext examples/certificates/transport_robustness.json
+uv run altk certify certificate-algebra examples/certificates/certificate_composition.json
+uv run altk certify portfolio-ext examples/certificates/portfolio_constraints.json
+uv run altk certify foundry-control examples/certificates/foundry_control_state.json
+uv run altk certify cara-ext examples/certificates/cara_process.json
+uv run altk conformance --fixtures conformance --level L5
 ```
 
 ## Agent Rule

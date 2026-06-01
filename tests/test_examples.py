@@ -9,12 +9,22 @@ import alt_foundry_kernel.validation as validation_module
 from alt_foundry_kernel import KernelState, Packet, load_schema, validate_packet
 from alt_foundry_kernel.authority import validate_authority_certificate
 from alt_foundry_kernel.cara import validate_cara_certificate
+from alt_foundry_kernel.cara_ext import validate_cara_process
 from alt_foundry_kernel.causal import validate_causal_certificate
+from alt_foundry_kernel.certificate_algebra import validate_certificate_composition
+from alt_foundry_kernel.evaluator import validate_evaluator_hierarchy
+from alt_foundry_kernel.finality import validate_finality_poua_ledger
+from alt_foundry_kernel.foundry_control import validate_foundry_control_state
 from alt_foundry_kernel.measurement import validate_measurement_spec
+from alt_foundry_kernel.mechanism import validate_mechanism_certificate
+from alt_foundry_kernel.non_reduction import validate_non_reduction_audit
+from alt_foundry_kernel.portfolio_ext import validate_portfolio_constraints
 from alt_foundry_kernel.reproduction import validate_reproduction_certificate
 from alt_foundry_kernel.risk import validate_risk_certificate
 from alt_foundry_kernel.root_finality import validate_root_finality_certificate
+from alt_foundry_kernel.sequential import validate_sequential_decision
 from alt_foundry_kernel.transport import validate_transport_certificate
+from alt_foundry_kernel.transport_ext import validate_transport_robustness
 
 ROOT = Path(__file__).resolve().parents[1]
 EXAMPLES = ROOT / "examples"
@@ -55,6 +65,43 @@ def test_certificate_examples_validate_with_schema_and_python_checkers() -> None
         "causal_certificate.json": ("causal-certificate", validate_causal_certificate),
         "cara_claim.json": ("cara-claim", validate_cara_certificate),
         "reproduction_record.json": ("reproduction-record", validate_reproduction_certificate),
+        "non_reduction_audit.json": (
+            "non-reduction-audit",
+            validate_non_reduction_audit,
+        ),
+        "mechanism_certificate.json": (
+            "mechanism-certificate",
+            validate_mechanism_certificate,
+        ),
+        "evaluator_hierarchy.json": (
+            "evaluator-hierarchy",
+            validate_evaluator_hierarchy,
+        ),
+        "finality_poua_ledger.json": (
+            "finality-poua-ledger",
+            validate_finality_poua_ledger,
+        ),
+        "sequential_decision.json": (
+            "sequential-decision",
+            validate_sequential_decision,
+        ),
+        "transport_robustness.json": (
+            "transport-robustness",
+            validate_transport_robustness,
+        ),
+        "certificate_composition.json": (
+            "certificate-composition",
+            validate_certificate_composition,
+        ),
+        "portfolio_constraints.json": (
+            "portfolio-constraints",
+            validate_portfolio_constraints,
+        ),
+        "foundry_control_state.json": (
+            "foundry-control-state",
+            validate_foundry_control_state,
+        ),
+        "cara_process.json": ("cara-process", validate_cara_process),
     }
     cert_dir = EXAMPLES / "certificates"
     for filename, (schema_name, checker) in checks.items():

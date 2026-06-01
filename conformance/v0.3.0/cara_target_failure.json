@@ -1,0 +1,33 @@
+{
+  "fixture_type": "certificate",
+  "kind": "cara-ext",
+  "expected_ok": false,
+  "payload": {
+    "process_id": "cara-target-negative",
+    "target": {
+      "status": "invalid",
+      "target_id": "declared-target"
+    },
+    "non_tradable_constraints": {
+      "satisfied": true
+    },
+    "baseline_upper_envelope": {
+      "status": "valid"
+    },
+    "capability_process": {
+      "status": "valid"
+    },
+    "viability_control": {
+      "status": "valid"
+    },
+    "raw_net_capital": {
+      "lower_bound": 1.0
+    },
+    "time_to_target": {
+      "acceleration_lower_bound": 0.5
+    },
+    "stopping_conditions": {
+      "status": "valid"
+    }
+  }
+}
