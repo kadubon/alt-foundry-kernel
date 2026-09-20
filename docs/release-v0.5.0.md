@@ -37,7 +37,69 @@ record alone does not claim that subsequent checks passed. The qualifying workfl
 and publication record must establish that separately. Hashes are integrity checks,
 not provenance attestations; no attestation is claimed.
 
-Publication remains pending until required CI, normal-policy merge, annotated tag,
-public Release assets and fresh download/install verification are recorded. Do not
-interpret this preparation record as a successful public-asset check. Release
-completion evidence will identify exact commits, run IDs and downloaded hashes.
+## Verified public delivery
+
+[PR #1](https://github.com/kadubon/alt-foundry-kernel/pull/1) was merged through the
+normal merge API, without an administrator bypass. The annotated `v0.5.0` tag peels
+to `cdb5c7d845364f0bec42ebe5e865871b2bde2e91`. Its source tree matches the checked PR
+head. The public [GitHub Release](https://github.com/kadubon/alt-foundry-kernel/releases/tag/v0.5.0)
+was published on 2026-09-20 after all of these runs passed:
+
+- [Merged source CI, 35488945874](https://github.com/kadubon/alt-foundry-kernel/actions/runs/35488945874):
+  191 tests on each Python 3.11–3.14 job, retained gates and all seven selected faults detected.
+- [Distribution qualification, 35488945936](https://github.com/kadubon/alt-foundry-kernel/actions/runs/35488945936):
+  six wheel installations and the sdist installation described above.
+- [Tag CI, 35489094085](https://github.com/kadubon/alt-foundry-kernel/actions/runs/35489094085):
+  all jobs passed at the same release commit.
+
+The final Python 3.13 source run measured 97.24% statement and 93.91% branch
+coverage across every module under `alt_foundry_kernel/reuse`, with no exclusions.
+The intentional forged-model test emits one Pydantic serialization warning.
+
+| Public artifact | SHA-256 |
+| --- | --- |
+| `alt_foundry_kernel-0.5.0-py3-none-any.whl` | `cd6755db6d97f978300d978695dc70c19d64fdd11c58e0c6dc4c1fcb7db9f487` |
+| `alt_foundry_kernel-0.5.0.tar.gz` | `2da03b30e278c6cd824a045eb8e5ea382d1941b5500340bc88d6336c6a618785` |
+
+Both distributions, `validation-manifest.json`, `qualification-manifest.json` and
+`SHA256SUMS` were downloaded from unauthenticated public GitHub URLs after
+publication and matched the prepublication qualified bytes. The wheel and sdist
+were then installed separately into fresh Windows/Python 3.13.3 environments
+outside every checkout. Both passed metadata/import-origin checks, the installed
+`altk` entry-point check, literal `pip check`, five legacy/new CLI calls, all 17 L5
+cases, break-even/transfer/capacity/receiver scenarios, lifecycle replay and actual
+pinned CCR/VEK/CAIT checks with runtime sockets blocked. This is verification of
+GitHub assets; it is not a public-PyPI installation of ALT.
+
+An additional installed-package check explicitly ingested the synthetic use history
+with a failed fourth use and a subsequent scoped expiry. Replanning selected only
+`scratch-3`, and the independent plan checker accepted the history-bound contract.
+Withdrawal then removed all current eligibility while retaining one historical
+stock item, three successful uses and every recorded cost. This passed against
+both public wheel and public sdist installations, outside the checkout with sockets
+blocked.
+
+The attached qualification manifest records prepublication CI and deliberately
+does not predict this later public download result. This document and the Release
+notes record that subsequent result; the already published assets remain unchanged.
+
+| Deliverable | Status |
+| --- | --- |
+| A1–A4 implementation | IMPLEMENTED |
+| Local tests and checks | LOCAL_CHECKS passed |
+| Required existing quality gates and added CI | REQUIRED_CI passed |
+| Feature branch | BRANCH_PUSHED |
+| Implementation PR | PR_OPENED, MERGED |
+| Canonical documentation | DOCS_UPDATED |
+| Existing Wiki | NOT_APPLICABLE |
+| Annotated version tag | TAG_PUSHED |
+| Public Release | GITHUB_RELEASED |
+| Public asset fresh installation | PUBLIC_GITHUB_ASSET_INSTALL_VERIFIED |
+| PyPI/TestPyPI and deployment | NOT_REQUESTED |
+
+No external empirical collective-intelligence acceleration experiment was
+performed. Finite synthetic results do not establish causal abstraction value,
+authenticated real-world observations without external trust material, AGI/ASI,
+universal transferability, indefinite growth or execution authority. Supported
+native mappings and their remaining host-admission, source-authentication and
+partial-conversion boundaries are detailed in [reuse-interchange.md](reuse-interchange.md).
