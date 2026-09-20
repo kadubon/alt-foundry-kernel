@@ -58,6 +58,18 @@ certificate validators, and which remain scientific work.
 | CARA target crossing | estimator | `cara`, `cara_ext`, `cara-time-to-target estimator` | target validity and time-to-target evidence must be supplied |
 | ASI realization | not certified | docs and CARA guards | no real-world ASI claim is certified |
 
+## v0.5.0 bounded additions
+
+| Area | Status | Surface | Boundary |
+| --- | --- | --- | --- |
+| Finite typed abstraction formation | implemented | `reuse.formation` | Explicit literal parameterization; no unrestricted synthesis |
+| Receiver qualification | implemented structural replay | `reuse.qualification` | Exact source/receiver checks; authentication and causal value unknown |
+| Net reuse selection | implemented finite model | `reuse.planning`, `reuse.checker` | Exhaustive registered catalogue only; no hidden-world optimization |
+| Lifecycle recomputation | implemented local model | `reuse.lifecycle`, `reuse.bridge` | Append-only evidence; no settlement authority |
+| Companion mapping | implemented supported subsets | `reuse.interchange`, `reuse.cait_export` | Native acceptance is not live host enforcement |
+
+See [collective reuse](collective-reuse.md) for bounds, costs, unsupported cases and tests.
+
 ## Implementer Rule
 
 When in doubt, map a paper theorem to one of three public artifacts:

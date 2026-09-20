@@ -55,3 +55,11 @@ target-valid processes, non-tradable target constraints, baseline envelopes,
 viability-controlled acceleration, raw-net capital, and stopping conditions.
 These checkers verify structural target-crossing conditions and time-to-target
 improvement. They do not certify ASI realization.
+
+## Additive v0.5.0 profile
+
+The opt-in receiver-qualified model workbench is documented in
+[collective-reuse.md](collective-reuse.md), with version-bound adapters in
+[reuse-interchange.md](reuse-interchange.md). Its closed schemas and exact arithmetic
+do not replace these legacy certificate interfaces or establish settlement authority.
+See [release qualification](release-v0.5.0.md) for the GitHub-only artifact gates.

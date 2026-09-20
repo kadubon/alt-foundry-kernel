@@ -5,3 +5,5 @@
 *.jpeg binary
 *.gif binary
 *.pdf binary
+src/alt_foundry_kernel/reuse/fixtures/companions/* -text
+src/alt_foundry_kernel/reuse/fixtures/companions/manifest.json text eol=lf

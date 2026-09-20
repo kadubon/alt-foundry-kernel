@@ -167,3 +167,11 @@ The module schemas are deliberately not hidden Python internals. They are
 intended for agents implementing the paper in any programming language. A
 non-Python implementation can emit these records, replay the transcripts, and
 then feed packet-level claims into its own kernel.
+
+## Additive v0.5.0 profile
+
+The opt-in receiver-qualified model workbench is documented in
+[collective-reuse.md](collective-reuse.md), with version-bound adapters in
+[reuse-interchange.md](reuse-interchange.md). Its closed schemas and exact arithmetic
+do not replace these legacy certificate interfaces or establish settlement authority.
+See [release qualification](release-v0.5.0.md) for the GitHub-only artifact gates.

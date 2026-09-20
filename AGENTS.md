@@ -1,11 +1,22 @@
 # Agent Instructions
 
-This repository implements the ALT Foundry Kernel v0.4.0 reference kernel and
+This repository adds the experimental v0.5.0 collective-reuse profile while preserving
+the ALT Foundry Kernel v0.4.0 reference kernel and
 language-neutral contract. Preserve the paper-linked contract: packets and
 certificates are executable records, not informal claims. Theory citation:
 https://doi.org/10.5281/zenodo.20476200
 
 ## Operating Rules
+
+- Read `docs/collective-reuse.md` and `docs/reuse-interchange.md` for the opt-in
+  `altk reuse` group. Source hashes do not establish authentication. Model
+  qualification, useful service, settlement and execution authority stay separate.
+- Never feed synthetic reuse results to settlement. Legacy cumulative capital is
+  not current receiver-qualified stock. Carry journal costs and revocations forward.
+- Use `uv sync --dev --group integration --locked` for complete development checks.
+  Generate/check additive schemas with `scripts/reuse_schemas.py`; preserve old IDs.
+- Release only the exact CI-tested wheel/sdist bytes. No tag/release workflow may
+  upload to a package index or deploy a service for the v0.5.0 GitHub-only task.
 
 - Keep packet fields explicit. Do not invent evidence or replace missing cost
   coordinates with zero.

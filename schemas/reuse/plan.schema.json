@@ -1,0 +1,195 @@
+{
+  "$defs": {
+    "Score": {
+      "additionalProperties": false,
+      "properties": {
+        "costs": {
+          "patternProperties": {
+            "^[A-Za-z0-9_.:-]+$": {
+              "maxLength": 81,
+              "pattern": "^-?(0|[1-9][0-9]*)(/[1-9][0-9]*)?$",
+              "type": "string"
+            }
+          },
+          "propertyNames": {
+            "maxLength": 128,
+            "minLength": 1
+          },
+          "title": "Costs",
+          "type": "object"
+        },
+        "feasible": {
+          "title": "Feasible",
+          "type": "boolean"
+        },
+        "incremental_cost": {
+          "maxLength": 81,
+          "pattern": "^-?(0|[1-9][0-9]*)(/[1-9][0-9]*)?$",
+          "title": "Incremental Cost",
+          "type": "string"
+        },
+        "lifecycle_cost": {
+          "maxLength": 81,
+          "pattern": "^-?(0|[1-9][0-9]*)(/[1-9][0-9]*)?$",
+          "title": "Lifecycle Cost",
+          "type": "string"
+        },
+        "reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "scenario_coverage": {
+          "patternProperties": {
+            "^[A-Za-z0-9_.:-]+$": {
+              "items": {
+                "maxLength": 128,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9_.:-]+$",
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "propertyNames": {
+            "maxLength": 128,
+            "minLength": 1
+          },
+          "title": "Scenario Coverage",
+          "type": "object"
+        },
+        "scenario_net": {
+          "patternProperties": {
+            "^[A-Za-z0-9_.:-]+$": {
+              "maxLength": 81,
+              "pattern": "^-?(0|[1-9][0-9]*)(/[1-9][0-9]*)?$",
+              "type": "string"
+            }
+          },
+          "propertyNames": {
+            "maxLength": 128,
+            "minLength": 1
+          },
+          "title": "Scenario Net",
+          "type": "object"
+        }
+      },
+      "required": [
+        "feasible",
+        "reasons",
+        "costs",
+        "incremental_cost",
+        "lifecycle_cost",
+        "scenario_net",
+        "scenario_coverage"
+      ],
+      "title": "Score",
+      "type": "object"
+    }
+  },
+  "$id": "urn:alt:reuse:plan:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "catalogue": {
+      "enum": [
+        "all",
+        "scratch",
+        "available",
+        "no-transfer"
+      ],
+      "title": "Catalogue",
+      "type": "string"
+    },
+    "causal_attribution": {
+      "title": "Causal Attribution",
+      "type": "null"
+    },
+    "complete": {
+      "title": "Complete",
+      "type": "boolean"
+    },
+    "contract_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Contract Digest",
+      "type": "string"
+    },
+    "evidence_basis": {
+      "const": "declared-model",
+      "title": "Evidence Basis",
+      "type": "string"
+    },
+    "execution_authority": {
+      "title": "Execution Authority",
+      "type": "null"
+    },
+    "expanded": {
+      "maximum": 4096,
+      "minimum": 0,
+      "title": "Expanded",
+      "type": "integer"
+    },
+    "score": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Score"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "selected": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9_.:-]+$",
+        "type": "string"
+      },
+      "title": "Selected",
+      "type": "array"
+    },
+    "settlement": {
+      "title": "Settlement",
+      "type": "null"
+    },
+    "source_authentication": {
+      "title": "Source Authentication",
+      "type": "null"
+    },
+    "state_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "State Digest",
+      "type": "string"
+    },
+    "statistical_coverage": {
+      "title": "Statistical Coverage",
+      "type": "null"
+    },
+    "version": {
+      "const": "alt_reuse_plan_v1",
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version",
+    "contract_digest",
+    "state_digest",
+    "selected",
+    "score",
+    "expanded",
+    "complete",
+    "catalogue",
+    "evidence_basis",
+    "source_authentication",
+    "statistical_coverage",
+    "causal_attribution",
+    "settlement",
+    "execution_authority"
+  ],
+  "title": "Plan",
+  "type": "object"
+}

@@ -95,3 +95,11 @@ reported as cleanup warnings and excluded from content scanning.
 Report parser, schema, or fail-closed behavior issues through the repository's
 public issue tracker. Do not include credentials or private trace payloads in
 reports.
+
+## Additive v0.5.0 profile
+
+The opt-in receiver-qualified model workbench is documented in
+[collective-reuse.md](collective-reuse.md), with version-bound adapters in
+[reuse-interchange.md](reuse-interchange.md). Its closed schemas and exact arithmetic
+do not replace these legacy certificate interfaces or establish settlement authority.
+See [release qualification](release-v0.5.0.md) for the GitHub-only artifact gates.

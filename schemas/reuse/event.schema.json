@@ -1,0 +1,937 @@
+{
+  "$defs": {
+    "Atom": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "integer",
+            "string",
+            "reference",
+            "parameter"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "kind",
+        "value"
+      ],
+      "title": "Atom",
+      "type": "object"
+    },
+    "Candidate": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_digest": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Artifact Digest",
+          "type": "string"
+        },
+        "dependencies": {
+          "items": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "execution_authority": {
+          "title": "Execution Authority",
+          "type": "null"
+        },
+        "extractor": {
+          "const": "whole-sequence-1",
+          "title": "Extractor",
+          "type": "string"
+        },
+        "formation_cost_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Formation Cost Id",
+          "type": "string"
+        },
+        "guards": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Guards",
+          "type": "array"
+        },
+        "implementation_digests": {
+          "items": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "title": "Implementation Digests",
+          "type": "array"
+        },
+        "qualification": {
+          "enum": [
+            "candidate",
+            "unqualified"
+          ],
+          "title": "Qualification",
+          "type": "string"
+        },
+        "representation": {
+          "items": {
+            "$ref": "#/$defs/Step"
+          },
+          "title": "Representation",
+          "type": "array"
+        },
+        "request_digest": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Request Digest",
+          "type": "string"
+        },
+        "scope": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Scope",
+          "type": "string"
+        },
+        "settlement": {
+          "title": "Settlement",
+          "type": "null"
+        },
+        "source_authentication": {
+          "title": "Source Authentication",
+          "type": "null"
+        },
+        "source_cost_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Source Cost Ids",
+          "type": "array"
+        },
+        "source_digests": {
+          "items": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "title": "Source Digests",
+          "type": "array"
+        },
+        "unresolved": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Unresolved",
+          "type": "array"
+        },
+        "version": {
+          "const": "alt_reuse_candidate_v1",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "request_digest",
+        "extractor",
+        "artifact_digest",
+        "scope",
+        "source_digests",
+        "representation",
+        "implementation_digests",
+        "guards",
+        "dependencies",
+        "unresolved",
+        "formation_cost_id",
+        "source_cost_ids",
+        "qualification",
+        "source_authentication",
+        "settlement",
+        "execution_authority"
+      ],
+      "title": "Candidate",
+      "type": "object"
+    },
+    "Formation": {
+      "additionalProperties": false,
+      "properties": {
+        "attempt_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Attempt Id",
+          "type": "string"
+        },
+        "cost": {
+          "maxLength": 81,
+          "pattern": "^-?(0|[1-9][0-9]*)(/[1-9][0-9]*)?$",
+          "title": "Cost",
+          "type": "string"
+        },
+        "cost_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Cost Id",
+          "type": "string"
+        },
+        "cost_unit": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Cost Unit",
+          "type": "string"
+        },
+        "cutoff": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Cutoff",
+          "type": "integer"
+        },
+        "expansion_limit": {
+          "maximum": 1024,
+          "minimum": 1,
+          "title": "Expansion Limit",
+          "type": "integer"
+        },
+        "library": {
+          "items": {
+            "$ref": "#/$defs/Primitive"
+          },
+          "maxItems": 16,
+          "minItems": 1,
+          "title": "Library",
+          "type": "array"
+        },
+        "mode": {
+          "enum": [
+            "package",
+            "sequence"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "parameters": {
+          "items": {
+            "$ref": "#/$defs/Parameter"
+          },
+          "maxItems": 16,
+          "title": "Parameters",
+          "type": "array"
+        },
+        "scope": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Scope",
+          "type": "string"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/Source"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "title": "Sources",
+          "type": "array"
+        },
+        "version": {
+          "const": "alt_reuse_formation_v1",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "mode",
+        "scope",
+        "cutoff",
+        "sources",
+        "library",
+        "parameters",
+        "attempt_id",
+        "cost_id",
+        "cost_unit",
+        "cost",
+        "expansion_limit"
+      ],
+      "title": "Formation",
+      "type": "object"
+    },
+    "Offer": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Candidate",
+          "type": "string"
+        },
+        "checks": {
+          "items": {
+            "$ref": "#/$defs/Source"
+          },
+          "maxItems": 24,
+          "minItems": 1,
+          "title": "Checks",
+          "type": "array"
+        },
+        "comparator": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Comparator",
+          "type": "string"
+        },
+        "context": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Context",
+          "type": "string"
+        },
+        "dependencies": {
+          "items": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "estimand": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Estimand",
+          "type": "string"
+        },
+        "evaluator": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Evaluator",
+          "type": "string"
+        },
+        "evidence_basis": {
+          "enum": [
+            "synthetic",
+            "source-replay"
+          ],
+          "title": "Evidence Basis",
+          "type": "string"
+        },
+        "inputs": {
+          "items": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "maxItems": 24,
+          "minItems": 1,
+          "title": "Inputs",
+          "type": "array"
+        },
+        "mission": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Mission",
+          "type": "string"
+        },
+        "opportunities": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "maxItems": 24,
+          "minItems": 1,
+          "title": "Opportunities",
+          "type": "array"
+        },
+        "postconditions": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Postconditions",
+          "type": "array"
+        },
+        "preconditions": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Preconditions",
+          "type": "array"
+        },
+        "protocol": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Protocol",
+          "type": "string"
+        },
+        "quality": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Quality",
+          "type": "string"
+        },
+        "receiver": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Receiver",
+          "type": "string"
+        },
+        "required_cost_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "maxItems": 24,
+          "minItems": 1,
+          "title": "Required Cost Ids",
+          "type": "array"
+        },
+        "restrictions": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "type": "string"
+          },
+          "title": "Restrictions",
+          "type": "array"
+        },
+        "task_family": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Task Family",
+          "type": "string"
+        },
+        "valid_from": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Valid From",
+          "type": "integer"
+        },
+        "valid_until": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Valid Until",
+          "type": "integer"
+        },
+        "valuation": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Valuation",
+          "type": "string"
+        },
+        "version": {
+          "const": "alt_reuse_offer_v1",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "candidate",
+        "receiver",
+        "mission",
+        "context",
+        "task_family",
+        "inputs",
+        "opportunities",
+        "protocol",
+        "evaluator",
+        "valid_from",
+        "valid_until",
+        "restrictions",
+        "dependencies",
+        "preconditions",
+        "postconditions",
+        "checks",
+        "required_cost_ids",
+        "comparator",
+        "estimand",
+        "quality",
+        "valuation",
+        "evidence_basis"
+      ],
+      "title": "Offer",
+      "type": "object"
+    },
+    "Parameter": {
+      "additionalProperties": false,
+      "properties": {
+        "argument": {
+          "maximum": 7,
+          "minimum": 0,
+          "title": "Argument",
+          "type": "integer"
+        },
+        "name": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Name",
+          "type": "string"
+        },
+        "step": {
+          "maximum": 7,
+          "minimum": 0,
+          "title": "Step",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "step",
+        "argument"
+      ],
+      "title": "Parameter",
+      "type": "object"
+    },
+    "Primitive": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "implementation": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Implementation",
+          "type": "string"
+        },
+        "inputs": {
+          "items": {
+            "enum": [
+              "integer",
+              "string"
+            ],
+            "type": "string"
+          },
+          "title": "Inputs",
+          "type": "array"
+        },
+        "output": {
+          "enum": [
+            "integer",
+            "string"
+          ],
+          "title": "Output",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "implementation",
+        "inputs",
+        "output"
+      ],
+      "title": "Primitive",
+      "type": "object"
+    },
+    "Qualification": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate": {
+          "$ref": "#/$defs/Candidate"
+        },
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "offer": {
+          "$ref": "#/$defs/Offer"
+        },
+        "request": {
+          "$ref": "#/$defs/Formation"
+        }
+      },
+      "required": [
+        "id",
+        "request",
+        "candidate",
+        "offer"
+      ],
+      "title": "Qualification",
+      "type": "object"
+    },
+    "Source": {
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "maxLength": 100000,
+          "title": "Content",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sha256",
+        "content"
+      ],
+      "title": "Source",
+      "type": "object"
+    },
+    "Step": {
+      "additionalProperties": false,
+      "properties": {
+        "arguments": {
+          "items": {
+            "$ref": "#/$defs/Atom"
+          },
+          "maxItems": 8,
+          "title": "Arguments",
+          "type": "array"
+        },
+        "primitive": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Primitive",
+          "type": "string"
+        }
+      },
+      "required": [
+        "primitive",
+        "arguments"
+      ],
+      "title": "Step",
+      "type": "object"
+    }
+  },
+  "$id": "urn:alt:reuse:event:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "artifact": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Artifact",
+      "type": "string"
+    },
+    "attempt": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Attempt",
+      "type": "string"
+    },
+    "context": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Context",
+      "type": "string"
+    },
+    "cost_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Cost Id"
+    },
+    "cost_stage": {
+      "default": "formation",
+      "enum": [
+        "formation",
+        "execution",
+        "transfer",
+        "validation",
+        "refresh",
+        "maintenance",
+        "repair"
+      ],
+      "title": "Cost Stage",
+      "type": "string"
+    },
+    "cost_unit": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Cost Unit"
+    },
+    "dependencies": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Dependencies",
+      "type": "array"
+    },
+    "evaluator": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Evaluator",
+      "type": "string"
+    },
+    "evidence_basis": {
+      "enum": [
+        "synthetic",
+        "source-replay"
+      ],
+      "title": "Evidence Basis",
+      "type": "string"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Id",
+      "type": "string"
+    },
+    "input_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Input Digest",
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "formation",
+        "qualify",
+        "transfer",
+        "request",
+        "result",
+        "cost",
+        "expire",
+        "contradict",
+        "withdraw",
+        "refresh",
+        "correct"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "offer_digest": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Offer Digest"
+    },
+    "origin": {
+      "additionalProperties": {
+        "maxLength": 81,
+        "pattern": "^-?(0|[1-9][0-9]*)(/[1-9][0-9]*)?$",
+        "type": "string"
+      },
+      "propertyNames": {
+        "enum": [
+          "endogenous",
+          "external",
+          "unresolved"
+        ]
+      },
+      "title": "Origin",
+      "type": "object"
+    },
+    "outcome": {
+      "enum": [
+        "success",
+        "failure",
+        "unknown"
+      ],
+      "title": "Outcome",
+      "type": "string"
+    },
+    "previous": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Previous",
+      "type": "string"
+    },
+    "protocol": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Protocol",
+      "type": "string"
+    },
+    "qualification": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Qualification"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "quantity": {
+      "maxLength": 81,
+      "pattern": "^-?(0|[1-9][0-9]*)(/[1-9][0-9]*)?$",
+      "title": "Quantity",
+      "type": "string"
+    },
+    "receiver": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Receiver",
+      "type": "string"
+    },
+    "recorded": {
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Recorded",
+      "type": "integer"
+    },
+    "required_cost_ids": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9_.:-]+$",
+        "type": "string"
+      },
+      "title": "Required Cost Ids",
+      "type": "array"
+    },
+    "scope": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Scope",
+      "type": "string"
+    },
+    "study": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Study",
+      "type": "string"
+    },
+    "target": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Target"
+    },
+    "task": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Task",
+      "type": "string"
+    },
+    "time": {
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Time",
+      "type": "integer"
+    },
+    "valid_until": {
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Valid Until",
+      "type": "integer"
+    },
+    "version": {
+      "const": "alt_reuse_event_v1",
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version",
+    "id",
+    "scope",
+    "study",
+    "kind",
+    "previous",
+    "time",
+    "recorded",
+    "artifact",
+    "receiver",
+    "context",
+    "task",
+    "input_digest",
+    "protocol",
+    "evaluator",
+    "offer_digest",
+    "attempt",
+    "outcome",
+    "dependencies",
+    "required_cost_ids",
+    "cost_id",
+    "cost_unit",
+    "quantity",
+    "valid_until",
+    "target",
+    "origin",
+    "evidence_basis"
+  ],
+  "title": "Event",
+  "type": "object"
+}

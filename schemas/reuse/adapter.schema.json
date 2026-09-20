@@ -1,0 +1,88 @@
+{
+  "$defs": {
+    "MappingField": {
+      "additionalProperties": false,
+      "properties": {
+        "scale": {
+          "maxLength": 81,
+          "pattern": "^-?(0|[1-9][0-9]*)(/[1-9][0-9]*)?$",
+          "title": "Scale",
+          "type": "string"
+        },
+        "source": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Source",
+          "type": "string"
+        },
+        "source_unit": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Source Unit",
+          "type": "string"
+        },
+        "target": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Target",
+          "type": "string"
+        },
+        "target_unit": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Target Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "target",
+        "source_unit",
+        "target_unit",
+        "scale"
+      ],
+      "title": "MappingField",
+      "type": "object"
+    }
+  },
+  "$id": "urn:alt:reuse:adapter:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "allowed_units": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9_.:-]+$",
+        "type": "string"
+      },
+      "title": "Allowed Units",
+      "type": "array"
+    },
+    "fields": {
+      "items": {
+        "$ref": "#/$defs/MappingField"
+      },
+      "maxItems": 8,
+      "minItems": 1,
+      "title": "Fields",
+      "type": "array"
+    },
+    "version": {
+      "const": "alt_reuse_adapter_v1",
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version",
+    "fields",
+    "allowed_units"
+  ],
+  "title": "Adapter",
+  "type": "object"
+}
