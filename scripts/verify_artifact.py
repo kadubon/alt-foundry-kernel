@@ -18,6 +18,7 @@ parser.add_argument("--output", type=Path, required=True)
 args = parser.parse_args()
 dist = args.dist.resolve()
 manifest = json.loads((dist / "validation-manifest.json").read_text(encoding="utf-8"))
+assert manifest["source_dirty"] is False, "Release qualification requires a clean source tree"
 for line in (dist / "SHA256SUMS").read_text(encoding="utf-8").splitlines():
     expected, name = line.split("  ", 1)
     if Path(name).name != name:
@@ -39,6 +40,7 @@ subprocess.run(
         str(python),
         "--index-url",
         "https://pypi.org/simple",
+        "pip>=26.2.1",
         str(artifact),
         "cait-certificate-schema==0.2.0",
         "verification-ecology-kit==1.3.0",
@@ -50,6 +52,7 @@ subprocess.run(
     check=True,
 )
 subprocess.run(["uv", "pip", "check", "--python", str(python)], cwd=scratch, check=True)
+subprocess.run([str(python), "-I", "-m", "pip", "check"], cwd=scratch, check=True)
 result = subprocess.run(
     [str(python), "-I", "-m", "alt_foundry_kernel.reuse.installed_check"],
     cwd=scratch,

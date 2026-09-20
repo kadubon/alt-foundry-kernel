@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import socket
-from importlib.metadata import version
+from importlib.metadata import distribution, version
 from importlib.resources import files
 from pathlib import Path
 from typing import Any
@@ -36,6 +36,10 @@ def run(native: bool = True) -> dict[str, Any]:
         patch.object(socket, "create_connection", forbidden),
     ):
         root = files("alt_foundry_kernel")
+        entry = next(
+            item for item in distribution("alt-foundry-kernel").entry_points if item.name == "altk"
+        )
+        assert entry.load() is app
         legacy = root.joinpath("legacy_examples")
         packet = json.loads(legacy.joinpath("admission_packet.json").read_text(encoding="utf-8"))
         assert validate_packet(packet).ok
