@@ -1,0 +1,180 @@
+{
+  "$id": "urn:alt:reuse:check:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "candidate": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Candidate",
+      "type": "string"
+    },
+    "context": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Context",
+      "type": "string"
+    },
+    "defeaters": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9_.:-]+$",
+        "type": "string"
+      },
+      "title": "Defeaters",
+      "type": "array"
+    },
+    "dependencies": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Dependencies",
+      "type": "array"
+    },
+    "estimand": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Estimand",
+      "type": "string"
+    },
+    "evaluator": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Evaluator",
+      "type": "string"
+    },
+    "evidence_basis": {
+      "enum": [
+        "synthetic",
+        "source-replay"
+      ],
+      "title": "Evidence Basis",
+      "type": "string"
+    },
+    "input_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Input Digest",
+      "type": "string"
+    },
+    "mission": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Mission",
+      "type": "string"
+    },
+    "postconditions": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9_.:-]+$",
+        "type": "string"
+      },
+      "title": "Postconditions",
+      "type": "array"
+    },
+    "preconditions": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9_.:-]+$",
+        "type": "string"
+      },
+      "title": "Preconditions",
+      "type": "array"
+    },
+    "protocol": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Protocol",
+      "type": "string"
+    },
+    "quality": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Quality",
+      "type": "string"
+    },
+    "receiver": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Receiver",
+      "type": "string"
+    },
+    "restrictions": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9_.:-]+$",
+        "type": "string"
+      },
+      "title": "Restrictions",
+      "type": "array"
+    },
+    "result": {
+      "enum": [
+        "pass",
+        "fail",
+        "unknown"
+      ],
+      "title": "Result",
+      "type": "string"
+    },
+    "task_family": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Task Family",
+      "type": "string"
+    },
+    "time": {
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Time",
+      "type": "integer"
+    },
+    "valuation": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Valuation",
+      "type": "string"
+    },
+    "version": {
+      "const": "alt_reuse_check_v1",
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version",
+    "candidate",
+    "receiver",
+    "mission",
+    "context",
+    "task_family",
+    "input_digest",
+    "protocol",
+    "evaluator",
+    "time",
+    "result",
+    "restrictions",
+    "dependencies",
+    "defeaters",
+    "evidence_basis",
+    "quality",
+    "estimand",
+    "valuation",
+    "preconditions",
+    "postconditions"
+  ],
+  "title": "Check",
+  "type": "object"
+}

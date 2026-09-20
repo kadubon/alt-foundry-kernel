@@ -1,6 +1,6 @@
 [project]
 name = "alt-foundry-kernel"
-version = "0.4.0"
+version = "0.5.0"
 description = "Language-neutral ALT foundry kernel for executable certificate packets, abstraction tokens, dual-ledger settlement, and safe certified abstraction capital."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -34,7 +34,7 @@ dependencies = [
   "pydantic>=2.7",
   "scipy>=1.13",
   "typer>=0.12",
-  "cryptography>=42.0",
+  "cryptography>=50.0.1",
 ]
 
 [project.optional-dependencies]
@@ -54,6 +54,11 @@ Issues = "https://github.com/kadubon/alt-foundry-kernel/issues"
 altk = "alt_foundry_kernel.cli:app"
 
 [dependency-groups]
+integration = [
+  "cait-certificate-schema==0.2.0",
+  "verification-ecology-kit==1.3.0",
+  "collective-capability-runtime @ https://github.com/kadubon/collective-capability-runtime/releases/download/v1.8.0/collective_capability_runtime-1.8.0-py3-none-any.whl",
+]
 dev = [
   "hypothesis>=6.112",
   "mypy>=1.10",
@@ -72,6 +77,8 @@ packages = ["src/alt_foundry_kernel"]
 
 [tool.hatch.build.targets.wheel.force-include]
 "schemas" = "alt_foundry_kernel/schemas"
+"examples" = "alt_foundry_kernel/legacy_examples"
+"conformance" = "alt_foundry_kernel/legacy_conformance"
 
 [tool.ruff]
 line-length = 100

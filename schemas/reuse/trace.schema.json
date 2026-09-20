@@ -1,0 +1,217 @@
+{
+  "$defs": {
+    "Atom": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "integer",
+            "string",
+            "reference",
+            "parameter"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "kind",
+        "value"
+      ],
+      "title": "Atom",
+      "type": "object"
+    },
+    "Step": {
+      "additionalProperties": false,
+      "properties": {
+        "arguments": {
+          "items": {
+            "$ref": "#/$defs/Atom"
+          },
+          "maxItems": 8,
+          "title": "Arguments",
+          "type": "array"
+        },
+        "primitive": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Primitive",
+          "type": "string"
+        }
+      },
+      "required": [
+        "primitive",
+        "arguments"
+      ],
+      "title": "Step",
+      "type": "object"
+    }
+  },
+  "$id": "urn:alt:reuse:trace:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "check_results": {
+      "items": {
+        "enum": [
+          "pass",
+          "fail",
+          "unknown"
+        ],
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Check Results",
+      "type": "array"
+    },
+    "checked_artifact": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Checked Artifact",
+      "type": "string"
+    },
+    "complete": {
+      "title": "Complete",
+      "type": "boolean"
+    },
+    "costs": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9_.:-]+$",
+        "type": "string"
+      },
+      "maxItems": 16,
+      "minItems": 1,
+      "title": "Costs",
+      "type": "array"
+    },
+    "dependencies": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Dependencies",
+      "type": "array"
+    },
+    "episode": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Episode",
+      "type": "string"
+    },
+    "guards": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9_.:-]+$",
+        "type": "string"
+      },
+      "title": "Guards",
+      "type": "array"
+    },
+    "input_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Input Digest",
+      "type": "string"
+    },
+    "outcome": {
+      "enum": [
+        "success",
+        "failure",
+        "unknown"
+      ],
+      "title": "Outcome",
+      "type": "string"
+    },
+    "secret_taint": {
+      "title": "Secret Taint",
+      "type": "boolean"
+    },
+    "source_version": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Source Version",
+      "type": "string"
+    },
+    "split": {
+      "enum": [
+        "training",
+        "holdout"
+      ],
+      "title": "Split",
+      "type": "string"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/Step"
+      },
+      "maxItems": 8,
+      "minItems": 1,
+      "title": "Steps",
+      "type": "array"
+    },
+    "task": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Task",
+      "type": "string"
+    },
+    "time": {
+      "maximum": 1000000,
+      "minimum": 0,
+      "title": "Time",
+      "type": "integer"
+    },
+    "unresolved": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9_.:-]+$",
+        "type": "string"
+      },
+      "title": "Unresolved",
+      "type": "array"
+    },
+    "version": {
+      "const": "alt_reuse_trace_v1",
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version",
+    "episode",
+    "task",
+    "input_digest",
+    "source_version",
+    "time",
+    "split",
+    "complete",
+    "checked_artifact",
+    "steps",
+    "outcome",
+    "check_results",
+    "costs",
+    "guards",
+    "dependencies",
+    "unresolved",
+    "secret_taint"
+  ],
+  "title": "Trace",
+  "type": "object"
+}

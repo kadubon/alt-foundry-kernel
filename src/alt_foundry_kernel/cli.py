@@ -28,6 +28,7 @@ from alt_foundry_kernel.non_reduction import validate_non_reduction_audit
 from alt_foundry_kernel.portfolio_ext import validate_portfolio_constraints
 from alt_foundry_kernel.public_audit import run_public_audit
 from alt_foundry_kernel.reproduction import validate_reproduction_certificate
+from alt_foundry_kernel.reuse.cli import app as reuse_app
 from alt_foundry_kernel.risk import validate_risk_certificate
 from alt_foundry_kernel.root_finality import validate_root_finality_certificate
 from alt_foundry_kernel.schemas import load_schema
@@ -37,6 +38,7 @@ from alt_foundry_kernel.transport_ext import validate_transport_robustness
 from alt_foundry_kernel.validation import validate_packet
 
 app = typer.Typer(help="ALT Foundry Kernel packet tools.")
+app.add_typer(reuse_app, name="reuse")
 
 
 def _read_json(path: Path) -> dict[str, Any]:

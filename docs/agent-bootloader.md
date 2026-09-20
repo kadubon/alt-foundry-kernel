@@ -10,6 +10,11 @@ Agents should extend those boundaries rather than bypass them.
 
 ## End-To-End Workflow
 
+For the additive finite model path, start with `altk reuse example` and
+[collective-reuse.md](collective-reuse.md). This produces candidates, checked
+planning and explicit local histories; it cannot skip the settlement-evidence
+workflow below. The agent entry point is `.agents/skills/collective-reuse/SKILL.md`.
+
 1. Capture traces: failed branches, verifier feedback, retrieved context,
    auxiliary-resource use, random seeds, hidden-resource measurements,
    telemetry, environment versions, toolchain versions, and trace projection.

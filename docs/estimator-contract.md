@@ -55,3 +55,11 @@ Estimator success means the declared data passed the reference arithmetic. It
 does not certify unobserved assumptions. Causal identification, transportability,
 root authority, recombination structure, and ALT-CARA target validity must still
 be declared and independently justified before a packet can enter settlement.
+
+## Additive v0.5.0 profile
+
+The opt-in receiver-qualified model workbench is documented in
+[collective-reuse.md](collective-reuse.md), with version-bound adapters in
+[reuse-interchange.md](reuse-interchange.md). Its closed schemas and exact arithmetic
+do not replace these legacy certificate interfaces or establish settlement authority.
+See [release qualification](release-v0.5.0.md) for the GitHub-only artifact gates.

@@ -29,6 +29,21 @@ useful abstraction, PoUA finality, certificate algebra, sequential evidence,
 transport robustness, CARA target-crossing guard, language-neutral JSON Schema,
 and conformance fixtures.
 
+## v0.5.0: experimental collective reuse
+
+The additive Alpha profile forms bounded typed candidates from immutable sources,
+qualifies them for named receivers, selects costed reuse portfolios, and replays
+local lifecycle evidence. `altk reuse example` demonstrates a shared formation
+cost of 12, reuse cost 1, and matched from-scratch cost 5: four uses cost 16 versus
+20; adding transfer cost 5 removes the advantage. These are finite model results,
+not empirical acceleration evidence or settlement/execution authorization.
+
+See [the installed quickstart and contract](docs/collective-reuse.md),
+[version-pinned interoperability](docs/reuse-interchange.md), and
+[qualification/publication record](docs/release-v0.5.0.md). Legacy commands,
+0.4.0 schema identities and goldens remain unchanged. GitHub Release assets are
+the requested distribution channel; ALT PyPI publication is not requested.
+
 ## What v0.4.0 Is
 
 `v0.4.0` is the first v1.0.0-equivalent reference surface: a packet kernel,

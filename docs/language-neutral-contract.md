@@ -1,5 +1,11 @@
 # Language-Neutral Contract
 
+The v0.5.0 opt-in reuse profile adds closed schemas under `schemas/reuse/`; it does
+not change legacy L0–L5 identities or numeric formats. Its exact rational grammar,
+source reconstruction and bounded semantics are described in `collective-reuse.md`.
+JSON Schema validates shape; reduced fractions, source digests and semantic closure
+also require the documented checks. No remote schema retrieval is performed.
+
 Paper DOI: [https://doi.org/10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200)
 
 ALT Foundry Kernel is intentionally not a Python-only specification. The Python
