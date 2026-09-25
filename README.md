@@ -1,33 +1,22 @@
 # ALT Foundry Kernel
 
-**ALT Foundry Kernel is an Apache-2.0, language-neutral reference kernel for
-Abstraction Liquidity Theory (ALT): the claim that traces become reusable
-abstraction capital only after they are converted into certified abstraction
-tokens with positive signed surplus under explicit measurement, baseline,
-opportunity, transport, hazard, authority, lifecycle, and finality rules.**
+When is a checked procedure worth reusing instead of solving the task again?
+ALT Foundry Kernel provides a legacy packet/certificate kernel and a separate,
+experimental finite receiver-qualified reuse profile for that question. ALT expands
+to **Abstraction Liquidity Theory**. The software checks declared evidence and
+costs; it does not manufacture scientific validity, settlement or execution authority.
 
-ALT is not a synonym for compression, novelty, benchmark transfer, trace volume,
-library size, static surplus, or packaging. Those properties may be useful
-signals, but the theory treats them as non-sufficient. Liquidity is an
-operational settlement condition: a trace-derived object must be represented as
-an abstraction token, bound to an executable certificate packet, checked against
-declared mission and opportunity laws, charged for formation and lifecycle
-costs, constrained by transport and hazard evidence, authorized by capability
-and threat gates, finalized by roots/quorums, and admitted to a settlement
-ledger only when conservative lower-bound signed surplus is positive. Missing
-capital-relevant evidence is undefined, not zero.
+Current source and [GitHub release](https://github.com/kadubon/alt-foundry-kernel/releases/tag/v0.5.0):
+**0.5.0**, Python 3.11+, Apache-2.0. Package maturity remains **Alpha**.
+The legacy v0.4.0 wire/API surface remains available. The v0.5.0 reuse profile is
+opt-in; a newer package version does not replace legacy schema identities.
+The verified distribution route is the GitHub wheel, not an ALT PyPI release.
 
-Source paper:
-Takahashi, K. (2026). *Abstraction Liquidity Theory*. Zenodo.
-[https://doi.org/10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200)
-
-Accurate search terms for this project: Abstraction Liquidity Theory, ALT,
-abstraction token, executable certificate packet, agent-operable foundry, AI
-agent certification kernel, dual-ledger settlement, safe certified abstraction
-capital, signed surplus, non-reduction guards, evaluator hierarchy, proof of
-useful abstraction, PoUA finality, certificate algebra, sequential evidence,
-transport robustness, CARA target-crossing guard, language-neutral JSON Schema,
-and conformance fixtures.
+Start with [installation](#install), then choose the
+[finite reuse contract](docs/collective-reuse.md) or
+[legacy language-neutral contract](docs/language-neutral-contract.md).
+For theory, see Takahashi (2026), *Abstraction Liquidity Theory*,
+[DOI 10.5281/zenodo.20476200](https://doi.org/10.5281/zenodo.20476200).
 
 ## v0.5.0: experimental collective reuse
 
@@ -69,126 +58,74 @@ The public contract is language-neutral:
 
 ## Start Here For Agents
 
-1. Read the paper DOI above and [docs/theory-map.md](docs/theory-map.md).
-2. Read [docs/theory-to-module-matrix.md](docs/theory-to-module-matrix.md) to
-   see what is implemented, validator-only, schema-only, deferred, or not
-   certified.
-3. Read [docs/language-neutral-contract.md](docs/language-neutral-contract.md)
-   before implementing ALT in TypeScript, Rust, Go, JVM languages, or another
-   runtime.
-4. Inspect `schemas/packet.schema.json`,
-   `schemas/foundry-transcript.schema.json`, and the v0.4.0 certificate and
-   estimator schemas.
-5. Validate a packet:
+Choose a profile before supplying evidence. New reuse accepts source-bound finite
+`Formation`, `Offer`, `Contract` and `Journal` records from [schemas/reuse](schemas/reuse/).
+Legacy packets use [packet schemas](schemas/) and preserve their existing numeric
+and declaration semantics. A legacy `status=valid` does not satisfy source replay.
 
-   ```bash
-   uv run altk validate examples/admission_packet.json
-   ```
-
-6. Run a deterministic transition:
-
-   ```bash
-   uv run altk decide examples/admission_packet.json --state examples/kernel_state_empty.json
-   ```
-
-7. Certify module artifacts:
-
-   ```bash
-   uv run altk certify non-reduction examples/certificates/non_reduction_audit.json
-   uv run altk certify mechanism examples/certificates/mechanism_certificate.json
-   uv run altk certify transport-ext examples/certificates/transport_robustness.json
-   uv run altk certify certificate-algebra examples/certificates/certificate_composition.json
-   uv run altk certify cara-ext examples/certificates/cara_process.json
-   ```
-
-8. Generate estimator-backed certificate reports from declared data:
-
-   ```bash
-   uv run altk estimate finite-sample examples/estimators/finite_sample.json
-   uv run altk estimate causal-effect examples/estimators/causal_effect.json
-   uv run altk estimate transport-diagnostics examples/estimators/transport_diagnostics.json
-   ```
-
-9. Replay the portable contract:
-
-   ```bash
-   uv run altk conformance --fixtures conformance --level L5
-   ```
-
-10. Before publication or redistribution:
-
-   ```bash
-   uv run altk audit-public --strict
-   ```
-
-Packet repair order is deliberate: schema, packet-type fields, dependency
-closure, mission/baseline/opportunity, measurement/evidence, signed bounds,
-runtime witness, telemetry, transport, hazard, authority, capability, threat,
-root/quorum/finality, budget, capacity, refresh, rollback, deprecation, raw-net
-solvency, noncompensable hazard, viability, and then CARA target fields only
-when target crossing is claimed.
+Machine readers should use the [language-neutral contract](docs/language-neutral-contract.md)
+for predicate/issue meanings and L0–L5 conformance, the
+[schema contract](docs/schema-contract.md), and the
+[implementation map](docs/theory-to-module-matrix.md). Missing evidence is undefined,
+not zero; rejection, deferral and unresolved work must remain visible.
 
 ## Install
 
-```bash
-uv sync --dev
+Download `alt_foundry_kernel-0.5.0-py3-none-any.whl` and `SHA256SUMS` from the
+[0.5.0 release](https://github.com/kadubon/alt-foundry-kernel/releases/tag/v0.5.0).
+Verify the wheel against its checksum entry before installing it into an isolated
+Python environment. From the download directory, with that environment active
+(POSIX shell or PowerShell):
+
+```sh
+python -m pip install ./alt_foundry_kernel-0.5.0-py3-none-any.whl
+altk --help
 ```
 
-Runtime dependencies are local libraries only: `pydantic`, `jsonschema`,
-`typer`, `numpy`, `scipy`, `networkx`, and `cryptography`. There are no hosted
-services, databases, telemetry callbacks, or private infrastructure
-requirements. Heavier estimator ecosystem packages are optional under the
-`estimators` extra; the reference estimators in this release run with the core
-dependencies.
+Installation may fetch dependencies. Base use does not need any companion project.
+For source development instead, run `uv sync --dev` from the checkout root and use
+`uv run altk`. `uv run` may install dependencies if the environment is not prepared.
+Optional native checks use the exact pairs in [reuse interchange](docs/reuse-interchange.md);
+they are not required for the minimal offline path.
 
 ## CLI Surface
 
-Backwards-compatible packet validation:
+After installation, this finite synthetic example computes a report to stdout;
+it does not ingest a journal, contact a model, dispatch work or settle capital:
 
-```bash
+```sh
+altk reuse example
+```
+
+Inspect the reported model comparisons and failures, not just process completion.
+The declared 12/1/5 costs above are neither GPU/token measurements nor monetary savings.
+Commands here are source-checked, not newly execution-verified by this documentation update.
+
+The [reuse command/API contract](docs/collective-reuse.md) covers `form`, `qualify`,
+`plan`, `check-plan`, `compare`, `ingest` and `replay` with actual argument names.
+Calculations are read-only unless a named `--out` file is requested. `ingest` is an
+explicit journal write requiring the expected digest; the host serializes writers.
+Independent plan checking establishes feasibility/score, not global optimality;
+incomplete comparison search establishes no superiority claim.
+
+For legacy validation, from a prepared source checkout root:
+
+```sh
 uv run altk validate examples/admission_packet.json
 ```
 
-Language-neutral validation, certification, replay, dashboard, and audit:
-
-```bash
-uv run altk validate packet examples/admission_packet.json
-uv run altk validate state examples/kernel_state_empty.json
-uv run altk validate transcript conformance/v0.2.0/golden_admission_transcript.json
-uv run altk certify measurement examples/certificates/measurement_spec.json
-uv run altk certify causal examples/certificates/causal_certificate.json
-uv run altk certify transport examples/certificates/transport_certificate.json
-uv run altk certify risk examples/certificates/risk_ledger.json
-uv run altk certify authority examples/certificates/authority_certificate.json
-uv run altk certify root-finality examples/certificates/root_finality_record.json
-uv run altk certify reproduction examples/certificates/reproduction_record.json
-uv run altk certify non-reduction examples/certificates/non_reduction_audit.json
-uv run altk certify mechanism examples/certificates/mechanism_certificate.json
-uv run altk certify evaluator examples/certificates/evaluator_hierarchy.json
-uv run altk certify finality examples/certificates/finality_poua_ledger.json
-uv run altk certify sequential examples/certificates/sequential_decision.json
-uv run altk certify transport-ext examples/certificates/transport_robustness.json
-uv run altk certify certificate-algebra examples/certificates/certificate_composition.json
-uv run altk certify portfolio-ext examples/certificates/portfolio_constraints.json
-uv run altk certify foundry-control examples/certificates/foundry_control_state.json
-uv run altk certify cara-ext examples/certificates/cara_process.json
-uv run altk estimate finite-sample examples/estimators/finite_sample.json
-uv run altk estimate proxy-bridge examples/estimators/proxy_bridge.json
-uv run altk estimate causal-effect examples/estimators/causal_effect.json
-uv run altk estimate transport-diagnostics examples/estimators/transport_diagnostics.json
-uv run altk estimate guard-risk examples/estimators/guard_risk.json
-uv run altk estimate federated-pooling examples/estimators/federated_pooling.json
-uv run altk estimate portfolio-selection examples/estimators/portfolio_selection.json
-uv run altk estimate foundry-phase examples/estimators/foundry_phase.json
-uv run altk estimate reproduction-phase examples/estimators/reproduction_phase.json
-uv run altk estimate cara-time-to-target examples/estimators/cara_time_to_target.json
-uv run altk estimate alpha-budget examples/estimators/alpha_budget.json
-uv run altk conformance --fixtures conformance --level L5
-uv run altk dashboard examples/kernel_state_empty.json
-uv run altk audit-public --strict
-```
+This reads an existing synthetic fixture and emits validation output. Installed
+users should not assume repository-relative `examples/` paths exist in their cwd.
+Full certificate/estimator families are documented in the
+[language-neutral contract](docs/language-neutral-contract.md) and
+[estimator contract](docs/estimator-contract.md).
 
 ## Python API
+
+The following is the **legacy v0.4.0 API surface**, retained in 0.5.0. Its floating
+values and declared `status` flags are not new-profile source-replay qualifications.
+The final call reads the complete existing synthetic packet from a source checkout
+root; it computes a transition in memory, not external execution permission.
 
 ```python
 from alt_foundry_kernel import (
@@ -225,39 +162,21 @@ non_reduction = validate_non_reduction_audit(
 )
 assert non_reduction.ok
 
-result = run_kernel_transition(KernelState(), {...})
+import json
+from pathlib import Path
+
+packet = json.loads(Path("examples/admission_packet.json").read_text(encoding="utf-8"))
+result = run_kernel_transition(KernelState(), packet)
 ```
 
 ## Implemented Modules
 
-| Paper-facing area | v0.4.0 implementation |
-| --- | --- |
-| Executable certificate packet | JSON Schema, Pydantic model, packet validation, examples |
-| Signed surplus | lower/upper conservative arithmetic and missing-coordinate rejection |
-| Dual ledgers | exploration, settlement, negative, resurrection, hazard, audit surfaces |
-| Lifecycle kernel | candidate, admission, monitor-alarm, transport-refresh, deprecation, rollback, resurrection, bridge, kernel-update |
-| Measurement | task/solver/protocol, trace sufficiency, sample design, instrumentation, evaluator firewall, contamination, selection |
-| Statistical bounds | t-intervals, empirical-Bernstein lower bound, post-selection confidence adjustment |
-| Causal certificates | randomized, paired, replay, off-policy, doubly robust, calibrated-proxy, proxy-only gates |
-| Transport | support coverage, density-ratio bound, drift, refresh, transport cost |
-| Transport robustness | robust estimate, Wasserstein radius, causal invariance, observable stopping |
-| Non-reduction | rejects compression, novelty, benchmark score, trace volume, static surplus, and packaging as substitutes for liquidity |
-| Mechanism | placebo control, mechanism ablation, actor-neutrality, evaluator independence, self-certification rejection |
-| Evaluator hierarchy | stratified acyclic graph, root rotation, self-certification-cycle rejection |
-| Finality and PoUA | federated finality, weighted quorum, PoUA-not-authority guard, finality-safe settlement |
-| Sequential evidence | adaptive horizon, settle-or-sample, EVSI-style gate, finite evidence budget |
-| Certificate algebra | common-estimand composition, naive-composition rejection, negative-scope propagation |
-| Portfolio constraints | conflict graph, breadth partition, cherry-picking guard, behavioral cover, submodular interface |
-| Foundry control | bottleneck/min-cut, shadow price, absorption capacity, conservative exploration, phase control |
-| Risk | reserve, hazard, irreversible loss, raw-net solvency, noncompensable hazard |
-| Authority | authority, capability, threat, guarded deployment, telemetry, runtime witness |
-| Root/finality | root status, role separation, quorum, finality, rollback path, optional Ed25519 verification |
-| Reproduction | matrix, gauge, capacity, identification, recombination fail-closed gate |
-| CARA | target validity, baseline envelope, target membership, viability, time-to-target improvement |
-| Extended CARA | target-valid process, non-tradable target constraints, viability-controlled acceleration preconditions |
-| Estimator helpers | finite-sample, proxy bridge, causal modes, transport diagnostics, guard risk, federated pooling, portfolio selection, foundry phase, reproduction phase, CARA time-to-target, alpha budget |
-| Foundry conformance | deterministic transcript replay, negative certificate fixtures, conformance levels L0-L5 |
-| Public release | strict audit for DOI links, local paths, paper source, secrets, schemas, examples, conformance |
+The [theory-to-module matrix](docs/theory-to-module-matrix.md) distinguishes
+implemented modules, validators, schemas and deferred scientific obligations.
+The [language-neutral reference](docs/language-neutral-contract.md) retains the
+certificate inventories and conformance levels; the [estimator contract](docs/estimator-contract.md)
+defines raw-data input/output reports. These references do not upgrade supplied
+causal, transport or authority declarations into independently established facts.
 
 ## Scientific Limits
 
@@ -318,6 +237,8 @@ L0-L5 conformance levels and report shapes.
 
 ## Verification
 
+Contributor checks below require a prepared source checkout; they are not installation steps.
+
 ```bash
 uv run ruff check .
 uv run mypy src
@@ -349,3 +270,11 @@ Takahashi, K. (2026). *Abstraction Liquidity Theory*. Zenodo.
 ## License
 
 Apache License 2.0.
+
+## Research navigation
+
+For related theory and neighboring tools, use the
+[Collective Intelligence Research and OSS Index](https://kadubon.github.io/github.io/collective-intelligence-index.html),
+especially [reuse versus scratch](https://kadubon.github.io/github.io/collective-intelligence-index.html#problem-reuse)
+and [distribution shift](https://kadubon.github.io/github.io/collective-intelligence-index.html#problem-distribution-shift).
+The index is a discovery map; versioned contracts and host admission remain authoritative.
